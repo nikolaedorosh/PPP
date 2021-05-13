@@ -1,6 +1,6 @@
-import "./App.css";
 import Header from "./components/Header/Header";
 import PageNotFound from "./components/404/404";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
