@@ -2,6 +2,7 @@ import Header from "./components/Header/Header";
 import PageNotFound from "./components/404/404";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+
 function App() {
   return (
     <>
@@ -20,6 +21,7 @@ function App() {
           </Route>
           <Route exact path='/logger'>
             <p>logger</p>
+            <List/>
           </Route>
           <Route>
             <PageNotFound />
