@@ -1,7 +1,10 @@
 import React from "react";
+import { useProfileContext } from "../../context/profileContext";
 import styles from "./profileCard.module.css";
 
 const ProfileCard = () => {
+  const { clickHandler } = useProfileContext();
+
   return (
     <>
       <div className={styles.card}>
@@ -14,7 +17,7 @@ const ProfileCard = () => {
         <h1>Camila Smith</h1>
         <p>deydey@theEmail.com</p>
         <br />
-        <button>
+        <button onClick={clickHandler}>
           {" "}
           <i className='fa fa-edit'></i> Edit profile
         </button>

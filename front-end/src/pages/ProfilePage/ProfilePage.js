@@ -19,18 +19,7 @@ const ProfilePage = () => {
     <>
       <ProfileCard />
       <ProfileData />
-      <button onClick={openModalHandler}>
-        <h4>Set Target</h4>
-      </button>
-      <div>
-        {modalIsOpen && (
-          <ProfileTarget
-            onCancel={closeModalHandler}
-            onConfirm={closeModalHandler}
-          />
-        )}
-        {modalIsOpen && <Backdrop onClick={closeModalHandler} />}
-      </div>
+      <ProfileTarget />
     </>
   );
 };

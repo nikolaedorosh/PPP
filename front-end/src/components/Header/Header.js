@@ -9,7 +9,6 @@ function Header({ darkTheme, setDarkTheme }) {
       <Link to='/signin'>SignIn</Link>
       <Link to='/profile'>Profile</Link>
       <Link to='/logger'>Logger</Link>
-      <Link to='/'>WelcomePage</Link>
 
       <li className='nav-item'>
         <button onClick={() => setDarkTheme(!darkTheme)}>Change Theme</button>

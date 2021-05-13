@@ -2,8 +2,11 @@ import Header from "./components/Header/Header";
 import React, { useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import PageNotFound from "./components/404/404";
+import SignUp from "./components/SignUp/SignUp";
 import styles from "./app.module.css";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import List from "./components/List/List";
+import ProfileContextProvider from "../src/context/profileContext";
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
@@ -14,9 +17,7 @@ function App() {
         <div className={darkTheme ? styles.dark : styles.light}>
           <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
           <Switch>
-            <Route exact path='/signup'>
-              <p>signup</p>
-            </Route>
+            <Route exact path='/signup' component={SignUp} />
             <Route exact path='/signin'>
               <p>signin</p>
             </Route>
@@ -24,10 +25,12 @@ function App() {
               <p>welcome page</p>
             </Route>
             <Route exact path='/profile'>
-              <ProfilePage />
+              <ProfileContextProvider>
+                <ProfilePage />
+              </ProfileContextProvider>
             </Route>
             <Route exact path='/logger'>
-              <p>logger</p>
+              <List />
             </Route>
             <Route>
               <PageNotFound />
