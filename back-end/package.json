@@ -1,0 +1,32 @@
+{
+  "name": "elbrus-phase2",
+  "version": "22.0.8",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect-mongo": "^4.4.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "hbs": "^4.1.2",
+    "http-errors": "^1.7.2",
+    "mongoose": "^5.12.5",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.7"
+  },
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikolaedorosh/elbrus-family-phase2.git"
+  },
+  "author": "NicolaiDoros",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikolaedorosh/elbrus-family-phase2/issues"
+  },
+  "homepage": "https://github.com/nikolaedorosh/elbrus-family-phase2#readme"
+}
