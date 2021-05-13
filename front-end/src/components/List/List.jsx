@@ -22,7 +22,7 @@ function List() {
 
   function changeInputHandler (e) {
     const input = e.target.value
-    switch (e.target.value.className.split(' ')[0]) {
+    switch (e.target.className.split(' ')[0]) {
       case "calories":
         setCal(input)
         break;
@@ -51,6 +51,7 @@ function List() {
       <Modal isOpen={open}>
           <Form onSubmit={createFood}>
             <ModalHeader>Food</ModalHeader>
+            <Input onChange={changeInputHandler} className="name" placeholder="calories"></Input>
             <ModalBody>
                 <Input onChange={changeInputHandler} className="calories" type="number" min="0" placeholder="calories"></Input>
                 <Input onChange={changeInputHandler} className="proteins" type="number" min="0"placeholder="proteins"></Input>
