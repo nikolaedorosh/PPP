@@ -1,32 +1,24 @@
-import Header from "./components/Header/Header";
-import PageNotFound from "./components/404/404";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
   return (
-    <>
-      return (
-      <BrowserRouter>
-        <Header />
-        <Switch>
-          <Route exact path='/signup'>
-            <p>signup</p>
-          </Route>
-          <Route exact path='/signin'>
-            <p>signin</p>
-          </Route>
-          <Route exact path='/'>
-            <p>profile</p>
-          </Route>
-          <Route exact path='/logger'>
-            <p>logger</p>
-          </Route>
-          <Route>
-            <PageNotFound />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    </>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
 }
 
