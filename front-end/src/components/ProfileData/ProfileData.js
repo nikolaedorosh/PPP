@@ -13,8 +13,13 @@ import {
 } from "reactstrap";
 
 const ProfileData = () => {
-  const { open, clickHandler, userInfo, changeInputHandler, setTargetHandler } =
-    useProfileContext();
+  const {
+    open,
+    clickHandler,
+    userInfo,
+    changeInputHandler,
+    setInputDetailsHandler,
+  } = useProfileContext();
 
   return (
     <>
@@ -30,8 +35,8 @@ const ProfileData = () => {
       )}
 
       <Modal isOpen={open}>
-        <Form onSubmit={setTargetHandler}>
-          <ModalHeader>Target</ModalHeader>
+        <Form onSubmit={setInputDetailsHandler}>
+          <ModalHeader>Personal Details</ModalHeader>
           <ModalBody>
             <Input
               onChange={changeInputHandler}
