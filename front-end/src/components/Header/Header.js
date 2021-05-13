@@ -9,6 +9,7 @@ function Header() {
       <Link to='/signin'>SignIn</Link>
       <Link to='/profile'>Profile</Link>
       <Link to='/logger'>Logger</Link>
+      <Link to='/'>WelcomePage</Link>
     </div>
   );
 }
