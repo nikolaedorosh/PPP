@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import React from 'react'
 
 const SignUp = () => {
   const [auth, setAuth] = useState(null);

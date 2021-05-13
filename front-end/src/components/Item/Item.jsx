@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import React from 'react'
 
 
-function Item({text, id}) {
+function Item({id, Kcals, proteins, fats, carbs}) {
 
 
   return (
     <>
-   {text}
+   {Kcals}/{proteins}/{fats}/{carbs}
       <button color="secondary">Done</button> 
       <button color="danger">Delete</button>
       </>

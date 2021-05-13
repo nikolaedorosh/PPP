@@ -5,6 +5,8 @@ import PageNotFound from "./components/404/404";
 import SignUp from "./components/SignUp/SignUp";
 import styles from "./app.module.css";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import List from "./components/List/List";
+
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
@@ -26,7 +28,7 @@ function App() {
               <ProfilePage />
             </Route>
             <Route exact path='/logger'>
-              <p>logger</p>
+              <List/>
             </Route>
             <Route>
               <PageNotFound />
