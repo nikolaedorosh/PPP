@@ -1,6 +1,6 @@
 const initState = {
-  isSignedIn: false,
-  userID: null,
+  isSignedIn: true,
+  userId: null,
   food: []
 };
 

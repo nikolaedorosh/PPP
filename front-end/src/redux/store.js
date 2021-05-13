@@ -1,8 +1,18 @@
 import { createStore, applyMiddleware } from "redux";
-import initState from "./initState";
-import rootReducer from "./reducers/allReducers";
-import { composeWithDevTools } from 'redux-devtools-extension';
+// import api from '../middleware/api'
+import { composeWithDevTools } from "redux-devtools-extension";
+import rootReducer from "../redux/reducers/allReducers";
 
-const store = createStore(rootReducer, initState , composeWithDevTools());
+const configureStore = (preloadedState) => {
+  const store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware())
+  );
 
-export default store;
+  return store;
+};
+
+export default configureStore();
+
+// изменения
+
