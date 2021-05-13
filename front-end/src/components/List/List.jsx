@@ -1,71 +1,100 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react'
 import Item from '../Item/Item';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form, Label, FormGroup } from 'reactstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import {ADD_MEAL} from '../../redux/types/foodTypes'
 
 
 function List() {
 
-  // const food = useSelector(state => state.food)
+  const meal = useSelector(state => state.meal)
+  const dispatch = useDispatch();
 
-  const food = []
+  const food = [meal]
+  food.push(meal)  
+
+
   const [open, setOpen] = useState(false)
-  const [cal, setCal] = useState(null)
-  const [prot, setProt] = useState(null)
-  const [fat, setFat] = useState(null)
-  const [carb, setCarb] = useState(null)
+  const [scan, setScan] = useState(false)  
+  const [text, setText] = useState("")  
+
+  const [options, setOptions] = useState([])
+
+  const [cal, setCal] = useState(0)  
+  const [prot, setProt] = useState(0)  
+  const [carb, setCarb] = useState(0)  
+  const [fat, setFat] = useState(0)  
 
 
   function clickHandler() {
     setOpen(prev => !prev)
   }
 
-  function changeInputHandler (e) {
-    const input = e.target.value
-    switch (e.target.value.className.split(' ')[0]) {
-      case "calories":
-        setCal(input)
-        break;
-      case "proteins":
-        setProt(input)
-        break;
-      case "fats":
-        setFat(input)
-        break;
-      case "carbs":
-        setCarb(input)
-        break;
-      default:
-        break;
+  function tabClickHandler() {
+    setScan(prev => !prev)
+  }
+
+  function changeMeal(e, i) {
+    setText(e.target.value)
+    if (text) {
+      fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${text}&api_key=pA7oxG3VbA0Inm6fJ5FM9dinnurffpJgq8U5aEoK`)
+      .then(resp => resp.json())
+      .then(res => {
+        console.log(res.foods)
+        setOptions(res.foods)})
     }
   }
 
-  function createFood(e) {
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+    }, 1000);
+    return () => clearTimeout(timeoutId);
+  }, [text]);
+
+
+  function createMeal(e) {
     e.preventDefault()
+    dispatch({
+      type: ADD_MEAL,
+      payload: {date: Date.now(), info: {cal, prot, carb, fat}}
+    })
     setOpen(prev => !prev)
+  }
+  
+  
+  function addFoodHandler() {
+
   }
 
   return (
     <>
       <Button color="danger" onClick={clickHandler}>Eat</Button>
       <Modal isOpen={open}>
-          <Form onSubmit={createFood}>
-            <ModalHeader>Food</ModalHeader>
+          <Form onSubmit={createMeal} inline>
+            <ModalHeader>
+              meal
+              <div>
+                <Button onClick={tabClickHandler} type="button">{scan? "Type": "Scan"}</Button>
+              </div>
+            </ModalHeader>
             <ModalBody>
-                <Input onChange={changeInputHandler} className="calories" type="number" min="0" placeholder="calories"></Input>
-                <Input onChange={changeInputHandler} className="proteins" type="number" min="0"placeholder="proteins"></Input>
-                <Input onChange={changeInputHandler} className="fats" type="number" min="0" placeholder="fats"></Input>
-                <Input onChange={changeInputHandler} className="carbs" type="number" min="0" placeholder="carbs"></Input>
+              {!scan? 
+                <FormGroup>
+                <Input placeholder="search food" options={options} Input/>
+                <Button onClick={addFoodHandler} type="button">Add item</Button>
+              </FormGroup> 
+              : "scan"}
             </ModalBody>
             <ModalFooter>
-              <Button>Add</Button>{' '}
+              <Button>Add Meal</Button>{' '}
               <Button type="button" onClick={clickHandler} color="danger">Cancel</Button>
             </ModalFooter>
           </Form>
       </Modal>
       <div>
         {food.length? food.map(el => 
-        <Item key={Math.random()} id={el.id} name={el.name} Kcals={el.Kcals} fats={el.fats} carbs={el.carbs} proteins={el.proteins}/>
+        <Item key={Math.random()} id={el.id} name={el.name} cal={el.cal} fat={el.fat} carb={el.carb} prot={el.prot}/>
           ) : <> </>}
       </div>
     </>
