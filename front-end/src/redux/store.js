@@ -1,9 +1,7 @@
-import {createStore} from 'redux'
-import initState from './initState'
+import { createStore, applyMiddleware } from "redux";
+import initState from "./initState";
+import rootReducer from "./reducers/allReducers";
 
+const store = createStore(rootReducer, initState );
 
-
-const store = createStore(initState())
-
-
-export default store
+export default store;
