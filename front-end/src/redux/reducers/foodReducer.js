@@ -1,6 +1,4 @@
 import { DELETE_MEAL, ADD_MEAL } from "../types/foodTypes";
-import initState from "../initState";
-
 const foodReducer = (state = [], action) => {
   switch (action.type) {
     case ADD_MEAL:

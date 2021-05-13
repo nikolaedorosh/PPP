@@ -4,10 +4,10 @@ const initState = {
   meal: [{
     date: "", 
     info: {
-      cal: 0,
-      fat: 0,
-      prot: 0,
-      carb: 0,
+      cal: null,
+      fat: null,
+      prot: null,
+      carb: null,
     }
   }]
 };
