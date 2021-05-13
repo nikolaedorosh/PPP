@@ -1,24 +1,33 @@
-import Item from "./components/Item/Item";
+import Header from "./components/Header/Header";
+import PageNotFound from "./components/404/404";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function App() {
-
-  const foodEaten = [
-    {text: "hi", id: 1},
-    {text: "hi2", id: 2},
-    {text: "hi3", id: 3},
-    {text: "hi4", id: 4},
-    {text: "hi5", id: 5},
-    {text: "hi6", id: 6},
-    {text: "hi7", id: 7},
-    {text: "hi8", id: 8},
-  ]
-
   return (
-  <div className='App'>
-    {foodEaten.map(el => 
-    <Item text={el.text} id={el.id}/>
-    )}
-  </div>);
+    <>
+      return (
+      <BrowserRouter>
+        <Header />
+        <Switch>
+          <Route exact path='/signup'>
+            <p>signup</p>
+          </Route>
+          <Route exact path='/signin'>
+            <p>signin</p>
+          </Route>
+          <Route exact path='/'>
+            <p>profile</p>
+          </Route>
+          <Route exact path='/logger'>
+            <p>logger</p>
+          </Route>
+          <Route>
+            <PageNotFound />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </>
+  );
 }
 
 export default App;
