@@ -13,6 +13,7 @@ const profileContext = createContext();
 
 const ProfileContextProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
+  const [targetModal, setTargetModal] = useState(false);
 
   const [userInfo, setUserInfo] = useState(true);
 
@@ -21,9 +22,13 @@ const ProfileContextProvider = ({ children }) => {
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
   const [activity, setActivity] = useState("");
+  const [wantedWeight, setwantedWeight] = useState("");
 
-  const setTargetHandler = (e) => {
+  const setInputDetailsHandler = (e) => {
     e.preventDefault();
+    setOpen((prev) => !prev);
+  };
+  const clickHandler = () => {
     setOpen((prev) => !prev);
   };
 
@@ -32,6 +37,9 @@ const ProfileContextProvider = ({ children }) => {
     switch (e.target.className.split(" ")[0]) {
       case "gender":
         setGender(input);
+        break;
+      case "wantedWeight":
+        setwantedWeight(input);
         break;
       case "age":
         setAge(input);
@@ -50,10 +58,6 @@ const ProfileContextProvider = ({ children }) => {
     }
   }
 
-  const clickHandler = useCallback(() => {
-    setOpen((prev) => !prev);
-  }, []);
-
   return (
     <profileContext.Provider
       value={{
@@ -62,7 +66,9 @@ const ProfileContextProvider = ({ children }) => {
         clickHandler,
         userInfo,
         changeInputHandler,
-        setTargetHandler,
+        setInputDetailsHandler,
+        targetModal,
+        setTargetModal,
       }}
     >
       {children}
