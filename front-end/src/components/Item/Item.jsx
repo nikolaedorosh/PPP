@@ -1,15 +1,14 @@
-import { useState } from 'react';
+import React from 'react'
 
 
-function Item({text, id}) {
+function Item({ Kcals, proteins, fats, carbs}) {
 
 
   return (
-    <>
-   {text}
-      <button color="secondary">Done</button> 
+    <div>
+   {Kcals}/{proteins}/{fats}/{carbs}
       <button color="danger">Delete</button>
-      </>
+      </div>
   );
 }
 

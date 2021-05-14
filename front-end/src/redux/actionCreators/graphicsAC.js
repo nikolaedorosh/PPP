@@ -18,7 +18,7 @@ import {GET_USERS} from '../types/grafTypes'
 
 
 const getUsersThunk = () => async (dispatch, getState) => {
-  const requestUsers = await fetch("http://localhost:8080/logger")
+  const requestUsers = await fetch("http://localhost:3000/logger")
   const respondUsers = await requestUsers.json();
   console.log(respondUsers, '<---------------respondUsers')
   dispatch(getUsers(respondUsers));
