@@ -1,8 +1,13 @@
 const initState = {
-  isSignedIn: false,
-  userID: null,
-  graphics : [],
-  meal: []
+
+  auth: {
+    isSignedIn: null, // false
+    userId: null,
+    userName: 'Kolya',
+    userEmail: null,
+  },
+  food: [] // или закомитить
+
 };
 
 
