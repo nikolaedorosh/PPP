@@ -1,15 +1,14 @@
 const initState = {
-  isSignedIn: false,
-  userID: null,
-  meal: [{
-    date: "", 
-    info: {
-      cal: null,
-      fat: null,
-      prot: null,
-      carb: null,
-    }
-  }]
+
+  auth: {
+    isSignedIn: null, // false
+    userId: null,
+    userName: 'Kolya',
+    userEmail: null,
+  },
+  food: [] // или закомитить
+
 };
 
-export default initState;
+
+export default initState
