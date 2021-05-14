@@ -8,4 +8,14 @@ router.get("/", async (req, res) => {
 });
 
 
+router.post('/createMeal', (req, res) => {
+  try {
+    const {meal} = req.body;
+    res.sendStatus(200)
+  } catch (e) {
+    res.sendStatus(400)
+  }
+})
+
+
 module.exports = router;

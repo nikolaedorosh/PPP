@@ -1,7 +1,6 @@
 import { SIGN_IN, SIGN_OUT } from "../types/authTypes";
-import initState from "../initState";
 
-const authReducer = (state = initState, action) => {
+const authReducer = (state = [], action) => {
   switch (action.type) {
     case SIGN_IN:
       return {

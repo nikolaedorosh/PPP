@@ -11,13 +11,10 @@ function List() {
   const meal = useSelector(state => state.meal)
   const dispatch = useDispatch();
 
-  const food = [meal]
-  food.push(meal)  
-
-
   const [open, setOpen] = useState(false)
   const [scan, setScan] = useState(false)  
   const [text, setText] = useState(false)  
+  const [food, setFood] = useState([])  
   
   const [options, setOptions] = useState([])
   const [pseudoMeal, setPseudoMeal] = useState([])  
@@ -67,11 +64,22 @@ function List() {
     
     function createMeal(e) {
       e.preventDefault()
-      dispatch({
-        type: ADD_MEAL,
-        payload: {date: Date.now(), meal: pseudoMeal}
+      fetch('http://localhost:3000/logger/createMeal', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(meal)
       })
-      setOpen(prev => !prev)
+      .then(res => {
+        if (res.status === 200) {
+          dispatch({
+            type: ADD_MEAL,
+            payload: pseudoMeal
+          })
+          setOpen(prev => !prev)
+        }
+      })
   }
 
   return (
