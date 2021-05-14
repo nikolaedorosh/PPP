@@ -7,7 +7,7 @@ import useReducer from './userReducer'
 const rootReducer = combineReducers({
   graphics: graphicsReducer,
   auth: useReducer,
-  meal: foodReducer
+  food: foodReducer
 });
 
 export default rootReducer;
