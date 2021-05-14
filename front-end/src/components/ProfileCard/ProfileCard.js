@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import * as AuthorizationAction from "../../redux/reducers/userReducer";
 import { connect } from "react-redux";
@@ -46,6 +47,7 @@ const ProfileCard = ({ dispatch }) => {
             </li>
           </ul>
         </div>
+
       </div>
     </>
   );

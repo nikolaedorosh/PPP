@@ -19,13 +19,15 @@ import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import { Provider } from "react-redux";
-import applicationStore from "./redux/store";
+import store from "./redux/store";
 
 ReactDOM.render(
+
   <React.StrictMode>
-    <Provider store={applicationStore}>
+    <Provider store={store}>
       <App />
     </Provider>
   </React.StrictMode>,
+
   document.getElementById("root")
 );

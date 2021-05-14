@@ -1,4 +1,5 @@
 const initState = {
+
   auth: {
     isSignedIn: null, // false
     userId: null,
@@ -6,6 +7,8 @@ const initState = {
     userEmail: null,
   },
   food: [] // или закомитить
+
 };
 
-export default initState;
+
+export default initState
