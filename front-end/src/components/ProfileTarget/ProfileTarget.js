@@ -11,11 +11,14 @@ import {
   Input,
   Form,
 } from "reactstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTarget } from "../../redux/actionCreators/graphicsAC";
 
 function ProfileTarget() {
   const dispatch = useDispatch();
+  const { targetKcal, targetProteins, targetCarbs, targetFats } = useSelector(
+    (state) => state.profile
+  );
   const { targetModal, setTargetModal, changeInputHandler, targetWeight } =
     useProfileContext();
 
@@ -34,15 +37,14 @@ function ProfileTarget() {
     <>
       <button onClick={targetHandler}>
         <h4>Set Target</h4>
-        {targetWeight}
       </button>
 
       <div className={styles.card}>
         <h4>Needed daily intake: {}</h4>
-        <p>kCal:{}</p>
-        <p>Proteins: {}</p>
-        <p>Carbohydrates: {}</p>
-        <p>Fats: {}</p>
+        <p>kCal:{targetKcal}</p>
+        <p>Proteins: {targetProteins}</p>
+        <p>Carbohydrates: {targetCarbs}</p>
+        <p>Fats: {targetFats}</p>
 
         <h3>Goal: {}</h3>
       </div>

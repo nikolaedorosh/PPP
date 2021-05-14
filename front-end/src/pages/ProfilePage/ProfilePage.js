@@ -3,14 +3,21 @@ import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import ProfileData from "../../components/ProfileData/ProfileData";
 import ProfileTarget from "../../components/ProfileTarget/ProfileTarget";
 import styles from "./profilePage.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import * as AuthorizationAction from "../../redux/reducers/userReducer";
+import { connect } from "react-redux";
 
 const ProfilePage = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const id = useSelector((state) => state.userReducer.userID);
-  // const name = useSelector((state) => state.userReducer.name);
-  // const email = useSelector((state) => state.userReducer.email);
+  useEffect(() => {
+    dispatch(
+      AuthorizationAction.addInfo({
+        userName: "test",
+        userEmail: "test@test.ru",
+      })
+    );
+  }, []);
 
   // useEffect(() => {
   //   (async () => {
@@ -28,4 +35,8 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+const mapStateToProps = (state) => {
+  return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId };
+};
+
+export default connect(mapStateToProps)(ProfilePage);

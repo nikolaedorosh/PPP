@@ -2,11 +2,6 @@ const initState = {
   isSignedIn: false,
   userID: null,
   food: [],
-  targetWeight: null,
-  targetKcal: null,
-  targetProteins: null,
-  targetCarbs: null,
-  targetFats: null,
   graphics: [],
   meal: [
     {
@@ -27,6 +22,17 @@ const initState = {
     userEmail: null,
   },
   food: [], // или закомитить
+
+  // graphics: {},
+  // auth: {},
+  // meal: {},
+  profile: {
+    targetWeight: null,
+    targetKcal: null,
+    targetProteins: null,
+    targetCarbs: null,
+    targetFats: null,
+  },
 };
 
 export default initState;
