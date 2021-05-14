@@ -1,6 +1,7 @@
 const initState = {
   isSignedIn: false,
   userID: null,
+  graphics : [],
   meal: [{
     date: "", 
     info: {
@@ -12,4 +13,5 @@ const initState = {
   }]
 };
 
-export default initState;
+
+export default initState

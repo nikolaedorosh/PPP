@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-function Item({id, Kcals, proteins, fats, carbs}) {
+function Item({ Kcals, proteins, fats, carbs}) {
 
 
   return (
