@@ -16,9 +16,8 @@ const ProfileContextProvider = ({ children }) => {
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
   const [activity, setActivity] = useState("");
-  const [wantedWeight, setwantedWeight] = useState("");
+  const [targetWeight, setTargetWeight] = useState("");
   const [bodyBmi, setBodyBmi] = useState("");
-  const [targetBmi, setTargetBmi] = useState("");
 
   const setInputDetailsHandler = async (e) => {
     e.preventDefault();
@@ -65,16 +64,13 @@ const ProfileContextProvider = ({ children }) => {
           break;
       }
 
-      const bmi =
-        (weight / (0.0001 * height * height)) * activeBmi * ageBmi * genderBmi;
-
-      return bmi;
+      return (
+        (weight / (0.0001 * height * height)) * activeBmi * ageBmi * genderBmi
+      );
     });
 
     //we fetch to back personal details here
     const data = {
-      // id,
-      // name,
       age,
       gender,
       weight,
@@ -83,13 +79,13 @@ const ProfileContextProvider = ({ children }) => {
       bodyBmi,
     };
 
+    const response = await fetch(`http://localhost:3000/profileData`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    const dbData = await response.json();
     console.log(data);
-    // const response = await fetch(`http://localhost:3001/`, {
-    //   method: "PATCH",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(data),
-    // });
-    // await response.json();
 
     setOpen((prev) => !prev);
   };
@@ -100,12 +96,13 @@ const ProfileContextProvider = ({ children }) => {
 
   function changeInputHandler(e) {
     const input = e.target.value;
+    console.log(e.target.className.split(" ")[0]);
     switch (e.target.className.split(" ")[0]) {
       case "gender":
         setGender(input);
         break;
-      case "wantedWeight":
-        setwantedWeight(input);
+      case "targetWeight":
+        setTargetWeight(input);
         break;
       case "age":
         setAge(input);
@@ -134,6 +131,7 @@ const ProfileContextProvider = ({ children }) => {
         setInputDetailsHandler,
         targetModal,
         setTargetModal,
+        targetWeight,
       }}
     >
       {children}

@@ -1,9 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useProfileContext } from "../../context/profileContext";
 import styles from "./profileCard.module.css";
 
 const ProfileCard = () => {
   const { clickHandler } = useProfileContext();
+
+  // const id = useSelector((state) => state.userReducer.userID);
+  // const name = useSelector((state) => state.userReducer.name);
+  // const email = useSelector((state) => state.userReducer.email);
 
   return (
     <>
@@ -14,8 +19,8 @@ const ProfileCard = () => {
             alt=''
           />
         </a>
-        <h1>Camila Smith</h1>
-        <p>deydey@theEmail.com</p>
+        {/* <h1>{name}</h1> */}
+        {/* <p>{email}</p> */}
         <br />
         <button onClick={clickHandler}>
           {" "}

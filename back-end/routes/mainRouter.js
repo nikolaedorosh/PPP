@@ -1,7 +1,6 @@
-const homepageRouter = require("express").Router();
-const { homepageRender } = require("../controller/homepageController");
+const mainRouter = require("express").Router();
+const { personalData } = require("../controller/controller");
 
-//render homepage
-homepageRouter.route("/").get(homepageRender);
+mainRouter.route("/profileData").patch(personalData);
 
-module.exports = homepageRouter;
+module.exports = mainRouter;
