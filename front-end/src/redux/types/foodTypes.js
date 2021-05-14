@@ -1,0 +1,4 @@
+const ADD_MEAL = "ADD_MEAL";
+const DELETE_MEAL = "DELETE_MEAL";
+
+export { ADD_MEAL, DELETE_MEAL };
