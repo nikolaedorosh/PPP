@@ -3,10 +3,12 @@ const foodReducer = (state = [], action) => {
   switch (action.type) {
     case ADD_MEAL:
       return {
-        meal: action.payload
+        ...state,
+        ...action.payload, date: Date.now()
       }
     case DELETE_MEAL:
       return {
+        ...state,
         meal: state.meal.filter(el => el.date !== action.payload)
       }
     default:
