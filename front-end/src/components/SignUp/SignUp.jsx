@@ -1,28 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux"; // одно изменение
+import { connect } from "react-redux";
 import * as AuthorizationAction from "../../redux/reducers/userReducer";
 
-const SignUp = ({ dispatch, isSignedIn, userId }) => {
-  // const dispatch = useDispatch();
-  const [inputPass, setInputPass] = useState('')
-  const [inputMail, setInputMail] = useState('')
+const SignUp = ({ dispatch, isSignedIn, userId, userName }) => {
+  const [inputPass, setInputPass] = useState("");
+  const [inputMail, setInputMail] = useState("");
   const [auth, setAuth] = useState(null);
+  // const {currentUser} = auth
+  // let test = null;
+  // if (auth) {
+  //   console.log(auth.currentUser.ee.ft.Te);
+  //   console.log(auth.currentUser.ee.ft.Qt);
+  // }
 
   const inputPassHandler = (e) => {
-    setInputPass(e.target.value); // setInput начинает следить за содержимым импута
+    setInputPass(e.target.value);
   };
 
   const inputMailHandler = (e) => {
-    setInputMail(e.target.value); // setInput начинает следить за содержимым импута
+    setInputMail(e.target.value);
   };
 
   const submitHandler = (e) => {
-    e.preventDefault()
-    if(inputPass.trim() && inputMail.trim()) {
-      dispatch(
-        AuthorizationAction.signIn(Date.now()))
-    } else window.alert('Fill in form fields and try again')
-  }
+    e.preventDefault();
+    if (inputPass.trim() && inputMail.trim()) {
+      dispatch(AuthorizationAction.signIn(Date.now()));
+      window.location.assign("/profile");
+    } else window.alert("Fill in form fields and try again");
+  };
 
   useEffect(() => {
     const params = {
@@ -39,14 +44,27 @@ const SignUp = ({ dispatch, isSignedIn, userId }) => {
       });
     });
   }, []);
-
+  console.log(isSignedIn);
   const onAuthChange = (isSignedIn) => {
     if (isSignedIn) {
       dispatch(
+        //НАЧАЛО ИЗМЕНЕНИЙ
         AuthorizationAction.signIn(
-          window.gapi.auth2.getAuthInstance().currentUser.get().getId()
+          
+            window.gapi.auth2
+              .getAuthInstance()
+              .currentUser.get()
+              .getId()
+            // userName: auth.currentUser.ee.ft.Te,
+            // userEmail: auth.currentUser.ee.ft.Qt,
+          
+          // auth.currentUser.ee.ft.Qt mail
+          // auth.currentUser.ee.ft.Te name
+          // window.gapi.auth2.getAuthInstance()
         )
       );
+      console.log(userId, "userID");
+      console.log(userName, "userName");
     } else {
       dispatch(AuthorizationAction.signOut());
     }
@@ -59,12 +77,12 @@ const SignUp = ({ dispatch, isSignedIn, userId }) => {
   const onSignOutClick = () => {
     auth.signOut();
   };
-  
 
   const renderAuthButton = () => {
-    if (isSignedIn === null) {
-      return null;
-    } else if (isSignedIn) {
+    // if (isSignedIn === null) {
+    //   return null;
+    // } else
+    if (isSignedIn) {
       return (
         <div>
           <span>{userId}</span>
@@ -76,32 +94,32 @@ const SignUp = ({ dispatch, isSignedIn, userId }) => {
     }
   };
 
-  return (<div>
-    <form
-      onSubmit={submitHandler}
-    >
-      <div>
-        <input
-          placeholder="Type email here..."
-          onChange={inputMailHandler}
-          value={inputMail}
-          type="mail"
-        />
-        <input
-          placeholder="Type password here..."
-          onChange={inputPassHandler}
-          value={inputPass}
-          type="password"
-        />
-      </div>
+  return (
+    <div>
+      <form onSubmit={submitHandler}>
+        <div>
+          <input
+            placeholder="Type email here..."
+            onChange={inputMailHandler}
+            value={inputMail}
+            type="mail"
+          />
+          <input
+            placeholder="Type password here..."
+            onChange={inputPassHandler}
+            value={inputPass}
+            type="password"
+          />
+        </div>
 
-      <button type="submit" className="btn btn-primary mx-1">
-        Sign Up
-      </button>
-    </form>
-    You can choose another way to Sign Up
-    {renderAuthButton()}
-    </div>);
+        <button type="submit" className="btn btn-primary mx-1">
+          Sign Up
+        </button>
+      </form>
+      You can choose another way to Sign Up
+      {renderAuthButton()}
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {
