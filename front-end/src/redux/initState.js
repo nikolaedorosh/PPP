@@ -10,6 +10,18 @@ const initState = {
   bodyBmi: "",
   wantedWeight: "",
   targetBmi: "",
+  graphics: [],
+  meal: [
+    {
+      date: "",
+      info: {
+        cal: null,
+        fat: null,
+        prot: null,
+        carb: null,
+      },
+    },
+  ],
 };
 
 export default initState;

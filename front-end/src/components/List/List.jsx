@@ -1,123 +1,119 @@
-import { useState } from "react";
-import React from "react";
-import Item from "../Item/Item";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Input,
-  Form,
-} from "reactstrap";
+import { useEffect, useState } from 'react';
+import React from 'react'
+import Item from '../Item/Item';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form, FormGroup, Label } from 'reactstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import {ADD_MEAL} from '../../redux/types/foodTypes'
 
-/*
-USDA_WEBSITE= https://fdc.nal.usda.gov/api-guide.html#bkmk-7
-usdaToken = pA7oxG3VbA0Inm6fJ5FM9dinnurffpJgq8U5aEoK
-usda_API = https://api.nal.usda.gov/fdc/v1/foods/search?query=&pageSize=2&api_key=pA7oxG3VbA0Inm6fJ5FM9dinnurffpJgq8U5aEoK
-*/
 
 function List() {
-  // const food = useSelector(state => state.food)
 
-  const food = [];
-  const [open, setOpen] = useState(false);
-  const [cal, setCal] = useState(null);
-  const [prot, setProt] = useState(null);
-  const [fat, setFat] = useState(null);
-  const [carb, setCarb] = useState(null);
+  const meal = useSelector(state => state.meal)
+  const dispatch = useDispatch();
 
+  const food = [meal]
+  food.push(meal)  
+
+
+  const [open, setOpen] = useState(false)
+  const [scan, setScan] = useState(false)  
+  const [text, setText] = useState(false)  
+  
+  const [options, setOptions] = useState([])
+  const [pseudoMeal, setPseudoMeal] = useState([])  
+  
   function clickHandler() {
-    setOpen((prev) => !prev);
+    setOpen(prev => !prev)
+  }
+  
+  function tabClickHandler() {
+    setScan(prev => !prev)
   }
 
-  function changeInputHandler(e) {
-    const input = e.target.value;
-    switch (e.target.value.className.split(" ")[0]) {
-      case "calories":
-        setCal(input);
-        break;
-      case "proteins":
-        setProt(input);
-        break;
-      case "fats":
-        setFat(input);
-        break;
-      case "carbs":
-        setCarb(input);
-        break;
-      default:
-        break;
+  useEffect(() => {
+    if (text) {
+      fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${text}&api_key=pA7oxG3VbA0Inm6fJ5FM9dinnurffpJgq8U5aEoK`)
+      .then(resp => resp.json())
+      .then(res => {
+        if (res) {
+          let arr = []
+          let myFood = []
+          res.foods.map(el => {
+            if (arr.indexOf(el.score) === -1) {
+              arr.push(el.score)
+              myFood.push(el)
+            }
+          })
+          setOptions(myFood)
+        }
+      })
+      }
+    }, [text]);
+
+  function changeText(e) {
+    const textArr = e.target.value.split(' ')
+    if (!textArr.includes("score:")) {
+      setText(e.target.value)
+    } else {
+      const myItem = options.find(el => {
+        return el.score === +textArr[textArr.length - 1]
+      })
+      setPseudoMeal(prev => [...prev, {info: {cal: myItem.foodNutrients[3].value, prot: myItem.foodNutrients[0].value, carb: myItem.foodNutrients[2].value, fat: myItem.foodNutrients[1].value}}])
+      setText(false)
+      setOptions([])
     }
   }
-
-  function createFood(e) {
-    e.preventDefault();
-    setOpen((prev) => !prev);
+  
+    
+    function createMeal(e) {
+      e.preventDefault()
+      dispatch({
+        type: ADD_MEAL,
+        payload: {date: Date.now(), meal: pseudoMeal}
+      })
+      setOpen(prev => !prev)
   }
 
   return (
     <>
-      <Button color='danger' onClick={clickHandler}>
-        Eat
-      </Button>
+      <Button color="danger" onClick={clickHandler}>Eat</Button>
       <Modal isOpen={open}>
-        <Form onSubmit={createFood}>
-          <ModalHeader>Food</ModalHeader>
-          <ModalBody>
-            <Input
-              onChange={changeInputHandler}
-              className='calories'
-              type='number'
-              min='0'
-              placeholder='calories'
-            ></Input>
-            <Input
-              onChange={changeInputHandler}
-              className='proteins'
-              type='number'
-              min='0'
-              placeholder='proteins'
-            ></Input>
-            <Input
-              onChange={changeInputHandler}
-              className='fats'
-              type='number'
-              min='0'
-              placeholder='fats'
-            ></Input>
-            <Input
-              onChange={changeInputHandler}
-              className='carbs'
-              type='number'
-              min='0'
-              placeholder='carbs'
-            ></Input>
-          </ModalBody>
-          <ModalFooter>
-            <Button>Add</Button>{" "}
-            <Button type='button' onClick={clickHandler} color='danger'>
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Form>
+          <Form onSubmit={createMeal} inline>
+            <ModalHeader>
+              meal 
+              <div>
+                <Button onClick={tabClickHandler} type="button">{scan? "Type": "Scan"}</Button>
+              </div>
+            </ModalHeader>
+            <ModalBody>
+              {!scan? 
+                <>
+                <FormGroup>
+                <Input onChange={changeText} placeholder="search food" list="food" value={text? text: ""}></Input>
+                  <datalist id="food">
+                  {options.length? options.map(el => 
+                      <option key={Math.random()} value={`${el.lowercaseDescription}   score: ${el.score}`}/>
+                    ): <></>}
+                  </datalist>
+              </FormGroup> 
+              {pseudoMeal.length? 
+                pseudoMeal.map(el => 
+                  <Item id={el.id} Kcals={el.info.cal} proteins={el.info.prot} fats={el.info.fat} carbs={el.info.carb}/>
+                  ): <></>}
+                  </>
+                  : "scan"}
+            </ModalBody>
+            <ModalFooter>
+            Kcals/proteins/fats/carbs
+              <Button>Add Meal</Button>{' '}
+              <Button type="button" onClick={clickHandler} color="danger">Cancel</Button>
+            </ModalFooter>
+          </Form>
       </Modal>
       <div>
-        {food.length ? (
-          food.map((el) => (
-            <Item
-              key={Math.random()}
-              id={el.id}
-              name={el.name}
-              kCal={el.Kcals}
-              fats={el.fats}
-              carbs={el.carbs}
-              proteins={el.proteins}
-            />
-          ))
-        ) : (
-          <> </>
-        )}
+        {food.length? food.map(el => 
+        <Item key={Math.random()} name={el.name} cal={el.cal} fat={el.fat} carb={el.carb} prot={el.prot}/>
+          ) : <> </>}
       </div>
     </>
   );
