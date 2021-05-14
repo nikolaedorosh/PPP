@@ -44,7 +44,6 @@ const SignUp = ({ dispatch, isSignedIn, userId, userName }) => {
       });
     });
   }, []);
-  console.log(isSignedIn);
   const onAuthChange = (isSignedIn) => {
     if (isSignedIn) {
       dispatch(
@@ -63,8 +62,6 @@ const SignUp = ({ dispatch, isSignedIn, userId, userName }) => {
           // window.gapi.auth2.getAuthInstance()
         )
       );
-      console.log(userId, "userID");
-      console.log(userName, "userName");
     } else {
       dispatch(AuthorizationAction.signOut());
     }

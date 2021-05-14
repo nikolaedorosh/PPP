@@ -10,6 +10,7 @@ const rootReducer = combineReducers({
   auth: useReducer,
   meal: foodReducer,
   profile: profileReducer,
+  food: foodReducer,
 });
 
 export default rootReducer;
