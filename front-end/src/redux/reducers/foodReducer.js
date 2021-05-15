@@ -8,7 +8,6 @@ const foodReducer = (state = [], action) => {
         options: action.payload
       }
     case ADD_MEAL:
-      console.log()
       return {
         ...state,
         meals: [...state.meals, action.payload]
@@ -16,7 +15,7 @@ const foodReducer = (state = [], action) => {
     case DELETE_MEAL:
       return {
         ...state,
-        meals: state.filter(el => el.date !== action.payload)
+        meals: state.meals.filter(el => el.date !== action.payload)
       }
     default:
       return state;
