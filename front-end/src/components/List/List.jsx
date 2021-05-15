@@ -43,7 +43,7 @@ function List() {
       const myItem = options.find(el => {
         return el.score === +textArr[textArr.length - 1]
       })
-      setMeal(prev => [...prev, {name: myItem.lowercaseDescription, info: {cal: myItem.foodNutrients[3].value, prot: myItem.foodNutrients[0].value, carb: myItem.foodNutrients[2].value, fat: myItem.foodNutrients[1].value}}])
+      setMeal(prev => [...prev, {name: myItem.name, info: {cal: myItem.info.cal, prot: myItem.info.prot, carb: myItem.info.carb, fat: myItem.info.fat}}])
       setText(false)
       dispatch({
         type: CHANGE_OPTIONS,
@@ -79,7 +79,7 @@ function List() {
                 <Input onChange={changeText} placeholder="search food" list="food" value={text? text: ""}></Input>
                   <datalist id="food">
                   {options.length? options.map(el => 
-                      <option key={Math.random()} value={`${el.lowercaseDescription}   score: ${el.score}`}/>
+                      <option key={Math.random()} value={`${el.name}   score: ${el.score}`}/>
                     ): <></>}
                   </datalist>
               </FormGroup> 
