@@ -17,9 +17,9 @@ const initState = {
 
   auth: {
     isSignedIn: null, // false
-    userId: null,
+    userId: 123456,
     userName: "Kolya",
-    userEmail: null,
+    userEmail: "Kolya@gmail.com",
   },
   food: [], // или закомитить
 

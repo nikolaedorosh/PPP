@@ -19,6 +19,9 @@ function ProfileTarget() {
   const { targetKcal, targetProteins, targetCarbs, targetFats } = useSelector(
     (state) => state.profile
   );
+
+  const userEmail = useSelector((state) => state.auth.userEmail);
+
   const { targetModal, setTargetModal, changeInputHandler, targetWeight } =
     useProfileContext();
 
@@ -29,7 +32,7 @@ function ProfileTarget() {
   const formTargetHandler = (e) => {
     e.preventDefault();
 
-    dispatch(addTarget(targetWeight));
+    dispatch(addTarget({ targetWeight, userEmail }));
     setTargetModal((prev) => !prev);
   };
 

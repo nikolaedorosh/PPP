@@ -1,5 +1,5 @@
 import { GET_USERS } from "../types/grafTypes";
-import { ADD_TARGET_INFO } from "../types/foodTypes";
+import { ADD_TARGET_INFO, INITIAL_UPDATE } from "../types/foodTypes";
 
 // function changeStatusonKcal() {
 //   return {
@@ -26,25 +26,54 @@ function getUsers(users) {
   };
 }
 
-export const addTarget = (incomingWeight) => (dispatch) => {
-  const targetProteins = incomingWeight * 4 * 1.5;
-  const targetCarbs = incomingWeight * 9;
-  const targetFats = incomingWeight * 4 * 1.5;
-  const targetKcal = targetProteins + targetCarbs + targetFats;
-  dispatch(
-    addMacroInfo({
-      targetKcal,
-      targetFats,
-      targetCarbs,
-      targetProteins,
-      targetWeight: incomingWeight,
-    })
-  );
-};
+export const addTarget =
+  ({ targetWeight, userEmail }) =>
+  async (dispatch) => {
+    const targetProteins = targetWeight * 4 * 1.5;
+    const targetCarbs = targetWeight * 9;
+    const targetFats = targetWeight * 4 * 1.5;
+    const targetKcal = targetProteins + targetCarbs + targetFats;
 
+    const sendTarget = await fetch(
+      `http://localhost:3000/macroData/${userEmail}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          Proteins: targetProteins,
+          carbohydrates: targetCarbs,
+          fats: targetFats,
+          kcal: targetKcal,
+          targetWeigth: targetWeight,
+        }),
+      }
+    );
+    const receiveTarget = await sendTarget.status(200);
+
+    dispatch(
+      addMacroInfo({
+        targetKcal,
+        targetFats,
+        targetCarbs,
+        targetProteins,
+        targetWeight: targetWeight,
+      })
+    );
+  };
 export const addMacroInfo = (props) => {
   return {
     type: ADD_TARGET_INFO,
+    payload: props,
+  };
+};
+
+export const profileUpdate = (firstDataAfterLogin) => (dispatch) => {
+  dispatch(initialProfileDataUpdate(firstDataAfterLogin));
+};
+
+export const initialProfileDataUpdate = (props) => {
+  return {
+    type: INITIAL_UPDATE,
     payload: props,
   };
 };

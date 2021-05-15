@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
+import { useSelector } from "react-redux";
 
 const profileContext = createContext();
 
@@ -13,9 +14,61 @@ const ProfileContextProvider = ({ children }) => {
   const [targetWeight, setTargetWeight] = useState("");
   const [bodyBmi, setBodyBmi] = useState("");
 
+  const email = useSelector((state) => state.auth.userEmail);
+
   const setInputDetailsHandler = async (e) => {
     e.preventDefault();
 
+    console.log();
+    //we fetch to back personal details here
+    const data = {
+      age,
+      gender,
+      weight,
+      height,
+      activity,
+      bmi: bodyBmi,
+    };
+
+    const response = await fetch(`http://localhost:3000/profileData/${email}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    const dbData = await response.json();
+    console.log(dbData);
+
+    setOpen((prev) => !prev);
+  };
+
+  const clickHandler = () => {
+    setOpen((prev) => !prev);
+  };
+
+  function changeInputHandler(e) {
+    const input = e.target.value;
+    switch (e.target.className.split(" ")[0]) {
+      case "gender":
+        setGender(input);
+        break;
+      case "targetWeight":
+        setTargetWeight(input);
+        break;
+      case "age":
+        setAge(input);
+        break;
+      case "weight":
+        setWeight(input);
+        break;
+      case "height":
+        setHeight(input);
+        break;
+      case "activity":
+        setActivity(input);
+        break;
+      default:
+        break;
+    }
     setBodyBmi((prev) => {
       let activeBmi;
       switch (activity) {
@@ -59,60 +112,12 @@ const ProfileContextProvider = ({ children }) => {
       }
 
       return (
-        (weight / (0.0001 * height * height)) * activeBmi * ageBmi * genderBmi
-      );
+        (weight / (0.0001 * height * height)) *
+        activeBmi *
+        ageBmi *
+        genderBmi
+      ).toFixed(2);
     });
-
-    //we fetch to back personal details here
-    const data = {
-      age,
-      gender,
-      weight,
-      height,
-      activity,
-      bodyBmi,
-    };
-
-    const response = await fetch(`http://localhost:3000/profileData`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    const dbData = await response.json();
-    console.log(data);
-
-    setOpen((prev) => !prev);
-  };
-
-  const clickHandler = () => {
-    setOpen((prev) => !prev);
-  };
-
-  function changeInputHandler(e) {
-    const input = e.target.value;
-    console.log(e.target.className.split(" ")[0]);
-    switch (e.target.className.split(" ")[0]) {
-      case "gender":
-        setGender(input);
-        break;
-      case "targetWeight":
-        setTargetWeight(input);
-        break;
-      case "age":
-        setAge(input);
-        break;
-      case "weight":
-        setWeight(input);
-        break;
-      case "height":
-        setHeight(input);
-        break;
-      case "activity":
-        setActivity(input);
-        break;
-      default:
-        break;
-    }
   }
 
   return (
