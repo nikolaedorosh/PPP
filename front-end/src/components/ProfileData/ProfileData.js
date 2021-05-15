@@ -14,35 +14,40 @@ import {
 
 const ProfileData = () => {
   const {
+    age,
+    gender,
+    weight,
+    height,
+    activity,
+    bodyBmi,
     open,
     clickHandler,
-    userInfo,
     changeInputHandler,
     setInputDetailsHandler,
   } = useProfileContext();
 
   return (
     <>
-      {userInfo && (
-        <div className={styles.card}>
-          <h4>Personal Data</h4>
-          <p>Age: {} y/o</p>
-          <p>Gender: ...</p>
-          <p>Weight: ... kg</p>
-          <p>Height: ... cm</p>
-          <p>Activity: ... </p>
-        </div>
-      )}
+      <div className={styles.card}>
+        <h4>Personal Data</h4>
+        <p>Age: {age} y/o</p>
+        <p>Gender: {gender}</p>
+        <p>Weight: {weight} kg</p>
+        <p>Height: {height} cm</p>
+        <p>Activity: {activity} </p>
+        <p>BMI: {bodyBmi} </p>
+      </div>
 
       <Modal isOpen={open}>
         <Form onSubmit={setInputDetailsHandler}>
           <ModalHeader>Personal Details</ModalHeader>
           <ModalBody>
-            <Input
-              onChange={changeInputHandler}
-              className='gender'
-              placeholder='gender'
-            ></Input>
+            <select className='gender' onChange={changeInputHandler}>
+              <option selected>Open this select menu</option>
+              <option value='man'>Man</option>
+              <option value='woman'>Woman</option>
+            </select>
+
             <Input
               onChange={changeInputHandler}
               className='age'
@@ -64,11 +69,17 @@ const ProfileData = () => {
               min='0'
               placeholder='height'
             ></Input>
-            <Input
-              onChange={changeInputHandler}
-              className='activity'
-              placeholder='activity'
-            ></Input>
+            <select className='activity' onChange={changeInputHandler}>
+              <option selected>Open this select menu</option>
+              <option value='sedentary'>
+                Sedentary: little to no oxercise
+              </option>
+              <option value='light'>Light: 1-3 times/week</option>
+              <option value='moderate'>Moderate: 4-5 times/week</option>
+              <option value='extraActive'>
+                Extra Active: very intense exercise daily
+              </option>
+            </select>
           </ModalBody>
           <ModalFooter>
             <Button>Add</Button>{" "}

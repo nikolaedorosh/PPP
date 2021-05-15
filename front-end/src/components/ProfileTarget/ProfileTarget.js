@@ -11,9 +11,18 @@ import {
   Input,
   Form,
 } from "reactstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { addTarget } from "../../redux/actionCreators/graphicsAC";
 
 function ProfileTarget() {
-  const { targetModal, setTargetModal, changeInputHandler } =
+  const dispatch = useDispatch();
+  const { targetKcal, targetProteins, targetCarbs, targetFats } = useSelector(
+    (state) => state.profile
+  );
+
+  const userEmail = useSelector((state) => state.auth.userEmail);
+
+  const { targetModal, setTargetModal, changeInputHandler, targetWeight } =
     useProfileContext();
 
   const targetHandler = (e) => {
@@ -22,6 +31,8 @@ function ProfileTarget() {
 
   const formTargetHandler = (e) => {
     e.preventDefault();
+
+    dispatch(addTarget({ targetWeight, userEmail }));
     setTargetModal((prev) => !prev);
   };
 
@@ -32,11 +43,11 @@ function ProfileTarget() {
       </button>
 
       <div className={styles.card}>
-        <h4>Needed daily intake:</h4>
-        <p>kCal:{}</p>
-        <p>Proteins: {}</p>
-        <p>Carbohydrates: {}</p>
-        <p>Fats: {}</p>
+        <h4>Needed daily intake: {}</h4>
+        <p>kCal:{targetKcal}</p>
+        <p>Proteins: {targetProteins}</p>
+        <p>Carbohydrates: {targetCarbs}</p>
+        <p>Fats: {targetFats}</p>
 
         <h3>Goal: {}</h3>
       </div>
@@ -46,8 +57,9 @@ function ProfileTarget() {
           <ModalHeader>Target</ModalHeader>
           <ModalBody>
             <Input
+              value={targetWeight}
               onChange={changeInputHandler}
-              className='wantedWeight'
+              className='targetWeight'
               placeholder='weight in kilograms'
             ></Input>
           </ModalBody>
