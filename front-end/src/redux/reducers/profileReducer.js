@@ -6,7 +6,7 @@ import {
 } from "../types/foodTypes";
 
 const profileReducer = (state = {}, action) => {
-  console.log(state);
+  // console.log(state);
   switch (action.type) {
     case ADD_TARGET_INFO:
       return action.payload;

@@ -4,19 +4,21 @@ import Item from '../Item/Item';
 import Meal from '../Meal/Meal';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form, FormGroup, Label } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import {ADD_MEAL} from '../../redux/types/foodTypes'
+import { getMeal } from '../../redux/actionCreators/mealAC';
+import { changeTextSaga } from '../../redux/saga';
+import { CHANGE_OPTIONS } from '../../redux/types/foodTypes';
 
 
 function List() {
 
-  const food = useSelector(state => state.food)
+  const food = useSelector(state => state.food.meals)
+  const options = useSelector(state => state.food.options)
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false)
   const [scan, setScan] = useState(false)  
   const [text, setText] = useState(false)  
   
-  const [options, setOptions] = useState([])
   const [meal, setMeal] = useState([])  
   
   function clickHandler() {
@@ -29,23 +31,9 @@ function List() {
 
   useEffect(() => {
     if (text) {
-      fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${text}&api_key=pA7oxG3VbA0Inm6fJ5FM9dinnurffpJgq8U5aEoK`)
-      .then(resp => resp.json())
-      .then(res => {
-        if (res) {
-          let arr = []
-          let myFood = []
-          res.foods.map(el => {
-            if (arr.indexOf(el.score) === -1) {
-              arr.push(el.score)
-              myFood.push(el)
-            }
-          })
-          setOptions(myFood)
-        }
-      })
-      }
-    }, [text]);
+      dispatch(changeTextSaga(text))
+    }
+  }, [text]);
 
   function changeText(e) {
     const textArr = e.target.value.split(' ')
@@ -57,32 +45,20 @@ function List() {
       })
       setMeal(prev => [...prev, {name: myItem.lowercaseDescription, info: {cal: myItem.foodNutrients[3].value, prot: myItem.foodNutrients[0].value, carb: myItem.foodNutrients[2].value, fat: myItem.foodNutrients[1].value}}])
       setText(false)
-      setOptions([])
+      dispatch({
+        type: CHANGE_OPTIONS,
+        payload: []
+      })
     }
   }
   
     
     function createMeal(e) {
       e.preventDefault()
-      fetch('http://localhost:3000/logger/createMeal', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(meal)
-      })
-      .then(resp => resp.json())
-      .then(res => {
-        if (res) {
-          const {date, info, itemNames, _id} = res;
-          dispatch({
-            type: ADD_MEAL,
-            payload: {date, info, itemNames, id: _id}
-          })
-          setOpen(prev => !prev)
-          setMeal([])
-        }
-      })
+      dispatch(getMeal(meal))
+      setOpen(prev => !prev)
+      setMeal([])
+          
   }
 
   return (

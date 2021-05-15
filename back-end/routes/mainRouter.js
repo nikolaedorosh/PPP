@@ -31,7 +31,7 @@ mainRouter.patch("/profileData/:id", async (req, res) => {
     const personalDetails = await userModel.findByIdAndUpdate(req.params.id, {
       info: { ...req.body },
     });
-    console.log(personalDetails);
+    // console.log(personalDetails);
     return res.json(personalDetails);
   } catch (error) {
     res.send(error);
