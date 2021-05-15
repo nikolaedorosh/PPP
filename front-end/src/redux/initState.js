@@ -3,6 +3,7 @@ const initState = {
   userID: null,
   food: [],
   graphics: [],
+  info: { age: "", gender: "", weight: "", height: "", activity: "", bmi: "" },
   meal: [
     {
       date: "",

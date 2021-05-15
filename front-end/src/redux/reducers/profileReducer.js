@@ -1,5 +1,9 @@
 import initState from "../initState";
-import { ADD_TARGET_INFO, INITIAL_UPDATE } from "../types/foodTypes";
+import {
+  ADD_TARGET_INFO,
+  INITIAL_UPDATE,
+  USER_DATA_CHANGE,
+} from "../types/foodTypes";
 
 const profileReducer = (state = {}, action) => {
   console.log(state);
