@@ -10,7 +10,6 @@ mainRouter.post("/user/:email", async (req, res) => {
     if (email && name) {
       const currentUser = await userModel.findOne({ email });
       if (currentUser) {
-        console.log(currentUser);
         return res.json(currentUser);
       } else {
         const user = await userModel.create({ name, email });
@@ -26,28 +25,30 @@ mainRouter.post("/user/:email", async (req, res) => {
   }
 });
 
-mainRouter.patch("/profileData/:email", async (req, res) => {
+mainRouter.patch("/profileData/:id", async (req, res) => {
   const { age, gender, weight, height, activity, bmi } = req.body;
   try {
-    const personalDetails = await userModel.findByIdAndUpdate(
-      req.params.email,
-      {
-        info: { ...req.body },
-      }
-    );
+    const personalDetails = await userModel.findByIdAndUpdate(req.params.id, {
+      info: { ...req.body },
+    });
+    console.log(personalDetails);
     return res.json(personalDetails);
   } catch (error) {
     res.send(error);
   }
 });
 
-mainRouter.patch("/macroData/:email", async (req, res) => {
+mainRouter.patch("/macroData/:id", async (req, res) => {
   console.log(req.body);
-  const { Proteins, carbohydrates, fats, kcal, targetWeigth } = req.body;
-  const macros = await userModel.findByIdAndUpdate(req.params.email, {
-    target: { ...req.body },
-  });
-  return res.sendStatus(200);
+  try {
+    const { Proteins, carbohydrates, fats, kcal, targetWeigth } = req.body;
+    const macros = await userModel.findByIdAndUpdate(req.params.id, {
+      target: { ...req.body },
+    });
+    return res.sendStatus(200);
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 module.exports = mainRouter;

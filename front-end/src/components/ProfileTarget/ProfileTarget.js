@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./profileTarget.module.css";
 import { useProfileContext } from "../../context/profileContext";
 
@@ -15,15 +15,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTarget } from "../../redux/actionCreators/graphicsAC";
 
 function ProfileTarget() {
+  const [targetWeight, setTargetWeight] = useState("");
+
   const dispatch = useDispatch();
   const { targetKcal, targetProteins, targetCarbs, targetFats } = useSelector(
     (state) => state.profile
   );
+  const userId = useSelector((state) => state.auth.userId);
 
-  const userEmail = useSelector((state) => state.auth.userEmail);
+  const changeInputHandler = (e) => {
+    const input = e.target.value;
+    switch (e.target.className.split(" ")[0]) {
+      case "targetWeight":
+        setTargetWeight(input);
+        break;
+      default:
+        break;
+    }
+  };
 
-  const { targetModal, setTargetModal, changeInputHandler, targetWeight } =
-    useProfileContext();
+  const { targetModal, setTargetModal } = useProfileContext();
 
   const targetHandler = (e) => {
     setTargetModal((prev) => !prev);
@@ -32,7 +43,7 @@ function ProfileTarget() {
   const formTargetHandler = (e) => {
     e.preventDefault();
 
-    dispatch(addTarget({ targetWeight, userEmail }));
+    dispatch(addTarget({ targetWeight, userId }));
     setTargetModal((prev) => !prev);
   };
 
@@ -57,6 +68,7 @@ function ProfileTarget() {
           <ModalHeader>Target</ModalHeader>
           <ModalBody>
             <Input
+              required='No Input Inserted!'
               value={targetWeight}
               onChange={changeInputHandler}
               className='targetWeight'
