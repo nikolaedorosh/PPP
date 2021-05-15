@@ -101,7 +101,7 @@ function List() {
       </Modal>
       <div>
         {food.length? food.map(el => 
-        <Meal key={Math.random()} date={el.date} totalKcal={el.info.totalKcal} totalProteins={el.info.totalProteins} totalCarbohydrates={el.info.totalCarbohydrates} totalFats={el.info.totalFats}/>
+        <Meal key={Math.random()} date={el.date} itemNames={el.itemNames} totalKcal={el.info.totalKcal} totalProteins={el.info.totalProteins} totalCarbohydrates={el.info.totalCarbohydrates} totalFats={el.info.totalFats}/>
           ) : <> </>}
       </div>
     </>

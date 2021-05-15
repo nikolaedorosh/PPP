@@ -1,24 +1,25 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
 import { Button } from 'reactstrap';
-import { DELETE_MEAL } from '../../redux/types/foodTypes';
+import {sendMeal} from '../../redux/actionCreators/mealAC'
+import { useDispatch } from 'react-redux';
 
-
-function Meal({ date, totalKcal, totalProteins, totalCarbohydrates, totalFats}) {
+function Meal({ date, itemNames, totalKcal, totalProteins, totalCarbohydrates, totalFats}) {
 
   const dispatch = useDispatch();
 
   function deleteClickHandler(date) {
-    dispatch({
-      type: DELETE_MEAL,
-      payload: date
-    })
+    dispatch(sendMeal(date))
  }
 
   return (
     <div>
-      date: {date}
-   {totalKcal}/{totalProteins}/{totalFats}/{totalCarbohydrates}
+      <div>
+        {itemNames.join(", ")}
+      </div>
+      <div>
+       {totalKcal}/{totalProteins}/{totalFats}/{totalCarbohydrates}
+      </div>
+        date: {date}
       <Button onClick={() => deleteClickHandler(date)} color="danger">Delete</Button>
       </div>
   );
