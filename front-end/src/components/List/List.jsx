@@ -51,14 +51,16 @@ function List() {
       })
     }
   }
-  
     
     function createMeal(e) {
       e.preventDefault()
       dispatch(getMeal(meal))
       setOpen(prev => !prev)
-      setMeal([])
-          
+      setMeal([])   
+  }
+
+  function deleteItem(name) {
+    setMeal(prev => prev.filter(el => el.name !== name))
   }
 
   return (
@@ -85,7 +87,7 @@ function List() {
               </FormGroup> 
               {Meal.length? 
                 meal.map(el => 
-                  <Item id={el.id} Kcals={el.info.cal} proteins={el.info.prot} fats={el.info.fat} carbs={el.info.carb}/>
+                  <Item name={el.name} deleteItem={deleteItem} Kcals={el.info.cal} proteins={el.info.prot} fats={el.info.fat} carbs={el.info.carb}/>
                   ): <></>}
                   </>
                   : "scan"}
@@ -99,7 +101,7 @@ function List() {
       </Modal>
       <div>
         {food.length? food.map(el => 
-        <Meal key={Math.random()} id={el.id} date={el.date} totalKcal={el.info.totalKcal} totalProteins={el.info.totalProteins} totalCarbohydrates={el.info.totalCarbohydrates} totalFats={el.info.totalFats}/>
+        <Meal key={Math.random()} date={el.date} totalKcal={el.info.totalKcal} totalProteins={el.info.totalProteins} totalCarbohydrates={el.info.totalCarbohydrates} totalFats={el.info.totalFats}/>
           ) : <> </>}
       </div>
     </>

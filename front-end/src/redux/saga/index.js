@@ -1,4 +1,4 @@
-import { takeLatest, put, call, takeEvery, debounce } from "redux-saga/effects";
+import { put, call, debounce } from "redux-saga/effects";
 import { changeOptions } from "../actionCreators/mealAC";
 import { CHANGE_OPTIONS_SAGA } from "../types/foodTypes";
 
@@ -40,7 +40,6 @@ async function fetchAddMeal (text) {
           }
         })
       }
-      console.log(myFood)
       return myFood
     })
   }
