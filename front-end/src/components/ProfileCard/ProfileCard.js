@@ -1,12 +1,15 @@
-
 import React, { useEffect } from "react";
 import * as AuthorizationAction from "../../redux/reducers/userReducer";
 import { connect } from "react-redux";
 
-
 const ProfileCard = ({ dispatch }) => {
   useEffect(() => {
-    dispatch(AuthorizationAction.addInfo({ userName: "test", userEmail: "test@test.ru" }));
+    dispatch(
+      AuthorizationAction.addInfo({
+        userName: "test",
+        userEmail: "test@test.ru",
+      })
+    );
   }, []);
 
   return (
@@ -47,7 +50,6 @@ const ProfileCard = ({ dispatch }) => {
             </li>
           </ul>
         </div>
-
       </div>
     </>
   );

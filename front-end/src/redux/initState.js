@@ -1,14 +1,11 @@
 const initState = {
-
   auth: {
     isSignedIn: null, // false
     userId: null,
-    userName: 'Kolya',
+    userName: "Kolya",
     userEmail: null,
   },
-  food: [] // или закомитить
-
+  food: [], // или закомитить
 };
 
-
-export default initState
+export default initState;
