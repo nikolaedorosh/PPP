@@ -10,7 +10,6 @@ const rootReducer = combineReducers({
   info: infoReducer,
   graphics: graphicsReducer,
   auth: useReducer,
-  meal: foodReducer,
   profile: profileReducer,
   food: foodReducer,
 });

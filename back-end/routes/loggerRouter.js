@@ -38,5 +38,15 @@ router.post('/createMeal', async (req, res) => {
   }
 })
 
+router.post('/deleteMeal', async (req, res) => {
+  try {
+    const {date} = req.body
+    await mealModel.findOneAndDelete(date)
+    res.sendStatus(200)
+  } catch (e) {
+    res.sendStatus(400)
+  }
+})
+
 
 module.exports = router;
