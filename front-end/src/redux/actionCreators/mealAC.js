@@ -17,6 +17,7 @@ export const getMeal = (meal) => async (dispatch, getState) => {
     body: JSON.stringify(meal),
   }).then((resp) => resp.json());
   if (response) {
+    console.log(response);
     const { date, items } = response;
     dispatch(addMeal({ date, items }));
   }

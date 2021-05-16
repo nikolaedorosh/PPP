@@ -25,13 +25,13 @@ function Logger() {
     dispatch(getUsersThunk());
   }, [meal]);
 
-  // let graphics_target = graphics.map((el) => el.target);
-  // let graphics_need = graphics.map((el) => el.need);
+  let graphics_target = graphics.map((el) => el.target);
+  let graphics_need = graphics.map((el) => el.need);
 
   let result = [
     {
-      // ...graphics_target[graphics_target.length - 1],
-      // ...graphics_need[graphics_need.length - 1],
+      ...graphics_target[graphics_target.length - 1],
+      ...graphics_need[graphics_need.length - 1],
     },
   ];
 
@@ -43,7 +43,7 @@ function Logger() {
           <LineChart
             width={530}
             height={250}
-            // data={graphics_target}
+            data={graphics_target}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray='' stroke='#999' />
@@ -90,7 +90,7 @@ function Logger() {
           <BarChart
             width={730}
             height={250}
-            // data={result}
+            data={result}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
             barCategoryGap='10%'
             barGap='10'

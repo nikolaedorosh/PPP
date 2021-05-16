@@ -15,13 +15,13 @@ const mainReducer = (state = [], action) => {
     case TYPES.ADD_MEAL:
       return {
         ...state,
-        food: { ...state.food, meals: [...state.meals, action.payload] },
+        food: { ...state.food, meals: [...state.food.meals, action.payload] },
       };
     case TYPES.DELETE_MEAL:
       return {
         ...state,
         food: {
-          ...state,
+          ...state.food,
           meals: state.food.meals.filter((el) => el.date !== action.payload),
         },
       };
