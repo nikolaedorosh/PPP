@@ -8,28 +8,35 @@ router.get("/", async (req, res) => {
   return res.json(allUsers);
 });
 
+
 router.post('/getInfo', async (req, res) => {
   const {text} = req.body
   nutritionix.init("da8c820a","60e4e90848f242488cec22ff8af25e03");
   
   nutritionix.natural.search(text).then(result => {
-      res.json(result.foods);
+    res.json(result.foods);
   })
 })
 
 router.post('/createMeal', async (req, res) => {
-
+  
   try {
-  const meals = req.body
-  const myMeal = await mealModel.create({
-    date: Date.now(),
-    items: meals,
-  })
+    const meals = req.body
+    const myMeal = await mealModel.create({
+      date: Date.now(),
+      items: meals,
+    })
     res.json(myMeal)
   } catch (e) {
     res.sendStatus(400)
   }
 })
+
+// router.get("/", async (req, res) => {
+//   const allMeals = await mealModel.find();
+//   console.log(allMeals)
+//   return res.json(allMeals);
+// });
 
 router.post('/deleteMeal', async (req, res) => {
   try {

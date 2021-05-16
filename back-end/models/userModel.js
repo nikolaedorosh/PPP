@@ -10,7 +10,12 @@ const userSchema = new Schema({
       weight: String,
       height:String,
       activity:String,
-      bmi: String
+      bmi: String,
+      targetWeigth:Number,
+      targetKcal: Number,
+      targetProteins:Number,
+      targetCarbohydrates: Number,
+      targetFats:Number
     },
   
   food : [
@@ -19,14 +24,6 @@ const userSchema = new Schema({
       ref: 'Meal',
     },
   ],
-  target : 
-    {
-    targetWeigth:Number,
-    targetKcal: Number,
-    targetProteins:Number,
-    targetCarbohydrates: Number,
-    targetFats:Number
-    }
 })
 
 const userModel = model("User", userSchema);
