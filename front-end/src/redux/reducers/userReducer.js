@@ -1,55 +1,21 @@
-import { SIGN_IN, SIGN_OUT, ADD_INFO } from "../types/authTypes";
-import { INITIAL_UPDATE, PIC_UPLOAD } from "../types/foodTypes";
-import initState from "../initState";
-// начало
-
-export default (state = [], action) => {
-  switch (action.type) {
-    case SIGN_IN:
-      return { ...state, isSignedIn: true, userId: action.payload };
-    // ...action.payload };
-    case SIGN_OUT:
-      return { ...state, isSignedIn: false, userId: null };
-    case ADD_INFO:
-      return {
-        ...state,
-        userName: action.payload.userName,
-        userEmail: action.payload.userEmail,
-      };
-    case INITIAL_UPDATE:
-      return {
-        ...state,
-        userName: action.payload.name,
-        userEmail: action.payload.email,
-        userId: action.payload._id,
-      };
-    case PIC_UPLOAD:
-      console.log(action.payload);
-      return {
-        ...state,
-        userProfileImg: action.payload.profileImg,
-      };
-    default:
-      return state;
-  }
-};
+import * as TYPES from "../types/types";
 
 export const signIn = (userId) => {
   return {
-    type: SIGN_IN,
+    type: TYPES.SIGN_IN,
     payload: userId,
   };
 };
 
 export const signOut = () => {
   return {
-    type: SIGN_OUT,
+    type: TYPES.SIGN_OUT,
   };
 };
 
 export const addInfo = (userInfo) => {
   return {
-    type: ADD_INFO,
+    type: TYPES.ADD_INFO,
     payload: userInfo,
   };
 };
