@@ -6,12 +6,11 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form, FormGr
 import { useDispatch, useSelector } from 'react-redux';
 import { getMeal } from '../../redux/actionCreators/mealAC';
 import { changeTextSaga } from '../../redux/saga';
-import { CHANGE_OPTIONS } from '../../redux/types/foodTypes';
 
 
 function List() {
 
-  const food = useSelector(state => state.food.meals)
+  const meals = useSelector(state => state.food.meals)
   const options = useSelector(state => state.food.options)
   const dispatch = useDispatch();
 
@@ -19,7 +18,7 @@ function List() {
   const [scan, setScan] = useState(false)  
   const [text, setText] = useState(false)  
   
-  const [meal, setMeal] = useState([])  
+  // const [meal, setMeal] = useState([])  
   
   function clickHandler() {
     setOpen(prev => !prev)
@@ -36,31 +35,13 @@ function List() {
   }, [text]);
 
   function changeText(e) {
-    const textArr = e.target.value.split(' ')
-    if (!textArr.includes("score:")) {
-      setText(e.target.value)
-    } else {
-      const myItem = options.find(el => {
-        return el.score === +textArr[textArr.length - 1]
-      })
-      setMeal(prev => [...prev, {name: myItem.name, info: {cal: myItem.info.cal, prot: myItem.info.prot, carb: myItem.info.carb, fat: myItem.info.fat}}])
-      setText(false)
-      dispatch({
-        type: CHANGE_OPTIONS,
-        payload: []
-      })
-    }
+  setText(e.target.value)
   }
     
     function createMeal(e) {
       e.preventDefault()
-      dispatch(getMeal(meal))
+      dispatch(getMeal(options))
       setOpen(prev => !prev)
-      setMeal([])   
-  }
-
-  function deleteItem(name) {
-    setMeal(prev => prev.filter(el => el.name !== name))
   }
 
   return (
@@ -78,16 +59,11 @@ function List() {
               {!scan? 
                 <>
                 <FormGroup>
-                <Input onChange={changeText} placeholder="search food" list="food" value={text? text: ""}></Input>
-                  <datalist id="food">
-                  {options.length? options.map(el => 
-                      <option key={Math.random()} value={`${el.name}   score: ${el.score}`}/>
-                    ): <></>}
-                  </datalist>
+                <Input onChange={changeText} placeholder="search food example: 1 apple 100 grams of buckwheat" value={text? text: ""}></Input>
               </FormGroup> 
-              {Meal.length? 
-                meal.map(el => 
-                  <Item name={el.name} deleteItem={deleteItem} Kcals={el.info.cal} proteins={el.info.prot} fats={el.info.fat} carbs={el.info.carb}/>
+              {options? 
+                options.map(el => 
+                  <Item num={el.num} image={el.image} Kcals={el.info.cal} proteins={el.info.prot} fats={el.info.fat} carbs={el.info.carb}/>
                   ): <></>}
                   </>
                   : "scan"}
@@ -100,8 +76,8 @@ function List() {
           </Form>
       </Modal>
       <div>
-        {food.length? food.map(el => 
-        <Meal key={Math.random()} date={el.date} itemNames={el.itemNames} totalKcal={el.info.totalKcal} totalProteins={el.info.totalProteins} totalCarbohydrates={el.info.totalCarbohydrates} totalFats={el.info.totalFats}/>
+        {meals.length? meals.map(el => 
+        <Meal key={Math.random()} date={el.date} items={el.items}/>
           ) : <> </>}
       </div>
     </>

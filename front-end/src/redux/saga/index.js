@@ -4,43 +4,18 @@ import { CHANGE_OPTIONS_SAGA } from "../types/foodTypes";
 
 async function fetchAddMeal (text) {
   if (text) {
-    return await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${text}&api_key=pA7oxG3VbA0Inm6fJ5FM9dinnurffpJgq8U5aEoK`)
+    return await fetch(`http://localhost:3000/logger/getInfo`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({text: text})
+    })
     .then(resp => resp.json())
-    .then(res => {
-      let arr = []
-      let myFood = []
-      if (res) {
-        res.foods.map(el => {
-          if (arr.indexOf(el.score) === -1) {
-            arr.push(el.score)
-            let prot = 0;
-            let cal = 0;
-            let carb = 0;
-            let fat = 0;
-            el.foodNutrients.forEach(nutrient => {
-              switch (nutrient.nutrientId) {
-                case 1003:
-                  prot = nutrient.value
-                  break;
-                case 1004:
-                  fat = nutrient.value
-                  break;
-                case 1008:
-                  cal = nutrient.value
-                  break;
-                case 1005:
-                  carb = nutrient.value
-                  break;
-              
-                default: 
-                  break;
-              }
-            })
-            myFood.push({name: el.lowercaseDescription, score: el.score, info: {cal, prot, carb, fat}})
-          }
-        })
-      }
-      return myFood
+    .then(resp => {
+      return resp.map(el => {
+        return {name: el.food_name, num: el.serving_qty, image: el.photo.thumb, info: {cal: el.nf_calories, fat: el.nf_total_fat, carb: el.nf_total_carbohydrate, prot: el.nf_protein}}
+      }) 
     })
   }
 }
