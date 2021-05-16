@@ -1,3 +1,4 @@
+
 import { useProfileContext } from "../../context/profileContext";
 import styles from "./profileCard.module.css";
 
@@ -26,6 +27,7 @@ const ProfileCard = ({ dispatch }) => {
           {" "}
           <i className='fa fa-edit'></i> Edit profile
         </button>
+
       </div>
     </>
   );
