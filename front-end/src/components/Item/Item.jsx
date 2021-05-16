@@ -1,13 +1,13 @@
-import { Button } from 'reactstrap';
+import { CardImg } from 'reactstrap';
 
 
-function Item({ name, Kcals, proteins, fats, carbs, deleteItem}) {
+function Item({image, Kcals, proteins, fats, carbs}) {
 
   
   return (
     <div>
+      <CardImg style={{width:"15%"}} src={image} alt="food image" />
       {Kcals}/{proteins}/{fats}/{carbs}
-      <Button onClick={() => deleteItem(name)} color="danger">Delete</Button>
       </div>
   );
 }

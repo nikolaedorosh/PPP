@@ -18,23 +18,12 @@ const initState = {
     meals: [],
   },
   auth: {
-    isSignedIn: null, // false
+    isSignedIn: null,
     userId: 123456,
     userName: "Kolya",
     userEmail: "Kolya@gmail.com",
     userProfileImg: {},
   },
-
-  // graphics: {},
-  // auth: {},
-  // meal: {},
-  // profile: {
-  //   targetWeight: null,
-  //   targetKcal: null,
-  //   targetProteins: null,
-  //   targetCarbs: null,
-  //   targetFats: null,
-  // },
 };
 
 export default initState;

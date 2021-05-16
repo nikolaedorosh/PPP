@@ -50,12 +50,10 @@ const ProfileCard = () => {
         <h1>{name}</h1>
         <p>{email}</p>
         <br />
-        <Tooltip title='Change My Details' placement='top-end'>
-          <button onClick={clickHandler}>
-            {" "}
-            <i className='fa fa-edit'></i> Edit profile
-          </button>
-        </Tooltip>
+        <button onClick={clickHandler}>
+          {" "}
+          <i className='fa fa-edit'></i> Edit profile
+        </button>
       </div>
     </>
   );

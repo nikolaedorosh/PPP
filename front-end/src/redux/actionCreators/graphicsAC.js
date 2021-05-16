@@ -1,4 +1,5 @@
-import { GET_USERS } from "../types/grafTypes";
+
+import { GET_USERS,GET_GRAP} from "../types/grafTypes";
 import {
   ADD_TARGET_INFO,
   INITIAL_UPDATE,
@@ -6,6 +7,7 @@ import {
   PIC_UPLOAD,
 } from "../types/foodTypes";
 import multer from "multer";
+
 
 // function changeStatusonKcal() {
 //   return {
@@ -19,7 +21,9 @@ import multer from "multer";
 //   }
 // }
 
-export const getUsersThunk = () => async (dispatch, getState) => {
+
+const getUsersThunk = () => async (dispatch, getState) => {
+
   const requestUsers = await fetch("http://localhost:3000/logger");
   const respondUsers = await requestUsers.json();
   dispatch(getUsers(respondUsers));
@@ -31,6 +35,23 @@ function getUsers(users) {
     payload: users,
   };
 }
+
+
+const getGrapForOneDay = () => async (dispatch, getState) =>{
+  const requestGraf = await fetch("http://localhost:3000/logger")
+  const respondGraf = await requestGraf.json();
+  console.log(respondGraf, '<---------------respondGraf')
+  dispatch(getGrap(respondGraf));
+}
+function getGrap(grap) {
+  console.log(grap, '<--------usergraps')
+  return {
+    type: GET_GRAP,
+    payload: grap,
+  };
+}
+
+export  {getUsersThunk, getGrapForOneDay}
 
 //add target to back
 export const addTarget =
@@ -56,6 +77,7 @@ export const addTarget =
       }
     );
     const receiveTarget = await sendTarget.status;
+
 
     dispatch(
       addMacroInfo({

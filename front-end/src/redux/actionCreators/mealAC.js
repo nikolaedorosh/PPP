@@ -19,8 +19,8 @@ export const getMeal = (meal) => async (dispatch, getState) => {
         })
         .then(resp => resp.json())
     if (response) {
-      const {date, info, itemNames} = response;
-      dispatch(addMeal({date, info, itemNames}))
+      const {date, items} = response;
+      dispatch(addMeal({date, items}))
     }
 }
 
