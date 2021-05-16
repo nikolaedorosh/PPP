@@ -1,8 +1,6 @@
 const mainRouter = require("express").Router();
 const userModel = require("../models/userModel");
 
-// mainRouter.route("/profileData").patch(personalData);
-
 //
 mainRouter.post("/user/:email", async (req, res) => {
   const { email, name } = req.body;
@@ -26,12 +24,14 @@ mainRouter.post("/user/:email", async (req, res) => {
 });
 
 mainRouter.patch("/profileData/:id", async (req, res) => {
-  const { age, gender, weight, height, activity, bmi } = req.body;
   try {
-    const personalDetails = await userModel.findByIdAndUpdate(req.params.id, {
-      info: { ...req.body },
-    });
-    // console.log(personalDetails);
+    const personalDetails = await userModel.findByIdAndUpdate(
+      "609ef2b7d02da1867f40dae8",
+      /*req.params.id*/ {
+        info: { ...req.body },
+      }
+    );
+    console.log(personalDetails);
     return res.json(personalDetails);
   } catch (error) {
     res.send(error);
@@ -44,6 +44,18 @@ mainRouter.patch("/macroData/:id", async (req, res) => {
     const { Proteins, carbohydrates, fats, kcal, targetWeigth } = req.body;
     const macros = await userModel.findByIdAndUpdate(req.params.id, {
       target: { ...req.body },
+    });
+    return res.sendStatus(200);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+mainRouter.post("/profileImg/:id", async (req, res) => {
+  console.log(req.body);
+  try {
+    const macros = await userModel.findByIdAndUpdate(req.params.id, {
+      profileImg: { ...req.body },
     });
     return res.sendStatus(200);
   } catch (error) {
