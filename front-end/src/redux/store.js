@@ -14,6 +14,8 @@ const sagaMiddleware = createSagaMiddleware();
     composeWithDevTools(applyMiddleware(thunk, sagaMiddleware))
   );
 
+
   sagaMiddleware.run(watchAddLoad);
+
 
 export default store;
