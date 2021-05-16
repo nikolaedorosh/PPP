@@ -19,7 +19,9 @@ import {
 //   }
 // }
 
- const getUsersThunk = () => async (dispatch, getState) => {
+
+const getUsersThunk = () => async (dispatch, getState) => {
+
   const requestUsers = await fetch("http://localhost:3000/logger");
   const respondUsers = await requestUsers.json();
   dispatch(getUsers(respondUsers));
@@ -47,7 +49,7 @@ function getGrap(grap) {
   };
 }
 
-export  {getUsersThunk,getGrapForOneDay}
+export  {getUsersThunk, getGrapForOneDay}
 
 //add target to back
 export const addTarget =
