@@ -12,6 +12,10 @@ const infoReducer = (state = {}, action) => {
         height: action.payload.height,
         activity: action.payload.activity,
         bmi: action.payload.bmi,
+        targetWeight: action.payload.targetWeight,
+        kcal: action.payload.kcal,
+        Proteins: action.payload.Proteins,
+        fats: action.payload.fats,
       };
     case INITIAL_UPDATE:
       return {
