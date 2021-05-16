@@ -1,13 +1,13 @@
-import React from 'react'
+import { CardImg } from 'reactstrap';
 
 
-function Item({ Kcals, proteins, fats, carbs}) {
+function Item({image, Kcals, proteins, fats, carbs}) {
 
-
+  
   return (
     <div>
-   {Kcals}/{proteins}/{fats}/{carbs}
-      <button color="danger">Delete</button>
+      <CardImg style={{width:"15%"}} src={image} alt="food image" />
+      {Kcals}/{proteins}/{fats}/{carbs}
       </div>
   );
 }

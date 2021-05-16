@@ -1,15 +1,21 @@
-import { DELETE_MEAL, ADD_MEAL } from "../types/foodTypes";
+import { DELETE_MEAL, ADD_MEAL, CHANGE_OPTIONS } from "../types/foodTypes";
+
 const foodReducer = (state = [], action) => {
   switch (action.type) {
+    case CHANGE_OPTIONS:
+      return {
+        ...state,
+        options: action.payload
+      }
     case ADD_MEAL:
       return {
         ...state,
-        ...action.payload, date: Date.now()
-      }
+        meals: [...state.meals, action.payload]
+    }
     case DELETE_MEAL:
       return {
         ...state,
-        meal: state.meal.filter(el => el.date !== action.payload)
+        meals: state.meals.filter(el => el.date !== action.payload)
       }
     default:
       return state;
