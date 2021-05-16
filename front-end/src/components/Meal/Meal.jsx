@@ -36,7 +36,7 @@ function Meal({ date, items}) {
        {totalKcal}/{totalProteins}/{totalFats}/{totalCarbohydrates}
       <Button onClick={() => deleteClickHandler(date)} color="danger">Delete</Button>
       </Button>
-      <Modal isOpen={open}>
+      <Modal toggle={clickHandler} isOpen={open}>
         <ModalHeader>
           {date}
         </ModalHeader>

@@ -6,6 +6,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form, FormGr
 import { useDispatch, useSelector } from 'react-redux';
 import { getMeal } from '../../redux/actionCreators/mealAC';
 import { changeTextSaga } from '../../redux/saga';
+import { CHANGE_OPTIONS } from '../../redux/types/foodTypes';
 
 
 function List() {
@@ -17,9 +18,7 @@ function List() {
   const [open, setOpen] = useState(false)
   const [scan, setScan] = useState(false)  
   const [text, setText] = useState(false)  
-  
-  // const [meal, setMeal] = useState([])  
-  
+    
   function clickHandler() {
     setOpen(prev => !prev)
   }
@@ -42,14 +41,19 @@ function List() {
       e.preventDefault()
       dispatch(getMeal(options))
       setOpen(prev => !prev)
+      setText("")
+      dispatch({
+        type: CHANGE_OPTIONS,
+        payload: []
+      })
   }
 
   return (
     <>
       <Button color="danger" onClick={clickHandler}>Eat</Button>
-      <Modal isOpen={open}>
+      <Modal toggle={clickHandler} isOpen={open}>
           <Form onSubmit={createMeal} inline>
-            <ModalHeader>
+            <ModalHeader >
               meal 
               <div>
                 <Button onClick={tabClickHandler} type="button">{scan? "Type": "Scan"}</Button>
