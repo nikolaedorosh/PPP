@@ -1,32 +1,44 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
-const ProfileModal = () => {
-const dispatch = useDispatch()
+const ProfileModal = ({ setOpen }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-//use selectors
-const name = useSelector(state => state.auth.userName)
-const email = useSelector(state=> state.auth.userEmail)
-const target = useSelector(state=> state.profile.targetWeight)
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
+  //use selectors
+  const userName = useSelector((state) => state.auth.userName);
+  const userEmail = useSelector((state) => state.auth.userEmail);
+  const userTarget = useSelector((state) => state.info.targetWeight);
+
+  const goToEdit = () => {
+    history.push("/edit");
+    setOpen((prev) => !prev);
+  };
 
   return (
     <>
       <h2>Profile</h2>
 
-      <img src={} />
-      <button />
+      <img
+        src={`https://res.cloudinary.com/demo/image/facebook/w_100,h_100,c_fill,d_avatar2.png/non_existing_id.jpg`}
+      />
+      <button>change pic</button>
 
-      <p>Name</p>
-      <span>{name}</span>
+      <h4>Name</h4>
+      <span>{userName}</span>
 
-      <p>Email</p>
-      <span>{email}</span>
+      <h4>Email</h4>
+      <span>{userEmail}</span>
 
-      <p>Target Weight</p>
-      <span>{target}</span>
+      <h4>Target Weight</h4>
+      <span>{userTarget}</span>
 
-      <button>Change Name</button>
-      <button>Change My Details</button>
+      {/* <button>Change Name</button> */}
+      <button onClick={goToEdit}>Change My Details</button>
     </>
   );
 };
