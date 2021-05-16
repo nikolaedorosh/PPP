@@ -1,7 +1,4 @@
 const initState = {
-
-  isSignedIn: false,
-  userID: null,
   graphics: [],
   info: { age: "", gender: "", weight: "", height: "", activity: "", bmi: "" },
   food: {
