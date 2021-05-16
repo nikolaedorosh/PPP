@@ -1,4 +1,5 @@
 const initState = {
+
   isSignedIn: false,
   userID: null,
   graphics: [],
@@ -24,6 +25,7 @@ const initState = {
     targetCarbs: null,
     targetFats: null,
   },
+
 };
 
 export default initState;
