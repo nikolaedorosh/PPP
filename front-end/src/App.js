@@ -19,13 +19,7 @@ function App() {
         <div className={darkTheme ? styles.dark : styles.light}>
           <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
           <Switch>
-            <Route exact path='/signup' component={SignUp} />
-            <Route exact path='/signin'>
-              <p>signin</p>
-            </Route>
-            <Route exact path='/'>
-              <p>welcome page</p>
-            </Route>
+            <Route exact path='/' component={SignUp} />
             <Route exact path='/edit'>
               <EditProfile />
             </Route>
