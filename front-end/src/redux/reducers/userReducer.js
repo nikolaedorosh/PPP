@@ -1,5 +1,5 @@
 import { SIGN_IN, SIGN_OUT, ADD_INFO } from "../types/authTypes";
-import { INITIAL_UPDATE } from "../types/foodTypes";
+import { INITIAL_UPDATE, PIC_UPLOAD } from "../types/foodTypes";
 import initState from "../initState";
 // начало
 
@@ -22,6 +22,12 @@ export default (state = [], action) => {
         userName: action.payload.name,
         userEmail: action.payload.email,
         userId: action.payload._id,
+      };
+    case PIC_UPLOAD:
+      console.log(action.payload);
+      return {
+        ...state,
+        userProfileImg: action.payload.profileImg,
       };
     default:
       return state;

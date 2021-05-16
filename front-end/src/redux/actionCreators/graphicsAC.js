@@ -1,9 +1,13 @@
-import { GET_USERS } from "../types/grafTypes";
+
+import { GET_USERS,GET_GRAP} from "../types/grafTypes";
 import {
   ADD_TARGET_INFO,
   INITIAL_UPDATE,
   USER_DATA_CHANGE,
+  PIC_UPLOAD,
 } from "../types/foodTypes";
+import multer from "multer";
+
 
 // function changeStatusonKcal() {
 //   return {
@@ -17,7 +21,9 @@ import {
 //   }
 // }
 
-export const getUsersThunk = () => async (dispatch, getState) => {
+
+const getUsersThunk = () => async (dispatch, getState) => {
+
   const requestUsers = await fetch("http://localhost:3000/logger");
   const respondUsers = await requestUsers.json();
   dispatch(getUsers(respondUsers));
@@ -29,6 +35,23 @@ function getUsers(users) {
     payload: users,
   };
 }
+
+
+const getGrapForOneDay = () => async (dispatch, getState) =>{
+  const requestGraf = await fetch("http://localhost:3000/logger")
+  const respondGraf = await requestGraf.json();
+  console.log(respondGraf, '<---------------respondGraf')
+  dispatch(getGrap(respondGraf));
+}
+function getGrap(grap) {
+  console.log(grap, '<--------usergraps')
+  return {
+    type: GET_GRAP,
+    payload: grap,
+  };
+}
+
+export  {getUsersThunk, getGrapForOneDay}
 
 //add target to back
 export const addTarget =
@@ -54,6 +77,7 @@ export const addTarget =
       }
     );
     const receiveTarget = await sendTarget.status;
+
 
     dispatch(
       addMacroInfo({
@@ -87,8 +111,13 @@ export const initialProfileDataUpdate = (props) => {
 
 // update user details
 export const personalInfoHandler =
-  ({ age, gender, weight, height, activity, id, bmi }) =>
+  ({ age, gender, weight, height, activity, id, bmi, targetWeight }) =>
   async (dispatch, getState) => {
+    const Proteins = targetWeight * 4 * 1.5;
+    const carbohydrates = targetWeight * 9;
+    const fats = targetWeight * 4 * 1.5;
+    const kcal = Proteins + carbohydrates + fats;
+
     const data = {
       age,
       gender,
@@ -96,6 +125,11 @@ export const personalInfoHandler =
       height,
       activity,
       bmi,
+      Proteins,
+      carbohydrates,
+      fats,
+      kcal,
+      targetWeight,
     };
 
     const response = await fetch(`http://localhost:3000/profileData/${id}`, {
@@ -105,13 +139,37 @@ export const personalInfoHandler =
     });
     const dbData = await response.json();
 
-    dispatch(newUserData(data));
+    dispatch(newUserData(dbData));
   };
 
 //update user action
 export const newUserData = (data) => {
   return {
     type: USER_DATA_CHANGE,
+    payload: data,
+  };
+};
+
+//upload Img
+export const uploadImg =
+  ({ img, id }) =>
+  async (dispatch) => {
+    const upload = multer({ dest: "uploads/" });
+    console.log(img);
+    const response = await fetch(`http://localhost:3000/profileImg/${id}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(img),
+    });
+    const dbImg = await response.json();
+    console.log(dbImg);
+    dispatch(uploadNewPic(img));
+  };
+
+//upload img action
+export const uploadNewPic = (data) => {
+  return {
+    type: PIC_UPLOAD,
     payload: data,
   };
 };

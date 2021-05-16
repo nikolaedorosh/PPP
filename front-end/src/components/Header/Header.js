@@ -14,6 +14,7 @@ function Header({ darkTheme, setDarkTheme }) {
     <div className={styles.wrap} >
       <Link to='/'>Home</Link>
       <Link to='/logger'>Logger</Link>
+      <Link to='/edit'>Edit</Link>
       <li className='nav-item'>
         <button onClick={() => setDarkTheme(!darkTheme)}>Change Theme</button>
       </li>
