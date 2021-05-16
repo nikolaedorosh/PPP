@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import React from 'react'
 import Item from '../Item/Item';
 import Meal from '../Meal/Meal';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form, FormGroup, Label } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form, FormGroup } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMeal } from '../../redux/actionCreators/mealAC';
 import { changeTextSaga } from '../../redux/saga';
