@@ -4,7 +4,7 @@ import {sendMeal} from '../../redux/actionCreators/mealAC'
 import { useDispatch } from 'react-redux';
 
 function Meal({ date, items}) {
-
+  console.log(items , '<-------- items from meal')
   const dispatch = useDispatch();
 
   function deleteClickHandler(date) {
@@ -22,10 +22,10 @@ function Meal({ date, items}) {
   totalKcal += el.info.cal
   totalProteins += el.info.prot
  });
-
+//  {items[0].name}...
   return (
     <Button>
-        {items[0].name}...
+         {items[0].name}...
        {totalKcal}/{totalProteins}/{totalFats}/{totalCarbohydrates}
       <Button onClick={() => deleteClickHandler(date)} color="danger">Delete</Button>
       </Button>

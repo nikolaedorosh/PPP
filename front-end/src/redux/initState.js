@@ -3,7 +3,11 @@ const initState = {
   isSignedIn: false,
   userID: null,
   graphics: [],
-  info: { age: "", gender: "", weight: "", height: "", activity: "", bmi: "" },
+  info: { age: "", gender: "", weight: "", height: "", activity: "", bmi: "",targetWeight: null,
+  targetKcal: null,
+  targetProteins: null,
+  targetCarbs: null,
+  targetFats: null, },
   food: {
     options: [],
     meals: []
@@ -15,16 +19,7 @@ const initState = {
     userEmail: "Kolya@gmail.com",
   },
 
-  // graphics: {},
-  // auth: {},
-  // meal: {},
-  profile: {
-    targetWeight: null,
-    targetKcal: null,
-    targetProteins: null,
-    targetCarbs: null,
-    targetFats: null,
-  },
+
 
 };
 

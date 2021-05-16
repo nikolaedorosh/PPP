@@ -25,8 +25,9 @@ function Logger() {
     dispatch(getUsersThunk());
   }, [meal]);
 
-  let graphics_target = graphics.map((el) => el.target);
+  let graphics_target = graphics.map((el) => el.info);
   let graphics_need = graphics.map((el) => el.need);
+
 
   let result = [{
     ...graphics_target[graphics_target.length - 1],
@@ -89,25 +90,25 @@ function Logger() {
              
             />
             <CartesianGrid stroke="#999" />
-
-            <Bar dataKey="targetKcal" barSize={40} fill="red"  />
-            <Bar dataKey="needKcal" barSize={40} fill="red" isAnimationActive={false}>
-              <LabelList dataKey="needKcal" position="top" fill="#ffffff" />
+            
+            <Bar dataKey="needKcal" barSize={40} fill="red"  />
+            <Bar dataKey="targetKcal" barSize={40} fill="red" isAnimationActive={false}>
+              <LabelList dataKey="targetKcal" position="top" fill="#ffffff" />
             </Bar>
-
-            <Bar dataKey="targetProteins" barSize={40} fill="#0004ff"></Bar>
-            <Bar dataKey="needProt" barSize={40} fill="#0004ff" isAnimationActive={false} >
-              <LabelList dataKey="needProt" position="top" fill="#ffffff"/>
+            
+            <Bar dataKey="needProt" barSize={40} fill="#0004ff"></Bar>
+            <Bar dataKey="targetProteins" barSize={40} fill="#0004ff" isAnimationActive={false} >
+              <LabelList dataKey="targetProteins" position="top" fill="#ffffff"/>
             </Bar>
-
-            <Bar dataKey="targetCarbohydrates" barSize={40} fill="#00fbff"  />
-            <Bar dataKey="needCarboh" barSize={40} fill="#00fbff" isAnimationActive={false} >
-              <LabelList dataKey="needCarboh" position="top" fill="#ffffff"/>
+            
+            <Bar dataKey="needCarboh" barSize={40} fill="#00fbff"  />
+            <Bar dataKey="targetCarbohydrates" barSize={40} fill="#00fbff" isAnimationActive={false} >
+              <LabelList dataKey="targetCarbohydrates" position="top" fill="#ffffff"/>
             </Bar>
-
-            <Bar dataKey="targetFats" barSize={40} fill="#73ff00" />
-            <Bar dataKey="needFast" barSize={40} fill="#73ff00"  isAnimationActive={false}>
-              <LabelList dataKey="needFast" position="top" fill="#ffffff"/>
+            
+            <Bar dataKey="needFast" barSize={40} fill="#73ff00" />
+            <Bar dataKey="targetFats" barSize={40} fill="#73ff00"  isAnimationActive={false}>
+              <LabelList dataKey="targetFats" position="top" fill="#ffffff"/>
               </Bar>
           </BarChart>
         </div>

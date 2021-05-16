@@ -7,18 +7,6 @@ import {
 } from "../types/foodTypes";
 
 
-// function changeStatusonKcal() {
-//   return {
-//     type: CHANGE_KCAL,
-//   }
-// }
-
-// function changeAllStatus(){
-//   return{
-//     type:CHANGE_ALL_STATUS
-//   }
-// }
-
  const getUsersThunk = () => async (dispatch, getState) => {
   const requestUsers = await fetch("http://localhost:3000/logger");
   const respondUsers = await requestUsers.json();
@@ -33,21 +21,21 @@ function getUsers(users) {
 }
 
 
-const getGrapForOneDay = () => async (dispatch, getState) =>{
-  const requestGraf = await fetch("http://localhost:3000/logger")
-  const respondGraf = await requestGraf.json();
-  console.log(respondGraf, '<---------------respondGraf')
-  dispatch(getGrap(respondGraf));
-}
-function getGrap(grap) {
-  console.log(grap, '<--------usergraps')
-  return {
-    type: GET_GRAP,
-    payload: grap,
-  };
-}
+// const getGrapForOneDay = () => async (dispatch, getState) =>{
+//   const requestGraf = await fetch("http://localhost:3000/logger")
+//   const respondGraf = await requestGraf.json();
+//   console.log(respondGraf, '<---------------respondGraf')
+//   dispatch(getGrap(respondGraf));
+// }
+// function getGrap(grap) {
+//   console.log(grap, '<--------usergraps')
+//   return {
+//     type: GET_GRAP,
+//     payload: grap,
+//   };
+// }
 
-export  {getUsersThunk,getGrapForOneDay}
+export  {getUsersThunk}
 
 //add target to back
 export const addTarget =
