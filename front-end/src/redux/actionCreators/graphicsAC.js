@@ -1,6 +1,9 @@
-
-
-import {GET_USERS} from '../types/grafTypes'
+import { GET_USERS } from "../types/grafTypes";
+import {
+  ADD_TARGET_INFO,
+  INITIAL_UPDATE,
+  USER_DATA_CHANGE,
+} from "../types/foodTypes";
 
 // function changeStatusonKcal() {
 //   return {
@@ -14,27 +17,101 @@ import {GET_USERS} from '../types/grafTypes'
 //   }
 // }
 
-
-
-
-const getUsersThunk = () => async (dispatch, getState) => {
-  const requestUsers = await fetch("http://localhost:3000/logger")
+export const getUsersThunk = () => async (dispatch, getState) => {
+  const requestUsers = await fetch("http://localhost:3000/logger");
   const respondUsers = await requestUsers.json();
-  console.log(respondUsers, '<---------------respondUsers')
   dispatch(getUsers(respondUsers));
-  };
-
+};
 
 function getUsers(users) {
-  console.log(users, '<--------users')
   return {
     type: GET_USERS,
     payload: users,
   };
 }
 
+//add target to back
+export const addTarget =
+  ({ targetWeight, userId }) =>
+  async (dispatch) => {
+    const targetProteins = targetWeight * 4 * 1.5;
+    const targetCarbs = targetWeight * 9;
+    const targetFats = targetWeight * 4 * 1.5;
+    const targetKcal = targetProteins + targetCarbs + targetFats;
 
-export  {getUsersThunk}
+    const sendTarget = await fetch(
+      `http://localhost:3000/macroData/${userId}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          Proteins: targetProteins,
+          carbohydrates: targetCarbs,
+          fats: targetFats,
+          kcal: targetKcal,
+          targetWeigth: targetWeight,
+        }),
+      }
+    );
+    const receiveTarget = await sendTarget.status;
 
+    dispatch(
+      addMacroInfo({
+        targetKcal,
+        targetFats,
+        targetCarbs,
+        targetProteins,
+        targetWeight: targetWeight,
+      })
+    );
+  };
 
+//add target action
+export const addMacroInfo = (props) => {
+  return {
+    type: ADD_TARGET_INFO,
+    payload: props,
+  };
+};
 
+//show db stats after logging
+export const profileUpdate = (firstDataAfterLogin) => (dispatch) => {
+  dispatch(initialProfileDataUpdate(firstDataAfterLogin));
+};
+export const initialProfileDataUpdate = (props) => {
+  return {
+    type: INITIAL_UPDATE,
+    payload: props,
+  };
+};
+
+// update user details
+export const personalInfoHandler =
+  ({ age, gender, weight, height, activity, id, bmi }) =>
+  async (dispatch, getState) => {
+    const data = {
+      age,
+      gender,
+      weight,
+      height,
+      activity,
+      bmi,
+    };
+
+    const response = await fetch(`http://localhost:3000/profileData/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    const dbData = await response.json();
+
+    dispatch(newUserData(data));
+  };
+
+//update user action
+export const newUserData = (data) => {
+  return {
+    type: USER_DATA_CHANGE,
+    payload: data,
+  };
+};

@@ -1,13 +1,13 @@
-import React from 'react'
+import { Button } from 'reactstrap';
 
 
-function Item({ Kcals, proteins, fats, carbs}) {
+function Item({ name, Kcals, proteins, fats, carbs, deleteItem}) {
 
-
+  
   return (
     <div>
-   {Kcals}/{proteins}/{fats}/{carbs}
-      <button color="danger">Delete</button>
+      {Kcals}/{proteins}/{fats}/{carbs}
+      <Button onClick={() => deleteItem(name)} color="danger">Delete</Button>
       </div>
   );
 }
