@@ -19,10 +19,10 @@ const sagaMiddleware = createSagaMiddleware();
 export default store;
 
 
-const store = createStore(
-  rootReducer,
-  initState,
-  composeWithDevTools(applyMiddleware(thunk))
-);
+// const store = createStore(
+//   rootReducer,
+//   initState,
+//   composeWithDevTools(applyMiddleware(thunk))
+// );
 
-export default store;
+// export default store;

@@ -9,9 +9,9 @@ const initState = {
   },
   auth: {
     isSignedIn: null, // false
-    userId: 123456,
-    userName: "Kolya",
-    userEmail: "Kolya@gmail.com",
+    userId: null,
+    userName: null,
+    userEmail: null,
   },
 
   // graphics: {},

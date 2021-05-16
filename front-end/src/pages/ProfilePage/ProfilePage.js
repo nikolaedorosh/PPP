@@ -13,14 +13,14 @@ const ProfilePage = () => {
   const name = useSelector((state) => state.auth.userName);
   const email = useSelector((state) => state.auth.userEmail);
 
-  useEffect(() => {
-    dispatch(
-      AuthorizationAction.addInfo({
-        userName: "test",
-        userEmail: "test@test.ru",
-      })
-    );
-  }, []);
+  // useEffect(() => {
+  //   dispatch(
+  //     AuthorizationAction.addInfo({
+  //       userName: "test",
+  //       userEmail: "test@test.ru",
+  //     })
+  //   );
+  // }, []);
 
   //fetch checks back-end for all profileData
   useEffect(() => {

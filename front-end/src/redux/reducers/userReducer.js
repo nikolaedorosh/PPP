@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_OUT, ADD_INFO } from "../types/authTypes";
+import { SIGN_IN, SIGN_OUT, ADD_INFO, DEFAULT_SIGNIN } from "../types/authTypes";
 import { INITIAL_UPDATE } from "../types/foodTypes";
 import initState from "../initState";
 // начало
@@ -23,6 +23,13 @@ export default (state = [], action) => {
         userEmail: action.payload.email,
         userId: action.payload._id,
       };
+      case DEFAULT_SIGNIN:
+        return {
+          ...state,
+          userName: action.payload.userName,
+          userEmail: action.payload.userEmail,
+        };
+
     default:
       return state;
   }
@@ -44,6 +51,13 @@ export const signOut = () => {
 export const addInfo = (userInfo) => {
   return {
     type: ADD_INFO,
+    payload: userInfo,
+  };
+};
+
+export const defaultSignIn = (userInfo) => {
+  return {
+    type: DEFAULT_SIGNIN,
     payload: userInfo,
   };
 };
