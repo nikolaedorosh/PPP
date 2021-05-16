@@ -1,6 +1,6 @@
 import * as TYPES from "../types/types";
 
-const mainReducer = (state = {}, action) => {
+const mainReducer = (state = [], action) => {
   switch (action.type) {
     case TYPES.USER_DATA_CHANGE:
       return {
@@ -10,22 +10,51 @@ const mainReducer = (state = {}, action) => {
     case TYPES.CHANGE_OPTIONS:
       return {
         ...state,
-        food: { options: action.payload },
+        food: { ...state.food, options: action.payload },
       };
     case TYPES.ADD_MEAL:
       return {
         ...state,
-        food: { meals: [...state.meals, action.payload] },
+        food: { ...state.food, meals: [...state.meals, action.payload] },
       };
     case TYPES.DELETE_MEAL:
       return {
         ...state,
         food: {
-          meals: state.meals.filter((el) => el.date !== action.payload),
+          ...state,
+          meals: state.food.meals.filter((el) => el.date !== action.payload),
         },
       };
     case TYPES.GET_USERS:
-      return action.payload;
+      return {
+        ...state,
+        graphics: action.payload,
+      };
+    case TYPES.SIGN_IN:
+      return {
+        ...state,
+        auth: { ...state.auth, isSignedIn: true, userId: action.payload },
+      };
+    case TYPES.SIGN_OUT:
+      return {
+        ...state,
+        auth: { ...state.auth, isSignedIn: false, userId: null },
+      };
+    case TYPES.ADD_INFO:
+      return {
+        ...state,
+        auth: {
+          ...state.auth,
+          userName: action.payload.userName,
+          userEmail: action.payload.userEmail,
+        },
+      };
+    case TYPES.PIC_UPLOAD:
+      return {
+        ...state,
+        auth: { ...state.auth, userProfileImg: action.payload.profileImg },
+      };
+
     default:
       return state;
   }
