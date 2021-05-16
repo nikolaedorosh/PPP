@@ -1,6 +1,6 @@
 
 
-import {GET_USERS} from '../types/grafTypes'
+import {GET_USERS , GET_GRAP} from '../types/grafTypes'
 
 // function changeStatusonKcal() {
 //   return {
@@ -22,9 +22,7 @@ const getUsersThunk = () => async (dispatch, getState) => {
   const respondUsers = await requestUsers.json();
   console.log(respondUsers, '<---------------respondUsers')
   dispatch(getUsers(respondUsers));
-  };
-
-
+};
 function getUsers(users) {
   console.log(users, '<--------users')
   return {
@@ -33,8 +31,21 @@ function getUsers(users) {
   };
 }
 
+const getGrapForOneDay = () => async (dispatch, getState) =>{
+  const requestGraf = await fetch("http://localhost:3000/logger")
+  const respondGraf = await requestGraf.json();
+  console.log(respondGraf, '<---------------respondGraf')
+  dispatch(getGrap(respondGraf));
+}
+function getGrap(grap) {
+  console.log(grap, '<--------usergraps')
+  return {
+    type: GET_GRAP,
+    payload: grap,
+  };
+}
 
-export  {getUsersThunk}
+export  {getUsersThunk,getGrapForOneDay}
 
 
 
