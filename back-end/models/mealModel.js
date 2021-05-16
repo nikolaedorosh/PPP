@@ -1,19 +1,11 @@
-const {Shema,model} = require('mongoose')
+const {Schema, model} = require('mongoose')
 
-const mealSchema = newSchema({
-  meal : {
+const mealSchema = new Schema({
     date:Number,
-    items:[],
-    info: {
-      totalKcal:String,
-      totalProteins:String,
-      totalCarbohydrates: String,
-      totalFats:String,
-    },
-  },
-
+    items:[]
 })
 
 
-const mealModel = ('Meal' , mealSchema )
+const mealModel = model('Meal', mealSchema)
+
 module.exports = mealModel
