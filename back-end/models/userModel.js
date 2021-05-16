@@ -22,10 +22,10 @@ const userSchema = new Schema({
   target : 
     {
     targetWeigth:Number,
-    kcal: Number,
-    Proteins:Number,
-    carbohydrates: Number,
-    fats:Number
+    targetKcal: Number,
+    targetProteins:Number,
+    targetCarbohydrates: Number,
+    targetFats:Number
     }
 })
 
