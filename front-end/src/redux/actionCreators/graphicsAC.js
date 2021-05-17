@@ -10,9 +10,10 @@ const getUsersThunk = (id) => async (dispatch, getState) => {
   dispatch(setWeek(res))
 };
 
-function setWeek(week) {
-  return {type: TYPES.SET_WEEK,
-  payload: week}
+function setWeek(payload) {
+  return {
+  type: TYPES.SET_WEEK,
+  payload: payload}
 }
 
 export { getUsersThunk };
