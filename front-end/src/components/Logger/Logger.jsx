@@ -1,3 +1,4 @@
+import {Spinner} from 'reactstrap'
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,6 +16,7 @@ import {
 } from "recharts";
 import { getUsersThunk } from "../../redux/actionCreators/graphicsAC";
 import styles from "../Logger/logger.module.css";
+import * as TYPES from "../../redux/types/types";
 
 function Logger() {
   const week = useSelector((state) => state.week);
@@ -32,8 +34,6 @@ function Logger() {
       dispatch(getUsersThunk(id));
     }, [today]);
     
-
-
 
       let weekArr = []
       for (let i = 0; i < week.length; i++) {

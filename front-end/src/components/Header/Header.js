@@ -68,7 +68,7 @@ function Header({ darkTheme, setDarkTheme }) {
 
 
 
-      <Button onClick={openProfile}>profile</Button>
+      {/* <Button onClick={openProfile}>profile</Button>
 
       <Modal
         fade={false}
@@ -79,7 +79,7 @@ function Header({ darkTheme, setDarkTheme }) {
         <div style={{ height: "100vh" }}>
           <ProfileModal setOpen={setOpen} />
         </div>
-      </Modal>
+      </Modal> */}
     </div>
   );
 }
