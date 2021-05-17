@@ -52,18 +52,49 @@ const mainReducer = (state = [], action) => {
     case TYPES.SIGN_IN:
       return {
         ...state,
-        auth: { ...state.auth, isSignedIn: true, userId: action.payload },
+        auth: {
+          ...state.auth,
+          isSignedIn: true,
+          userName: action.payload.userName,
+          userId: action.payload.userId,
+          userEmail: action.payload.userEmail,
+        },
+      };
+      case TYPES.GET_GGLID:
+      return {
+        ...state,
+        auth: {
+          ...state.auth,
+          userId: action.payload.userId,
+        },
       };
     case TYPES.SIGN_OUT:
       return {
         ...state,
-        auth: { ...state.auth, isSignedIn: false, userId: null },
+        auth: {
+          ...state.auth,
+          userName: null,
+          userEmail: null,
+          isSignedIn: false,
+          userId: null,
+          userProfileImg: {},
+        },
       };
     case TYPES.ADD_INFO:
       return {
         ...state,
         auth: {
           ...state.auth,
+          isSignedIn: true,
+          userName: action.payload.userName,
+          userEmail: action.payload.userEmail,
+          userId: action.payload.userId,
+        },
+      };
+    case TYPES.DEFAULT_SIGNIN:
+      return {
+        ...state,
+        auth: {
           userName: action.payload.userName,
           userEmail: action.payload.userEmail,
         },
@@ -80,3 +111,37 @@ const mainReducer = (state = [], action) => {
 };
 
 export default mainReducer;
+
+export const signIn = (userId) => {
+  return {
+    type: TYPES.SIGN_IN,
+    payload: userId,
+  };
+};
+
+export const googleId = (userId) => {
+  return {
+    type: TYPES.GET_GGLID,
+    payload: userId,
+  };
+};
+
+export const signOut = () => {
+  return {
+    type: TYPES.SIGN_OUT,
+  };
+};
+
+export const addInfo = (userInfo) => {
+  return {
+    type: TYPES.ADD_INFO,
+    payload: userInfo,
+  };
+};
+
+export const defaultSignIn = (userInfo) => {
+  return {
+    type: TYPES.DEFAULT_SIGNIN,
+    payload: userInfo,
+  };
+};
