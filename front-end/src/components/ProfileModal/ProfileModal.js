@@ -17,8 +17,8 @@ const ProfileModal = ({ setOpen }) => {
   const goToEdit = () => {
     history.push("/edit");
     setOpen((prev) => !prev);
+    console.log('dsffsdf')
   };
-
   return (
     <>
       <h2>Profile</h2>

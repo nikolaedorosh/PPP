@@ -55,7 +55,7 @@ function Logger() {
         graphics_target = weekArr;
   
         const {targetWeight, kcal, proteins, carbohydrates, fats} = info;
-        graphics_need = {targetWeight, kcal, targetFats: proteins, carbohydrates, fats}
+        graphics_need = {targetWeight, kcal, proteins, carbohydrates, fats}
       
     result = [
       {
@@ -63,7 +63,6 @@ function Logger() {
         ...graphics_need,
       },
     ];
-
 
 
   return (

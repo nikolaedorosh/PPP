@@ -30,11 +30,11 @@ function App() {
             <Route exact path="/edit">
               <EditProfile />
             </Route>
-            <Route exact path='/profile'>
+            {/* <Route exact path='/profile'> */}
               {/* <ProfileContextProvider> */}
-              <ProfileModal />
+              {/* <ProfileModal /> */}
               {/* </ProfileContextProvider> */}
-            </Route>
+            {/* </Route> */}
             <Route exact path="/logger">
               <Logger />
               <List />
