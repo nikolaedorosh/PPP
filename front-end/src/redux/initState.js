@@ -1,5 +1,4 @@
 const initState = {
-  graphics: [],
   info: {
     age: "",
     gender: "",
@@ -19,11 +18,12 @@ const initState = {
   },
   auth: {
     isSignedIn: null,
-    userId: 123456,
-    userName: "Kolya",
-    userEmail: "Kolya@gmail.com",
+    userId: "",
+    userName: "",
+    userEmail: "",
     userProfileImg: {},
   },
+  week: []
 };
 
 export default initState;
