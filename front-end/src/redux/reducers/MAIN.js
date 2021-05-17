@@ -1,7 +1,6 @@
 import * as TYPES from "../types/types";
 
 const mainReducer = (state = [], action) => {
-  console.log(action.payload)
   switch (action.type) {
     case TYPES.CHANGE_LOAD:
     return {
@@ -107,7 +106,7 @@ const mainReducer = (state = [], action) => {
     case TYPES.PIC_UPLOAD:
       return {
         ...state,
-        auth: { ...state.auth, userProfileImg: action.payload.profileImg },
+        auth: { ...state.auth, userProfileImg: action.payload },
       };
 
     default:

@@ -58,12 +58,14 @@ export const personalInfoHandler =
       kcal,
       targetWeight,
     };
+    console.log(data);
     const response = await fetch(`http://localhost:3000/profileData/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
     const dbData = await response.json();
+
     dispatch(newUserData(dbData));
   };
 
@@ -73,5 +75,15 @@ export const newUserData = (data) => {
     type: TYPES.USER_DATA_CHANGE,
     payload: data,
   };
+};
+
+//upload Img
+//
+export const newPicChange = (newPicture) => (dispatch) => {
+  dispatch(newPic(newPicture.file.path));
+};
+
+export const newPic = (data) => {
+  return { type: TYPES.PIC_UPLOAD, payload: data };
 };
 

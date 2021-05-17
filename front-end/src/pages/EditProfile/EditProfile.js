@@ -38,9 +38,21 @@ const EditProfile = () => {
   };
 
   // use selectors
-  const name = useSelector((state) => state.auth.userName);
+  const userName = useSelector((state) => state.auth.userName);
   const id = useSelector((state) => state.auth.userId);
-  const email = useSelector((state) => state.auth.userEmail);
+  const userEmail = useSelector((state) => state.auth.userEmail);
+
+
+  //use States
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+  const [activity, setActivity] = useState("");
+  const [bmi, setBmi] = useState("");
+  const [targetWeight, setTargetWeight] = useState("");
 
 
   const clickHandler = () => {
@@ -54,6 +66,12 @@ const EditProfile = () => {
     switch (e.target.className.split(" ")[0]) {
       case "gender":
         setGender(input);
+        break;
+      case "email":
+        setEmail(input);
+        break;
+      case "name":
+        setName(input);
         break;
       case "age":
         setAge(input);
@@ -124,7 +142,7 @@ const EditProfile = () => {
 
   return (
     <>
-      <h2> {name},</h2>
+      <h2> {userName},</h2>
       <span>Please insert all your details here!</span>
       <br />
       <br />
@@ -136,27 +154,44 @@ const EditProfile = () => {
         </select>
         <input
           onChange={changeInputHandler}
-          required="No Input Inserted!"
-          className="age"
-          type="number"
-          min="0"
-          placeholder="age"
+          required='No Input Inserted!'
+          className='age'
+          type='number'
+          min='0'
+          max='130'
+          placeholder='age'
+        ></input>
+        <input
+          onChange={changeInputHandler}
+          required='No Input Inserted!'
+          className='name'
+          placeholder='name'
+        ></input>
+        <input
+          onChange={changeInputHandler}
+          required='No Input Inserted!'
+          className='email'
+          type='email'
+          placeholder='email'
+        ></input>
+        <input
+          required='No Input Inserted!'
+          onChange={changeInputHandler}
+          className='weight'
+          type='number'
+          min='0'
+          max='400'
+          placeholder='weight'
+
         ></input>
         <input
           required="No Input Inserted!"
           onChange={changeInputHandler}
-          className="weight"
-          type="number"
-          min="0"
-          placeholder="weight"
-        ></input>
-        <input
-          required="No Input Inserted!"
-          onChange={changeInputHandler}
-          className="height"
-          type="number"
-          min="0"
-          placeholder="height"
+          className='height'
+          type='number'
+          min='300'
+          placeholder='height'
+
         ></input>
         <select className="activity" onChange={changeInputHandler}>
           <option value="sedentary">Sedentary: little to no oxercise</option>
@@ -170,8 +205,11 @@ const EditProfile = () => {
           required="No Input Inserted!"
           value={targetWeight}
           onChange={changeInputHandler}
-          className="targetWeight"
-          placeholder="weight target"
+          className='targetWeight'
+          placeholder='weight target'
+          min='0'
+          max='150'
+
         ></input>
         <button>Add</button>{" "}
         <button type="button" onClick={clickHandler} color="danger">
