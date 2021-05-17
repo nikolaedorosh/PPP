@@ -7,7 +7,7 @@ router.post("/", async (req, res) => {
   // const {id} = req.params
   // const user = await userModel.findOne();
   // const meals = mealModel.find({ id: user.id })
-  const meals = await mealModel.find()
+  const meals = await mealModel.find({}, {user: 0})
   return res.json(meals);
 });
 
@@ -22,10 +22,12 @@ router.post("/getInfo", async (req, res) => {
 
 router.post("/createMeal", async (req, res) => {
   try {
-    const meals = req.body;
+    const {items, user} = req.body;
+    console.log(items, user)
     const myMeal = await mealModel.create({
+      user: user,
       date: Date.now(),
-      items: meals,
+      items,
     });
     res.json(myMeal);
   } catch (e) {

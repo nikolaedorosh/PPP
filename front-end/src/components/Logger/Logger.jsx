@@ -40,7 +40,6 @@ function Logger() {
       let totalCal = 0;
       for (let j = 0; j < week[i].items.length; j++) {
         const {carb, fat, prot, cal} = week[i].items[j].info
-        console.log(carb, fat, prot, cal)
         totalCarb += carb;
         totalFat += fat;
         totalProt += prot;
@@ -58,7 +57,7 @@ function Logger() {
   result = [
     {
       ...graphics_target[graphics_target.length - 1],
-      ...graphics_need[graphics_need.length - 1],
+      ...graphics_need,
     },
   ];
 
