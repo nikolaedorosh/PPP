@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import Item from '../Item/Item';
 
 function Meal({ date, items}) {
-
+  console.log(items , '<-------- items from meal')
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false)
 
@@ -28,6 +28,11 @@ function Meal({ date, items}) {
   totalKcal += el.info.cal
   totalProteins += el.info.prot
  });
+
+totalCarbohydrates = totalCarbohydrates.toFixed(2)
+totalFats = totalFats.toFixed(2)
+totalKcal = totalKcal.toFixed(2)
+totalProteins = totalProteins.toFixed(2)
 
   return (
     <>

@@ -1,33 +1,26 @@
 import * as TYPES from "../types/types";
+import * as AuthorizationAction from "../reducers/MAIN"; 
 
-const getUsersThunk = () => async (dispatch, getState) => {
-  const requestUsers = await fetch("http://localhost:3000/logger");
-  const respondUsers = await requestUsers.json();
-  dispatch(getUsers(respondUsers));
+
+const getUsersThunk = (id) => async (dispatch, getState) => {
+  const resp = await fetch("http://localhost:3000/logger", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({id: id})
+  })
+  const res = await resp.json()
+  dispatch(setWeek(res))
 };
 
-function getUsers(users) {
+function setWeek(payload) {
   return {
-    type: TYPES.GET_USERS,
-    payload: users,
-  };
+
+  type: TYPES.SET_WEEK,
+  payload: payload}
 }
 
-const getGrapForOneDay = () => async (dispatch, getState) => {
-  const requestGraf = await fetch("http://localhost:3000/logger");
-  const respondGraf = await requestGraf.json();
-  console.log(respondGraf, "<---------------respondGraf");
-  dispatch(getGrap(respondGraf));
-};
-function getGrap(grap) {
-  console.log(grap, "<--------usergraps");
-  return {
-    type: TYPES.GET_GRAP,
-    payload: grap,
-  };
-}
+export { getUsersThunk };
 
-export { getUsersThunk, getGrapForOneDay };
 
 // update user details
 export const personalInfoHandler =
@@ -73,7 +66,6 @@ export const personalInfoHandler =
     });
     const dbData = await response.json();
 
-    // _id: req.body.id,
     dispatch(newUserData(dbData));
   };
 
@@ -94,3 +86,4 @@ export const newPicChange = (newPicture) => (dispatch) => {
 export const newPic = (data) => {
   return { type: TYPES.PIC_UPLOAD, payload: data };
 };
+

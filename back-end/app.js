@@ -19,6 +19,7 @@ app.use(express.json({ limit: "50mb" }));
 // set config for static file in express
 app.use(express.static("public"));
 
+
 app.use("/logger", loggerRouter);
 app.use("/", mainRouter);
 

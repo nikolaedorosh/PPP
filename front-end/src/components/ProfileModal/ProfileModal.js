@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import { newPicChange } from "../../redux/actionCreators/graphicsAC";
+import * as AuthorizationAction from '../../redux/reducers/MAIN';
 
 const ProfileModal = ({ setOpen }) => {
   const dispatch = useDispatch();
@@ -15,13 +16,17 @@ const ProfileModal = ({ setOpen }) => {
   const userTarget = useSelector((state) => state.info.targetWeight);
   const id = useSelector((state) => state.auth.userId);
   const userProfileImg = useSelector((state) => state.auth.userProfileImg);
-  console.log(id);
   const inputRef = useRef(null);
+  const onSignOutClick = () => {
+    dispatch(AuthorizationAction.signOut());
+    setOpen((prev) => !prev);
+  };
 
   const goToEdit = () => {
     history.push("/edit");
     setOpen((prev) => !prev);
   };
+
 
   //upload pic
   const uploadOnChange = async (e) => {
@@ -73,6 +78,7 @@ const ProfileModal = ({ setOpen }) => {
       <span>{userTarget}</span>
 
       <button onClick={goToEdit}>Change My Details</button>
+      <button onClick={onSignOutClick}>LogOut</button>
     </>
   );
 };
