@@ -1,23 +1,25 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import * as AuthorizationAction from '../../redux/reducers/MAIN';
 
 const ProfileModal = ({ setOpen }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
 
   //use selectors
   const userName = useSelector((state) => state.auth.userName);
   const userEmail = useSelector((state) => state.auth.userEmail);
   const userTarget = useSelector((state) => state.info.targetWeight);
+  const onSignOutClick = () => {
+    dispatch(AuthorizationAction.signOut());
+    setOpen((prev) => !prev);
+  };
 
   const goToEdit = () => {
     history.push("/edit");
     setOpen((prev) => !prev);
-    console.log('dsffsdf')
   };
   return (
     <>
@@ -39,6 +41,7 @@ const ProfileModal = ({ setOpen }) => {
 
       {/* <button>Change Name</button> */}
       <button onClick={goToEdit}>Change My Details</button>
+      <button onClick={onSignOutClick}>LogOut</button>
     </>
   );
 };

@@ -15,7 +15,7 @@ body {
 }
 
 .light {
-  background-color: rgb(255, 255, 254);
+  background-color: #B6C6EB;
   color: black;
   border: 5px solid white;
   border-radius: 15px;
@@ -46,5 +46,17 @@ body {
   background-color: dimgray;
   overflow: hidden;
 }
+
+a{
+  text-decoration: none;
+  font-size: 18px;
+  color: aliceblue;
+}
+
+a:hover{
+  color: blue;
+  font-size: 18px;
+}
+
 
 
