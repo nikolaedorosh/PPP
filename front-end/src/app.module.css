@@ -15,16 +15,16 @@ body {
 }
 
 .light {
-  background-color: rgb(255, 180, 19);
+  background-color: rgb(219, 166, 50);
   color: black;
   border: 5px solid white;
   border-radius: 15px;
   margin: 15px;
   padding: 15px;
   filter: drop-shadow(2px 2px 5px black);
-}
+} 
 
-.buttons {
+ .buttons {
   display: flex;
   justify-content: space-around;
 }

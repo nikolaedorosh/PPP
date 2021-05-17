@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 // import { Link } from "react-router-dom";
 // import { Button, Modal } from "reactstrap";
@@ -12,11 +11,16 @@ import MenuIcon from '@material-ui/icons/Menu';
 import FormGroup from '@material-ui/core/FormGroup';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
+import ProfileModal from '../ProfileModal/ProfileModal';
+import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    justifyContent: 'space-between',
+    width: '100%'
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -24,6 +28,12 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  changeTheme: {
+    marginLeft: theme.spacing(2),    // <--------------------
+  },
+  linkStyle:{
+    color:'white'
+  }
 }));
 
 function Header({ darkTheme, setDarkTheme }) {
@@ -35,21 +45,17 @@ function Header({ darkTheme, setDarkTheme }) {
     setOpen((prev) => !prev);
   }
   return (
-
-    <div className={classes.root}>
-      <AppBar position="static" color="transparent">
-        <Toolbar variant="dense">
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-            <Link to="/">Home</Link>
-            <Link to="/logger">Logger</Link>
-            <Link to="/edit">Edit</Link>
-          </IconButton>
+    <AppBar position="static" color="primary" >
+      <Toolbar variant="dense" className={classes.root}>
+        <Typography variant="h6" color="inherit">
+          PPP
+        </Typography>
+        <Box className={classes.linkStyle}>
+          <Link to="/">Home</Link>
+          <Link to="/logger">Logger</Link>
+          <Link to="/edit">Edit</Link>
+        </Box>
+        <Box className={classes.changeTheme} display='flex' justifyContent="flex-end" alignItems='center'>
           <FormGroup>
             <FormControlLabel
               control={
@@ -60,27 +66,30 @@ function Header({ darkTheme, setDarkTheme }) {
               }
             />
           </FormGroup>
-          {/* <Typography variant="h6" color="inherit">
-            Photos
-          </Typography> */}
-        </Toolbar>
-      </AppBar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+            onClick={openProfile}
+            placeholder="Profile"
+          >
+            <MenuIcon />
+          </IconButton>
+        </Box>
 
-
-
-      <Button onClick={openProfile}>profile</Button>
-
-      <Modal
-        fade={false}
-        style={{ width: "40%", bottom: "5%", left: "30%" }}
-        toggle={openProfile}
-        isOpen={open}
-      >
-        <div style={{ height: "100vh" }}>
-          <ProfileModal setOpen={setOpen} />
-        </div>
-      </Modal>
-    </div>
+        {/* <Modal
+            fade={false}
+            style={{ width: '40%', bottom: '5%', left: '30%' }}
+            toggle={openProfile}
+            isOpen={open}
+          >
+            <div style={{ height: '100vh' }}>
+              <ProfileModal setOpen={setOpen} />
+            </div>
+          </Modal> */}
+      </Toolbar>
+    </AppBar>
   );
 }
 
