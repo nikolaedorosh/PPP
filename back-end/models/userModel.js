@@ -16,12 +16,6 @@ const userSchema = new Schema({
     carbohydrates: Number,
     fats: Number,
   },
-  food: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Meal",
-    },
-  ],
 });
 
 const userModel = model("User", userSchema);

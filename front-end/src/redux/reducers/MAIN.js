@@ -25,11 +25,11 @@ const mainReducer = (state = [], action) => {
           meals: state.food.meals.filter((el) => el.date !== action.payload),
         },
       };
-    case TYPES.GET_USERS:
-      return {
-        ...state,
-        graphics: action.payload,
-      };
+      case TYPES.SET_WEEK:
+        return {
+          ...state,
+          week: action.payload
+        };
     case TYPES.SIGN_IN:
       return {
         ...state,

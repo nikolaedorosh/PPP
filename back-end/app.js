@@ -17,9 +17,9 @@ const mainRouter = require("./routes/mainRouter");
 const app = express();
 
 app.use(logger("dev"));
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
 
 app.use("/logger", loggerRouter);
 app.use("/", mainRouter);

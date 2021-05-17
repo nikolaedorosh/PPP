@@ -1,33 +1,21 @@
 import * as TYPES from "../types/types";
 
-const getUsersThunk = () => async (dispatch, getState) => {
-  const requestUsers = await fetch("http://localhost:3000/logger");
-  const respondUsers = await requestUsers.json();
-  dispatch(getUsers(respondUsers));
+const getUsersThunk = (id) => async (dispatch, getState) => {
+  const resp = await fetch("http://localhost:3000/logger", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({id: id})
+  })
+  const res = await resp.json()
+  dispatch(setWeek(res))
 };
 
-function getUsers(users) {
-  return {
-    type: TYPES.GET_USERS,
-    payload: users,
-  };
+function setWeek(week) {
+  return {type: TYPES.SET_WEEK,
+  payload: week}
 }
 
-const getGrapForOneDay = () => async (dispatch, getState) => {
-  const requestGraf = await fetch("http://localhost:3000/logger");
-  const respondGraf = await requestGraf.json();
-  console.log(respondGraf, "<---------------respondGraf");
-  dispatch(getGrap(respondGraf));
-};
-function getGrap(grap) {
-  console.log(grap, "<--------usergraps");
-  return {
-    type: TYPES.GET_GRAP,
-    payload: grap,
-  };
-}
-
-export { getUsersThunk, getGrapForOneDay };
+export { getUsersThunk };
 
 //add target to back
 export const addTarget =
@@ -86,8 +74,9 @@ export const initialProfileDataUpdate = (props) => {
 
 // update user details
 export const personalInfoHandler =
-  ({ age, gender, weight, height, activity, id, bmi, targetWeight }) =>
-  async (dispatch, getState) => {
+({ age, gender, weight, height, activity, id, bmi, targetWeight }) =>
+async (dispatch, getState) => {
+    console.log(age, gender, weight, height, activity, id, bmi, targetWeight)
     const Proteins = targetWeight * 4 * 1.5;
     const carbohydrates = targetWeight * 9;
     const fats = targetWeight * 4 * 1.5;
@@ -113,7 +102,6 @@ export const personalInfoHandler =
       body: JSON.stringify(data),
     });
     const dbData = await response.json();
-
     dispatch(newUserData(dbData));
   };
 

@@ -20,7 +20,7 @@ function Header({ darkTheme, setDarkTheme }) {
       </li>
       <Button onClick={openProfile}>profile</Button>
       <Modal fade={false} style={{width: "40%", bottom: "5%", left: "30%"}} toggle={openProfile} isOpen={open}>
-        <div style={{ height: "100vh"}}>
+        <div stwyle={{ height: "100vh"}}>
           hello
         </div>
       </Modal>
