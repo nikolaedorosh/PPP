@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import PageNotFound from "./components/404/404";
 import Logger from "./components/Logger/Logger";
-import SignUp from "./components/SignUp/SignUp";
+// import SignUp from "./components/SignUp/SignUp";
 import styles from "./app.module.css";
 import List from "./components/List/List";
 import BounceLoader from "react-spinners/BounceLoader";
-import ProfileContextProvider from "../src/context/profileContext";
+import WelcomePage from "./components/WelcomePage/WelcomePage";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import Footer from "./components/Footer/Footer";
 import ProfileModal from "./components/ProfileModal/ProfileModal";
@@ -26,8 +26,8 @@ function App() {
         <div className={darkTheme ? styles.dark : styles.light}>
           <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
           <Switch>
-            <Route exact path='/' component={SignUp} />
-            <Route exact path='/edit'>
+            <Route exact path="/welcomepage" component={WelcomePage} />
+            <Route exact path="/edit">
               <EditProfile />
             </Route>
             <Route exact path='/profile'>
@@ -35,7 +35,7 @@ function App() {
               <ProfileModal />
               {/* </ProfileContextProvider> */}
             </Route>
-            <Route exact path='/logger'>
+            <Route exact path="/logger">
               <Logger />
               <List />
             </Route>
