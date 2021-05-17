@@ -7,6 +7,15 @@ const EditProfile = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  //use States
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+  const [activity, setActivity] = useState("");
+  const [bmi, setBmi] = useState("");
+  const [targetWeight, setTargetWeight] = useState("");
+
   //form handler
   const setInputDetailsHandler = (e) => {
     e.preventDefault();
@@ -33,18 +42,11 @@ const EditProfile = () => {
   const id = useSelector((state) => state.auth.userId);
   const email = useSelector((state) => state.auth.userEmail);
 
-  //use States
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [weight, setWeight] = useState("");
-  const [height, setHeight] = useState("");
-  const [activity, setActivity] = useState("");
-  const [bmi, setBmi] = useState("");
-  const [targetWeight, setTargetWeight] = useState("");
 
   const clickHandler = () => {
     history.push("/logger");
   };
+
 
   // on change input
   const changeInputHandler = async (e) => {

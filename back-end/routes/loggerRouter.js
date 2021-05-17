@@ -3,9 +3,12 @@ const userModel = require("../models/userModel");
 const mealModel = require("../models/mealModel");
 const nutritionix = require("nutritionix-api");
 
-router.get("/", async (req, res) => {
-  const allUsers = await userModel.find();
-  return res.json(allUsers);
+router.post("/", async (req, res) => {
+  // const {id} = req.params
+  // const user = await userModel.findOne();
+  // const meals = mealModel.find({ id: user.id })
+  const meals = await mealModel.find()
+  return res.json(meals);
 });
 
 router.post("/getInfo", async (req, res) => {

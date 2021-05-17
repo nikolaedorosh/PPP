@@ -50,7 +50,6 @@ mainRouter.patch("/profileData/:id", async (req, res) => {
 });
 
 mainRouter.patch("/macroData/:id", async (req, res) => {
-  console.log(req.body);
   try {
     const { Proteins, carbohydrates, fats, kcal, targetWeigth } = req.body;
     const macros = await userModel.findByIdAndUpdate(req.params.id, {
@@ -63,7 +62,7 @@ mainRouter.patch("/macroData/:id", async (req, res) => {
 });
 
 mainRouter.post("/profileImg/:id", async (req, res) => {
-  console.log(req.body);
+  console.log(req.params.id, );
   try {
     const macros = await userModel.findByIdAndUpdate(req.params.id, {
       profileImg: { ...req.body },

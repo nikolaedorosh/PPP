@@ -1,5 +1,4 @@
 const initState = {
-  graphics: [],
   info: {
     age: "",
     gender: "",
@@ -24,6 +23,7 @@ const initState = {
     userEmail: "",
     userProfileImg: {},
   },
+  week: []
 };
 
 export default initState;

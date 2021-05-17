@@ -19,6 +19,7 @@ function Header({ darkTheme, setDarkTheme }) {
         <button onClick={() => setDarkTheme(!darkTheme)}>Change Theme</button>
       </li>
       <Button onClick={openProfile}>profile</Button>
+
       <Modal
         fade={false}
         style={{ width: "40%", bottom: "5%", left: "30%" }}
