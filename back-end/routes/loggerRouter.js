@@ -23,7 +23,6 @@ router.post("/getInfo", async (req, res) => {
 router.post("/createMeal", async (req, res) => {
   try {
     const {items, user} = req.body;
-    console.log(items, user)
     const myMeal = await mealModel.create({
       user: user,
       date: Date.now(),
