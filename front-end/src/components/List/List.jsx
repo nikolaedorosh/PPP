@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import Item from "../Item/Item";
 import Meal from "../Meal/Meal";
+import BounceLoader from "react-spinners/BounceLoader";
 import {
   Button,
   Modal,
@@ -21,6 +22,7 @@ import * as TYPES from "../../redux/types/types";
 function List() {
   const meals = useSelector((state) => state.food.meals);
   const options = useSelector((state) => state.food.options);
+  const loadingModal = useSelector((state) => state.loadingModal);
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
@@ -29,6 +31,11 @@ function List() {
 
   function clickHandler() {
     setOpen((prev) => !prev);
+    setText("")
+    dispatch({
+      type: TYPES.CHANGE_OPTIONS,
+      payload: [],
+    });
   }
 
   function tabClickHandler() {
@@ -36,7 +43,12 @@ function List() {
   }
 
   useEffect(() => {
+    dispatch({ type: TYPES.CHANGE_LOAD, payload: {loadingModal: false}});
+  }, [options])
+
+  useEffect(() => {
     if (text) {
+      dispatch({ type: TYPES.CHANGE_LOAD, payload: {loadingModal: true}});
       dispatch(changeTextSaga(text));
     }
   }, [text]);
@@ -72,6 +84,7 @@ function List() {
             </div>
           </ModalHeader>
           <ModalBody>
+          <BounceLoader color="blue" loading={loadingModal} css={{zIndex: "100", position:"absolute", margin: "45%", marginTop: "20%"}}/>
             {!scan ? (
               <>
                 <FormGroup>

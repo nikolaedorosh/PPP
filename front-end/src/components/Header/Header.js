@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useHistory } from 'react-router-dom';
-// import {  Modal } from 'reactstrap';
+import {  Modal } from 'reactstrap';
 import styles from './header.module.css';
 import * as AuthorizationAction from '../../redux/reducers/MAIN';
 // import ProfileModal from '../ProfileModal/ProfileModal';
@@ -18,7 +18,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
-import Modal from '@material-ui/core/Modal';
+// import Modal from '@material-ui/core/Modal';
 import ProfileModal from '../ProfileModal/ProfileModal';
 import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   changeTheme: {
-    marginLeft: theme.spacing(2), // <--------------------
+    marginLeft: theme.spacing(2), 
   },
   linkStyle: {
     width: '500px',
@@ -61,6 +61,7 @@ function Header({ darkTheme, setDarkTheme }) {
     }
   }, [isSignedIn]);
 
+  
   const onSignOutClick = () => {
     dispatch(AuthorizationAction.signOut());
   };
@@ -78,7 +79,7 @@ function Header({ darkTheme, setDarkTheme }) {
         <Link to="/welcomepage">HomePage</Link>
           {userName ? (
             <>
-              <Link to="/profile">Profile</Link>
+              {/* <Link to="/edit">Edit</Link> */}
               <Button>
                 <Link to="/logger">Logger</Link>
               </Button>
@@ -115,13 +116,12 @@ function Header({ darkTheme, setDarkTheme }) {
             onClick={openProfile}
             placeholder="Profile"
           >
+          </IconButton>
             
             <MenuItem onClick={onSignOutClick}>LogOut</MenuItem>
-            {/* <Button onClick={onSignOutClick}>LogOut</Button> */}
-          </IconButton>
         </Box>
-
-        {/* <Modal
+        <Modal
+            
             fade={false}
             style={{ width: '40%', bottom: '5%', left: '30%' }}
             toggle={openProfile}
@@ -130,7 +130,8 @@ function Header({ darkTheme, setDarkTheme }) {
             <div style={{ height: '100vh' }}>
               <ProfileModal setOpen={setOpen} />
             </div>
-          </Modal> */}
+          </Modal>
+
        
       </Toolbar>
     </AppBar>

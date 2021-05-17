@@ -13,7 +13,7 @@ const WelcomePage = () => {
   const [test, setTest] = useState(true);
   const history = useHistory();
   const goToProf = () => {
-    history.push("/profile");
+    history.push("/edit");
   };
   useEffect(() => {
     const params = {

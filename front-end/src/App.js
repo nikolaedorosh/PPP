@@ -6,20 +6,23 @@ import Logger from "./components/Logger/Logger";
 // import SignUp from "./components/SignUp/SignUp";
 import styles from "./app.module.css";
 import List from "./components/List/List";
+import BounceLoader from "react-spinners/BounceLoader";
 import WelcomePage from "./components/WelcomePage/WelcomePage";
 import EditProfile from "./pages/EditProfile/EditProfile";
-
 import Footer from "./components/Footer/Footer";
-
 import ProfileModal from "./components/ProfileModal/ProfileModal";
+import { useSelector } from "react-redux";
 
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
 
+  const loading = useSelector(state => state.loading)
+  
   return (
     <>
       <BrowserRouter>
+      <BounceLoader color="blue" loading={loading} css={{zIndex: "100", position:"absolute", margin: "45%", marginTop: "20%"}}/>
         <div className={darkTheme ? styles.dark : styles.light}>
           <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
           <Switch>
@@ -27,11 +30,11 @@ function App() {
             <Route exact path="/edit">
               <EditProfile />
             </Route>
-            <Route exact path='/profile'>
+            {/* <Route exact path='/profile'> */}
               {/* <ProfileContextProvider> */}
-              <ProfileModal />
+              {/* <ProfileModal /> */}
               {/* </ProfileContextProvider> */}
-            </Route>
+            {/* </Route> */}
             <Route exact path="/logger">
               <Logger />
               <List />
