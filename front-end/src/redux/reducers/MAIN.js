@@ -1,7 +1,12 @@
 import * as TYPES from "../types/types";
 
 const mainReducer = (state = [], action) => {
+  console.log(action.payload)
   switch (action.type) {
+    case TYPES.CHANGE_LOAD:
+    return {
+      ...state,
+      ...action.payload};
     case TYPES.USER_DATA_CHANGE:
       return {
         ...state,

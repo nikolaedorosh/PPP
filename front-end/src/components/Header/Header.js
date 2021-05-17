@@ -28,6 +28,41 @@ function Header({ darkTheme, setDarkTheme }) {
     setOpen((prev) => !prev);
   }
   return (
+
+    <div className={classes.root}>
+      <AppBar position="static" color="transparent">
+        <Toolbar variant="dense">
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
+            <Link to="/">Home</Link>
+            <Link to="/logger">Logger</Link>
+            <Link to="/edit">Edit</Link>
+          </IconButton>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Switch
+                  onClick={() => setDarkTheme(!darkTheme)}
+                  aria-label="login switch"
+                />
+              }
+            />
+          </FormGroup>
+          {/* <Typography variant="h6" color="inherit">
+            Photos
+          </Typography> */}
+        </Toolbar>
+      </AppBar>
+
+
+
+      {/* <Button onClick={openProfile}>profile</Button>
+
     <div className={styles.wrap}>
       <Link to="/welcomepage">HomePage</Link>
       {userName ? (
@@ -55,7 +90,7 @@ function Header({ darkTheme, setDarkTheme }) {
         <div style={{ height: "100vh" }}>
           <ProfileModal setOpen={setOpen} />
         </div>
-      </Modal>
+      </Modal> */}
     </div>
   );
 }

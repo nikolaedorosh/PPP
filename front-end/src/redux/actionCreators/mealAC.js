@@ -8,7 +8,7 @@ function changeOptions(payload) {
   return { type: TYPES.CHANGE_OPTIONS, payload: payload };
 }
 
-export const getMeal = (items) => async (dispatch, getState) => {      
+export const getMeal = (items) => async (dispatch, getState) => {  
   const response = await fetch("http://localhost:3000/logger/createMeal", {
     method: "POST",
     headers: {

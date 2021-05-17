@@ -23,7 +23,9 @@ const initState = {
     userEmail: null,
     userProfileImg: {},
   },
-  week: []
+  week: [],
+  loading: false,
+  loadingModal: false
 };
 
 export default initState;

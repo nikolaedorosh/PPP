@@ -16,3 +16,4 @@ export const DEFAULT_SIGNIN = "DEFAULT_SIGNIN"
 export const GET_GRAP = "GET_GRAP";
 export const GET_GGLID = "GET_GGLID"
 export const SET_WEEK = "SET_WEEK";
+export const CHANGE_LOAD = "CHANGE_LOAD";
