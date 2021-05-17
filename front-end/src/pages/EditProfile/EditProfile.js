@@ -146,6 +146,7 @@ const EditProfile = () => {
           className='age'
           type='number'
           min='0'
+          max='130'
           placeholder='age'
         ></input>
         <input
@@ -158,6 +159,7 @@ const EditProfile = () => {
           onChange={changeInputHandler}
           required='No Input Inserted!'
           className='email'
+          type='email'
           placeholder='email'
         ></input>
         <input
@@ -166,6 +168,7 @@ const EditProfile = () => {
           className='weight'
           type='number'
           min='0'
+          max='400'
           placeholder='weight'
         ></input>
         <input
@@ -173,7 +176,7 @@ const EditProfile = () => {
           onChange={changeInputHandler}
           className='height'
           type='number'
-          min='0'
+          min='300'
           placeholder='height'
         ></input>
         <select className='activity' onChange={changeInputHandler}>
@@ -190,6 +193,8 @@ const EditProfile = () => {
           onChange={changeInputHandler}
           className='targetWeight'
           placeholder='weight target'
+          min='0'
+          max='150'
         ></input>
         <button>Add</button>{" "}
         <button type='button' onClick={clickHandler} color='danger'>
