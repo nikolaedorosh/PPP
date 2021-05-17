@@ -65,7 +65,6 @@ function Logger() {
     ];
 
 
-
   return (
     <>
       <div className={styles.container}>

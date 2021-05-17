@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {useHistory } from 'react-router-dom';
+// import {  Modal } from 'reactstrap';
+import styles from './header.module.css';
+import * as AuthorizationAction from '../../redux/reducers/MAIN';
+// import ProfileModal from '../ProfileModal/ProfileModal';
 // import { Link } from "react-router-dom";
 // import { Button, Modal } from "reactstrap";
-import styles from './header.module.css';
+// import styles from './header.module.css';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -16,11 +22,12 @@ import Modal from '@material-ui/core/Modal';
 import ProfileModal from '../ProfileModal/ProfileModal';
 import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
+import MenuItem from '@material-ui/core/MenuItem';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     justifyContent: 'space-between',
-    width: '100%'
+    width: '100%',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -29,33 +36,67 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   changeTheme: {
-    marginLeft: theme.spacing(2),    // <--------------------
+    marginLeft: theme.spacing(2), // <--------------------
   },
-  linkStyle:{
-    color:'white'
-  }
+  linkStyle: {
+    width: '500px',
+    display:'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    color: 'red'
+  },
 }));
 
 function Header({ darkTheme, setDarkTheme }) {
-  const classes = useStyles();
-
+  const isSignedIn = useSelector((state) => state.auth.isSignedIn);
+  const userName = useSelector((state) => state.auth.userName);
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const classes = useStyles()
+  const history = useHistory();
+  const goToWelcomePage = () => history.push('/welcomepage');
+  useEffect(() => {
+    if (!isSignedIn) {
+      goToWelcomePage();
+    }
+  }, [isSignedIn]);
+
+  const onSignOutClick = () => {
+    dispatch(AuthorizationAction.signOut());
+  };
 
   function openProfile() {
     setOpen((prev) => !prev);
   }
   return (
-    <AppBar position="static" color="primary" >
+    <AppBar position="static" color="primary">
       <Toolbar variant="dense" className={classes.root}>
         <Typography variant="h6" color="inherit">
           PPP
         </Typography>
         <Box className={classes.linkStyle}>
-          <Link to="/">Home</Link>
-          <Link to="/logger">Logger</Link>
-          <Link to="/edit">Edit</Link>
+        <Link to="/welcomepage">HomePage</Link>
+          {userName ? (
+            <>
+              <Link to="/profile">Profile</Link>
+              <Button>
+                <Link to="/logger">Logger</Link>
+              </Button>
+             
+              <Button onClick={openProfile}>profile</Button>
+            </>
+          ) : (
+            <>
+              <Link to="/aboutus"> AboutUs</Link>
+            </>
+          )}
         </Box>
-        <Box className={classes.changeTheme} display='flex' justifyContent="flex-end" alignItems='center'>
+        <Box
+          className={classes.changeTheme}
+          display="flex"
+          justifyContent="flex-end"
+          alignItems="center"
+        >
           <FormGroup>
             <FormControlLabel
               control={
@@ -74,7 +115,9 @@ function Header({ darkTheme, setDarkTheme }) {
             onClick={openProfile}
             placeholder="Profile"
           >
-            <MenuIcon />
+            
+            <MenuItem onClick={onSignOutClick}>LogOut</MenuItem>
+            {/* <Button onClick={onSignOutClick}>LogOut</Button> */}
           </IconButton>
         </Box>
 
@@ -88,23 +131,10 @@ function Header({ darkTheme, setDarkTheme }) {
               <ProfileModal setOpen={setOpen} />
             </div>
           </Modal> */}
+       
       </Toolbar>
     </AppBar>
   );
 }
 
 export default Header;
-
-// <div className={styles.wrap} >
-//   <Link to='/'>Home</Link>
-//   <Link to='/logger'>Logger</Link>
-//   <Link to='/edit'>Edit</Link>
-//   <li className='nav-item'>
-//     <button onClick={() => setDarkTheme(!darkTheme)}>Change Theme</button>
-//   </li>
-//   {/* <Button onClick={openProfile}>profile</Button> */}
-//   <Modal fade={false} style={{width: "40%", bottom: "5%", left: "30%"}} toggle={openProfile} isOpen={open}>
-//     <div style={{ height: "100vh"}}>
-//       hello
-//   </Modal>
-//     </div>

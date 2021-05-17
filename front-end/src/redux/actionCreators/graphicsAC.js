@@ -1,4 +1,6 @@
 import * as TYPES from "../types/types";
+import * as AuthorizationAction from "../reducers/MAIN"; 
+
 
 const getUsersThunk = (id) => async (dispatch, getState) => {
   const resp = await fetch("http://localhost:3000/logger", {
