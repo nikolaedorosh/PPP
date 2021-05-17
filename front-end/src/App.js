@@ -21,8 +21,10 @@ function App() {
   
   return (
     <>
+    { loading?
+    <div style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "black", opacity: 0.6, zIndex: 100}}></div>
+    : <></>}
       <BrowserRouter>
-      <BounceLoader color="blue" loading={loading} css={{zIndex: "100", position:"absolute", margin: "45%", marginTop: "20%"}}/>
         <div className={darkTheme ? styles.dark : styles.light}>
           <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
           <Switch>

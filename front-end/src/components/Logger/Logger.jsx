@@ -48,22 +48,26 @@ function Logger() {
           totalProt += prot;
           totalCal += cal;
           if (j === week[i].items.length - 1) {
-            weekArr.push({targetCarbohydrates: totalCarb, targetFats: totalFat, targetProteins: totalProt, targetKcal: totalCal})
+            weekArr.push({carbohydrates: totalCarb, fats: totalFat, proteins: totalProt, Kcalories: totalCal})
           }
         }
       }
         graphics_target = weekArr;
   
-        const {targetWeight, kcal, proteins, carbohydrates, fats} = info;
-        graphics_need = {targetWeight, kcal, proteins, carbohydrates, fats}
+        const myKcal = info.kcal;
+        const myProt = info.proteins
+        const myCarb = info.carbohydrates
+        const myFat = info.fats
+        graphics_need = {targetKCal: myKcal, targetProt: myProt, targetCarb: myCarb, targetFat: myFat}
       
-    result = [
-      {
-        ...graphics_target[graphics_target.length - 1],
-        ...graphics_need,
-      },
-    ];
+        
+        result = [
+          {
+            ...graphics_target[graphics_target.length - 1],
+            ...graphics_need,
+          },
 
+        ];
 
   return (
     <>
@@ -78,7 +82,7 @@ function Logger() {
           >
             <CartesianGrid strokeDasharray='' stroke='#999' />
             <XAxis dataKey='day' stroke='red'>
-              <Label value='On week' position='insideBottom' />
+              <Label value='Week' position='insideBottom' />
             </XAxis>
             <YAxis stroke='red' />
             <Tooltip />
@@ -90,25 +94,25 @@ function Logger() {
             />
             <Line
               type='monotone'
-              dataKey='targetKcal'
+              dataKey='Kcalories'
               stroke='#ffd500'
               strokeWidth={4}
             />
             <Line
               type='monotone'
-              dataKey='targetFats'
+              dataKey='fats'
               stroke='#73ff00'
               strokeWidth={2}
             />
             <Line
               type='monotone'
-              dataKey='targetProteins'
+              dataKey='proteins'
               stroke='#0004ff'
               strokeWidth={2}
             />
             <Line
               type='monotone'
-              dataKey='targetCarbohydrates'
+              dataKey='carbohydrates'
               stroke='#00fbff'
               strokeWidth={2}
             />
@@ -138,44 +142,44 @@ function Logger() {
             />
             <CartesianGrid stroke='#999' />
 
-            <Bar dataKey='targetKcal' barSize={40} fill='red' />
+            <Bar dataKey='Kcalories' barSize={40} fill='red' />
             <Bar
-              dataKey='needKcal'
+              dataKey='targetKCal'
               barSize={40}
               fill='red'
               isAnimationActive={false}
             >
-              <LabelList dataKey='needKcal' position='top' fill='#ffffff' />
+              <LabelList dataKey='targetKCal' position='top' fill='#ffffff' />
             </Bar>
 
-            <Bar dataKey='targetProteins' barSize={40} fill='#0004ff'></Bar>
+            <Bar dataKey='proteins' barSize={40} fill='#0004ff'></Bar>
             <Bar
-              dataKey='needProt'
+              dataKey='targetProt'
               barSize={40}
               fill='#0004ff'
               isAnimationActive={false}
             >
-              <LabelList dataKey='needProt' position='top' fill='#ffffff' />
+              <LabelList dataKey='targetProt' position='top' fill='#ffffff' />
             </Bar>
 
-            <Bar dataKey='targetCarbohydrates' barSize={40} fill='#00fbff' />
+            <Bar dataKey='carbohydrates' barSize={40} fill='#00fbff' />
             <Bar
-              dataKey='needCarboh'
+              dataKey='targetCarb'
               barSize={40}
               fill='#00fbff'
               isAnimationActive={false}
             >
-              <LabelList dataKey='needCarboh' position='top' fill='#ffffff' />
+              <LabelList dataKey='targetCarb' position='top' fill='#ffffff' />
             </Bar>
 
-            <Bar dataKey='targetFats' barSize={40} fill='#73ff00' />
+            <Bar dataKey='fats' barSize={40} fill='#73ff00' />
             <Bar
-              dataKey='needFast'
+              dataKey='targetFat'
               barSize={40}
               fill='#73ff00'
               isAnimationActive={false}
             >
-              <LabelList dataKey='needFast' position='top' fill='#ffffff' />
+              <LabelList dataKey='targetFat' position='top' fill='#ffffff' />
             </Bar>
           </BarChart>
         </div>

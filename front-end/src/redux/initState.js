@@ -25,7 +25,6 @@ const initState = {
   },
   week: [],
   loading: false,
-  loadingModal: false
 };
 
 export default initState;

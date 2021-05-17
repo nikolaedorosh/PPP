@@ -28,7 +28,12 @@ function Meal({ date, items}) {
   totalKcal += el.info.cal
   totalProteins += el.info.prot
  });
-//  {items[0].name}...
+
+totalCarbohydrates = totalCarbohydrates.toFixed(2)
+totalFats = totalFats.toFixed(2)
+totalKcal = totalKcal.toFixed(2)
+totalProteins = totalProteins.toFixed(2)
+
   return (
     <>
     <Button onClick={clickHandler}>
