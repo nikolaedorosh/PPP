@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {useHistory } from 'react-router-dom';
 import {  Modal } from 'reactstrap';
 import styles from './header.module.css';
-import * as AuthorizationAction from '../../redux/reducers/MAIN';
+// import * as AuthorizationAction from '../../redux/reducers/MAIN';
 // import ProfileModal from '../ProfileModal/ProfileModal';
 // import { Link } from "react-router-dom";
 // import { Button, Modal } from "reactstrap";
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    // marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
@@ -39,11 +39,14 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2), 
   },
   linkStyle: {
-    width: '500px',
+    width: '700px',
     display:'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
     color: 'red'
+  },
+  colorPrimary: {
+    background: '#7196EB'
   },
 }));
 
@@ -62,16 +65,14 @@ function Header({ darkTheme, setDarkTheme }) {
   }, [isSignedIn]);
 
   
-  const onSignOutClick = () => {
-    dispatch(AuthorizationAction.signOut());
-  };
+
 
   function openProfile() {
     setOpen((prev) => !prev);
   }
   return (
-    <AppBar position="static" color="primary">
-      <Toolbar variant="dense" className={classes.root}>
+    <AppBar position="static" className={classes.colorPrimary}>
+      <Toolbar variant="dense" className={classes.root} >
         <Typography variant="h6" color="inherit">
           PPP
         </Typography>
@@ -79,12 +80,10 @@ function Header({ darkTheme, setDarkTheme }) {
         <Link to="/welcomepage">HomePage</Link>
           {userName ? (
             <>
-              {/* <Link to="/edit">Edit</Link> */}
-              <Button>
+              <Button >
                 <Link to="/logger">Logger</Link>
               </Button>
              
-              <Button onClick={openProfile}>profile</Button>
             </>
           ) : (
             <>
@@ -102,8 +101,8 @@ function Header({ darkTheme, setDarkTheme }) {
             <FormControlLabel
               control={
                 <Switch
-                  onClick={() => setDarkTheme(!darkTheme)}
-                  aria-label="login switch"
+                onClick={() => setDarkTheme(!darkTheme)}
+                aria-label="login switch"
                 />
               }
             />
@@ -118,7 +117,7 @@ function Header({ darkTheme, setDarkTheme }) {
           >
             
           </IconButton>
-            <MenuItem onClick={onSignOutClick}>LogOut</MenuItem>
+        <Button onClick={openProfile} style={{color:'white'}}>profile</Button>
         </Box>
         <Modal
             
@@ -127,7 +126,7 @@ function Header({ darkTheme, setDarkTheme }) {
             toggle={openProfile}
             isOpen={open}
           >
-            <div style={{ height: '100vh' }}>
+            <div style={{ height: '100vh'}}>
               <ProfileModal setOpen={setOpen} />
             </div>
           </Modal>
