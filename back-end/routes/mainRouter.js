@@ -2,37 +2,48 @@ const mainRouter = require("express").Router();
 const userModel = require("../models/userModel");
 
 //
-mainRouter.post("/user/:email", async (req, res) => {
-  const { email, name } = req.body;
-  try {
-    if (email && name) {
-      const currentUser = await userModel.findOne({ email });
-      if (currentUser) {
-        return res.json(currentUser);
-      } else {
-        const user = await userModel.create({ name, email });
-        return res.json(user);
-      }
-    } else if (!email) {
-      return status(516).send(
-        "Could not sign in!! Please insert correct email and password"
-      );
-    }
-  } catch (error) {
-    return res.status(500).send(error);
-  }
-});
+// mainRouter.post("/user/:email", async (req, res) => {
+//   const { email, name } = req.body;
+//   try {
+//     if (email && name) {
+//       const currentUser = await userModel.findOne({ email });
+//       if (currentUser) {
+//         return res.json(currentUser);
+//       } else {
+//         const user = await userModel.create({ name, email });
+//         return res.json(user);
+//       }
+//     } else if (!email) {
+//       return status(516).send(
+//         "Could not sign in!! Please insert correct email and password"
+//       );
+//     }
+//   } catch (error) {
+//     return res.status(500).send(error);
+//   }
+// });
 
 mainRouter.patch("/profileData/:id", async (req, res) => {
   try {
-    const personalDetails = await userModel.findByIdAndUpdate(
-      "609ef2b7d02da1867f40dae8",
-      /*req.params.id*/ {
-        info: { ...req.body },
-      }
-    );
-    console.log(personalDetails);
-    return res.json(personalDetails);
+    const user = await userModel.findByIdAndUpdate(req.params.id, {
+      _id: req.body.id,
+      name: req.body.name,
+      email: req.body.email,
+      info: {
+        age: req.body.age,
+        gender: req.body.gender,
+        weight: req.body.weight,
+        height: req.body.height,
+        activity: req.body.activity,
+        bmi: req.body.bmi,
+        Proteins: req.body.Proteins,
+        carbohydrates: req.body.carbohydrates,
+        fats: req.body.fats,
+        kcal: req.body.kcal,
+        targetWeight: req.body.targetWeight,
+      },
+    });
+    return await res.json(user);
   } catch (error) {
     res.send(error);
   }

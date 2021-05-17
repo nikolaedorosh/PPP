@@ -17,72 +17,30 @@ function setWeek(week) {
 
 export { getUsersThunk };
 
-//add target to back
-export const addTarget =
-  ({ targetWeight, userId }) =>
-  async (dispatch) => {
-    const targetProteins = targetWeight * 4 * 1.5;
-    const targetCarbs = targetWeight * 9;
-    const targetFats = targetWeight * 4 * 1.5;
-    const targetKcal = targetProteins + targetCarbs + targetFats;
-
-    const sendTarget = await fetch(
-      `http://localhost:3000/macroData/${userId}`,
-      {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          Proteins: targetProteins,
-          carbohydrates: targetCarbs,
-          fats: targetFats,
-          kcal: targetKcal,
-          targetWeigth: targetWeight,
-        }),
-      }
-    );
-    const receiveTarget = await sendTarget.status;
-
-    dispatch(
-      addMacroInfo({
-        targetKcal,
-        targetFats,
-        targetCarbs,
-        targetProteins,
-        targetWeight: targetWeight,
-      })
-    );
-  };
-
-//add target action
-export const addMacroInfo = (props) => {
-  return {
-    type: TYPES.ADD_TARGET_INFO,
-    payload: props,
-  };
-};
-
-//show db stats after logging
-export const profileUpdate = (firstDataAfterLogin) => (dispatch) => {
-  dispatch(initialProfileDataUpdate(firstDataAfterLogin));
-};
-export const initialProfileDataUpdate = (props) => {
-  return {
-    type: TYPES.INITIAL_UPDATE,
-    payload: props,
-  };
-};
-
 // update user details
 export const personalInfoHandler =
-({ age, gender, weight, height, activity, id, bmi, targetWeight }) =>
-async (dispatch, getState) => {
-    console.log(age, gender, weight, height, activity, id, bmi, targetWeight)
+  ({
+    age,
+    gender,
+    weight,
+    height,
+    activity,
+    id,
+    bmi,
+    targetWeight,
+    email,
+    name,
+  }) =>
+  async (dispatch, getState) => {
     const Proteins = targetWeight * 4 * 1.5;
     const carbohydrates = targetWeight * 9;
     const fats = targetWeight * 4 * 1.5;
     const kcal = Proteins + carbohydrates + fats;
 
     const data = {
+      name,
+      email,
+      id,
       age,
       gender,
       weight,
@@ -95,7 +53,6 @@ async (dispatch, getState) => {
       kcal,
       targetWeight,
     };
-
     const response = await fetch(`http://localhost:3000/profileData/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },

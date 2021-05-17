@@ -30,6 +30,8 @@ const EditProfile = () => {
         id,
         bmi,
         targetWeight,
+        name,
+        email,
       })
     );
     history.push("/logger");
@@ -38,6 +40,7 @@ const EditProfile = () => {
   // use selectors
   const name = useSelector((state) => state.auth.userName);
   const id = useSelector((state) => state.auth.userId);
+  const email = useSelector((state) => state.auth.userEmail);
 
 
   const clickHandler = () => {
@@ -121,7 +124,7 @@ const EditProfile = () => {
 
   return (
     <>
-      <h2>Hi {name}</h2>
+      <h2> {name},</h2>
       <span>Please insert all your details here!</span>
       <br />
       <br />

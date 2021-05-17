@@ -5,7 +5,26 @@ const mainReducer = (state = [], action) => {
     case TYPES.USER_DATA_CHANGE:
       return {
         ...state,
-        info: action.payload,
+        auth: {
+          ...state.auth,
+          userId: action.payload._id,
+          userName: action.payload.name,
+          userEmail: action.payload.email,
+        },
+        info: {
+          ...state.info,
+          age: action.payload.age,
+          gender: action.payload.gender,
+          weight: action.payload.weight,
+          height: action.payload.height,
+          activity: action.payload.activity,
+          bmi: action.payload.bmi,
+          Proteins: action.payload.Proteins,
+          carbohydrates: action.payload.carbohydrates,
+          fats: action.payload.fats,
+          kcal: action.payload.kcal,
+          targetWeight: action.payload.targetWeight,
+        },
       };
     case TYPES.CHANGE_OPTIONS:
       return {
