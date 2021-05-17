@@ -19,10 +19,10 @@ const initState = {
   },
   auth: {
     isSignedIn: null,
-    userId: "",
-    userName: "",
-    userEmail: "",
-    userProfileImg: {},
+    userId: "609ef289d02da1867f40dae7",
+    userName: "O",
+    userEmail: "o@o.com",
+    userProfileImg: "img-1621266213352.png",
   },
 };
 

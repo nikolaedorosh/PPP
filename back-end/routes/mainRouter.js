@@ -1,32 +1,49 @@
 const mainRouter = require("express").Router();
 const userModel = require("../models/userModel");
+const Img = require("../models/imgModel");
+const multer = require("multer");
+const mongoose = require("mongoose");
+const uploadMulter = require("../controller/multer");
 
-//
-// mainRouter.post("/user/:email", async (req, res) => {
-//   const { email, name } = req.body;
-//   try {
-//     if (email && name) {
-//       const currentUser = await userModel.findOne({ email });
-//       if (currentUser) {
-//         return res.json(currentUser);
-//       } else {
-//         const user = await userModel.create({ name, email });
-//         return res.json(user);
-//       }
-//     } else if (!email) {
-//       return status(516).send(
-//         "Could not sign in!! Please insert correct email and password"
-//       );
-//     }
-//   } catch (error) {
-//     return res.status(500).send(error);
-//   }
-// });
+//upload pic
+mainRouter.post(
+  "/picUpload/:id",
+  uploadMulter.single("photo"),
+  async (req, res, next) => {
+    try {
+      const userID = "609ef2b7d02da1867f40dae8";
+      const img = new Img({
+        user: userID,
+        path: req.file.filename,
+      });
 
+      await img.save();
+      await userModel.findByIdAndUpdate(
+        { _id: mongoose.Types.ObjectId(userID) },
+        { $push: { img: img.id } }
+      );
+
+      return res.json({
+        status: "OK",
+        file: {
+          id: img._id,
+          userID: img.user,
+          path: img.path,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    }
+  }
+);
+
+//upload edit data
 mainRouter.patch("/profileData/:id", async (req, res) => {
-  try {
-    const user = await userModel.findByIdAndUpdate(req.params.id, {
-      _id: req.body.id,
+  const user = await userModel.findByIdAndUpdate(
+    //req.params.id ,
+    "609ef2b7d02da1867f40dae8",
+    {
       name: req.body.name,
       email: req.body.email,
       info: {
@@ -42,36 +59,18 @@ mainRouter.patch("/profileData/:id", async (req, res) => {
         kcal: req.body.kcal,
         targetWeight: req.body.targetWeight,
       },
-    });
-    return await res.json(user);
-  } catch (error) {
-    res.send(error);
-  }
+    },
+    { new: true }
+  );
+  return res.json(user);
 });
 
-mainRouter.patch("/macroData/:id", async (req, res) => {
-  console.log(req.body);
-  try {
-    const { Proteins, carbohydrates, fats, kcal, targetWeigth } = req.body;
-    const macros = await userModel.findByIdAndUpdate(req.params.id, {
-      target: { ...req.body },
-    });
-    return res.sendStatus(200);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-mainRouter.post("/profileImg/:id", async (req, res) => {
-  console.log(req.body);
-  try {
-    const macros = await userModel.findByIdAndUpdate(req.params.id, {
-      profileImg: { ...req.body },
-    });
-    return res.sendStatus(200);
-  } catch (error) {
-    res.send(error);
-  }
+mainRouter.post("/api/v1/findPic/:id", async (req, res) => {
+  const user = await userModel.findById(
+    //req.params.id ,
+    { _id: "609ef2b7d02da1867f40dae8" }
+  );
+  res.json(user.img);
 });
 
 module.exports = mainRouter;

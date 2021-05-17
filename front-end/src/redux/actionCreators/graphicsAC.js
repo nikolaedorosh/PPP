@@ -65,14 +65,15 @@ export const personalInfoHandler =
       kcal,
       targetWeight,
     };
+    console.log(data);
     const response = await fetch(`http://localhost:3000/profileData/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
     const dbData = await response.json();
-    console.log(dbData);
 
+    // _id: req.body.id,
     dispatch(newUserData(dbData));
   };
 
@@ -85,23 +86,11 @@ export const newUserData = (data) => {
 };
 
 //upload Img
-export const uploadImg =
-  ({ img, id }) =>
-  async (dispatch) => {
-    const response = await fetch(`http://localhost:3000/profileImg/${id}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(img),
-    });
-    const dbImg = await response.json();
-    console.log(dbImg);
-    dispatch(uploadNewPic(img));
-  };
+//
+export const newPicChange = (newPicture) => (dispatch) => {
+  dispatch(newPic(newPicture.file.path));
+};
 
-//upload img action
-export const uploadNewPic = (data) => {
-  return {
-    type: TYPES.PIC_UPLOAD,
-    payload: data,
-  };
+export const newPic = (data) => {
+  return { type: TYPES.PIC_UPLOAD, payload: data };
 };

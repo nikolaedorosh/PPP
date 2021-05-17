@@ -29,11 +29,13 @@ const EditProfile = () => {
   };
 
   // use selectors
-  const name = useSelector((state) => state.auth.userName);
+  const userName = useSelector((state) => state.auth.userName);
   const id = useSelector((state) => state.auth.userId);
-  const email = useSelector((state) => state.auth.userEmail);
+  const userEmail = useSelector((state) => state.auth.userEmail);
 
   //use States
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [weight, setWeight] = useState("");
@@ -52,6 +54,12 @@ const EditProfile = () => {
     switch (e.target.className.split(" ")[0]) {
       case "gender":
         setGender(input);
+        break;
+      case "email":
+        setEmail(input);
+        break;
+      case "name":
+        setName(input);
         break;
       case "age":
         setAge(input);
@@ -122,7 +130,7 @@ const EditProfile = () => {
 
   return (
     <>
-      <h2> {name},</h2>
+      <h2> {userName},</h2>
       <span>Please insert all your details here!</span>
       <br />
       <br />
@@ -139,6 +147,18 @@ const EditProfile = () => {
           type='number'
           min='0'
           placeholder='age'
+        ></input>
+        <input
+          onChange={changeInputHandler}
+          required='No Input Inserted!'
+          className='name'
+          placeholder='name'
+        ></input>
+        <input
+          onChange={changeInputHandler}
+          required='No Input Inserted!'
+          className='email'
+          placeholder='email'
         ></input>
         <input
           required='No Input Inserted!'
