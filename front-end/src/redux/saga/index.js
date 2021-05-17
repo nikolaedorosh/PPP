@@ -1,36 +1,46 @@
 import { put, call, debounce } from "redux-saga/effects";
 import { changeOptions } from "../actionCreators/mealAC";
-import { CHANGE_OPTIONS_SAGA } from "../types/foodTypes";
+import * as TYPES from "../types/types";
 
-async function fetchAddMeal (text) {
+async function fetchAddMeal(text) {
   if (text) {
     return await fetch(`http://localhost:3000/logger/getInfo`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({text: text})
+      body: JSON.stringify({ text: text }),
     })
-    .then(resp => resp.json())
-    .then(resp => {
-      return resp.map(el => {
-        return {name: el.food_name, num: el.serving_qty, image: el.photo.thumb, info: {cal: el.nf_calories, fat: el.nf_total_fat, carb: el.nf_total_carbohydrate, prot: el.nf_protein}}
-      }) 
-    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        return resp.map((el) => {
+          return {
+            name: el.food_name,
+            num: el.serving_qty,
+            image: el.photo.thumb,
+            info: {
+              cal: el.nf_calories,
+              fat: el.nf_total_fat,
+              carb: el.nf_total_carbohydrate,
+              prot: el.nf_protein,
+            },
+          };
+        });
+      });
   }
 }
 
 function changeTextSaga(payload) {
-  return { type: CHANGE_OPTIONS_SAGA, payload: payload}
+  return { type: TYPES.CHANGE_OPTIONS_SAGA, payload: payload };
 }
 
-function* workerAddMealLoad({payload}) { 
+function* workerAddMealLoad({ payload }) {
   const options = yield call(fetchAddMeal, payload);
   yield put(changeOptions(options));
 }
 
 export default function* watchAddLoad() {
-  yield debounce(1000, CHANGE_OPTIONS_SAGA, workerAddMealLoad)
+  yield debounce(1000, TYPES.CHANGE_OPTIONS_SAGA, workerAddMealLoad);
 }
 
-export {changeTextSaga}
+export { changeTextSaga };

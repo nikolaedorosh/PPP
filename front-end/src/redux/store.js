@@ -1,21 +1,19 @@
-import rootReducer from "./reducers/rootReduces";
+import MAIN from "./reducers/MAIN";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware } from "redux";
-import initState from "./initState"
-import { composeWithDevTools } from 'redux-devtools-extension';
-import watchAddLoad from './saga';
-import createSagaMiddleware from 'redux-saga';
+import initState from "./initState";
+import { composeWithDevTools } from "redux-devtools-extension";
+import watchAddLoad from "./saga";
+import createSagaMiddleware from "redux-saga";
 
 const sagaMiddleware = createSagaMiddleware();
 
+const store = createStore(
+  MAIN,
+  initState,
+  composeWithDevTools(applyMiddleware(thunk, sagaMiddleware))
+);
 
-  const store = createStore(
-    rootReducer, initState,
-    composeWithDevTools(applyMiddleware(thunk, sagaMiddleware))
-  );
-
-
-  sagaMiddleware.run(watchAddLoad);
-
+sagaMiddleware.run(watchAddLoad);
 
 export default store;

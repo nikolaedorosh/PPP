@@ -1,29 +1,6 @@
-
-import { GET_USERS,GET_GRAP} from "../types/grafTypes";
-import {
-  ADD_TARGET_INFO,
-  INITIAL_UPDATE,
-  USER_DATA_CHANGE,
-  PIC_UPLOAD,
-} from "../types/foodTypes";
-import multer from "multer";
-
-
-// function changeStatusonKcal() {
-//   return {
-//     type: CHANGE_KCAL,
-//   }
-// }
-
-// function changeAllStatus(){
-//   return{
-//     type:CHANGE_ALL_STATUS
-//   }
-// }
-
+import * as TYPES from "../types/types";
 
 const getUsersThunk = () => async (dispatch, getState) => {
-
   const requestUsers = await fetch("http://localhost:3000/logger");
   const respondUsers = await requestUsers.json();
   dispatch(getUsers(respondUsers));
@@ -31,27 +8,26 @@ const getUsersThunk = () => async (dispatch, getState) => {
 
 function getUsers(users) {
   return {
-    type: GET_USERS,
+    type: TYPES.GET_USERS,
     payload: users,
   };
 }
 
-
-// const getGrapForOneDay = () => async (dispatch, getState) =>{
-//   const requestGraf = await fetch("http://localhost:3000/logger")
+// const getGrapForOneDay = () => async (dispatch, getState) => {
+//   const requestGraf = await fetch("http://localhost:3000/logger");
 //   const respondGraf = await requestGraf.json();
-//   console.log(respondGraf, '<---------------respondGraf')
+//   console.log(respondGraf, "<---------------respondGraf");
 //   dispatch(getGrap(respondGraf));
-// }
+// };
 // function getGrap(grap) {
-//   console.log(grap, '<--------usergraps')
+//   console.log(grap, "<--------usergraps");
 //   return {
-//     type: GET_GRAP,
+//     type: TYPES.GET_GRAP,
 //     payload: grap,
 //   };
 // }
 
-export  {getUsersThunk}
+export { getUsersThunk };
 
 //add target to back
 export const addTarget =
@@ -78,7 +54,6 @@ export const addTarget =
     );
     const receiveTarget = await sendTarget.status;
 
-
     dispatch(
       addMacroInfo({
         targetKcal,
@@ -93,7 +68,7 @@ export const addTarget =
 //add target action
 export const addMacroInfo = (props) => {
   return {
-    type: ADD_TARGET_INFO,
+    type: TYPES.ADD_TARGET_INFO,
     payload: props,
   };
 };
@@ -104,7 +79,7 @@ export const profileUpdate = (firstDataAfterLogin) => (dispatch) => {
 };
 export const initialProfileDataUpdate = (props) => {
   return {
-    type: INITIAL_UPDATE,
+    type: TYPES.INITIAL_UPDATE,
     payload: props,
   };
 };
@@ -145,7 +120,7 @@ export const personalInfoHandler =
 //update user action
 export const newUserData = (data) => {
   return {
-    type: USER_DATA_CHANGE,
+    type: TYPES.USER_DATA_CHANGE,
     payload: data,
   };
 };
@@ -154,8 +129,6 @@ export const newUserData = (data) => {
 export const uploadImg =
   ({ img, id }) =>
   async (dispatch) => {
-    const upload = multer({ dest: "uploads/" });
-    console.log(img);
     const response = await fetch(`http://localhost:3000/profileImg/${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -169,7 +142,7 @@ export const uploadImg =
 //upload img action
 export const uploadNewPic = (data) => {
   return {
-    type: PIC_UPLOAD,
+    type: TYPES.PIC_UPLOAD,
     payload: data,
   };
 };

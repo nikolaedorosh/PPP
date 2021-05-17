@@ -9,6 +9,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import List from "./components/List/List";
 import ProfileContextProvider from "../src/context/profileContext";
 import EditProfile from "./pages/EditProfile/EditProfile";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
@@ -19,13 +20,7 @@ function App() {
         <div className={darkTheme ? styles.dark : styles.light}>
           <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
           <Switch>
-            <Route exact path='/signup' component={SignUp} />
-            <Route exact path='/signin'>
-              <p>signin</p>
-            </Route>
-            <Route exact path='/'>
-              <p>welcome page</p>
-            </Route>
+            <Route exact path='/' component={SignUp} />
             <Route exact path='/edit'>
               <EditProfile />
             </Route>
@@ -42,6 +37,9 @@ function App() {
               <PageNotFound />
             </Route>
           </Switch>
+          <Footer>
+            
+          </Footer>
         </div>
       </BrowserRouter>
     </>
