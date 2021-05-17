@@ -32,31 +32,7 @@ function Logger() {
       dispatch(getUsersThunk(id));
     }, [today]);
     
-  //   useEffect(() => {
-  //     if (week.length) {
-  //       const {targetCarbohydrates, targetFats, targetProteins, targetKcal} = weekArr[weekArr.length - 1];
-  //       today.map((meal) => meal.items.map((item) => {
-  //         console.log(item)
-  //         switch (item.info) {
-  //           case "carb":
-  //             weekArr[weekArr.length - 1] = {targetCarbohydrates: targetCarbohydrates + item.info}
-  //             break;
-  //           case "fat":
-  //             weekArr[weekArr.length - 1] = {targetFats: targetFats + item.info}
-  //             break;
-  //           case "cal":
-  //             weekArr[weekArr.length - 1] = {targetKcal: targetKcal + item.info}
-  //             break;
-  //           case "prot":
-  //             weekArr[weekArr.length - 1] = {targetProteins: targetProteins + item.info}
-  //             break;
-  //           default:
-  //             break;
-  //         }
-  //       }))
-  //     }
 
-  // }, [today])
 
 
       let weekArr = []
@@ -87,6 +63,7 @@ function Logger() {
         ...graphics_need,
       },
     ];
+
 
 
   return (

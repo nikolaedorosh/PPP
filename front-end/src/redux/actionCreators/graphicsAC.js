@@ -12,11 +12,13 @@ const getUsersThunk = (id) => async (dispatch, getState) => {
 
 function setWeek(payload) {
   return {
+
   type: TYPES.SET_WEEK,
   payload: payload}
 }
 
 export { getUsersThunk };
+
 
 // update user details
 export const personalInfoHandler =
@@ -71,24 +73,3 @@ export const newUserData = (data) => {
   };
 };
 
-//upload Img
-export const uploadImg =
-  ({ img, id }) =>
-  async (dispatch) => {
-    const response = await fetch(`http://localhost:3000/profileImg/${id}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(img),
-    });
-    const dbImg = await response.json();
-    console.log(dbImg);
-    dispatch(uploadNewPic(img));
-  };
-
-//upload img action
-export const uploadNewPic = (data) => {
-  return {
-    type: TYPES.PIC_UPLOAD,
-    payload: data,
-  };
-};

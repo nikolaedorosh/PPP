@@ -11,6 +11,7 @@ router.post("/", async (req, res) => {
   return res.json(meals);
 });
 
+
 router.post("/getInfo", async (req, res) => {
   const { text } = req.body;
   nutritionix.init("da8c820a", "60e4e90848f242488cec22ff8af25e03");
@@ -29,12 +30,15 @@ router.post("/createMeal", async (req, res) => {
       items,
     });
     res.json(myMeal);
+
   } catch (e) {
     res.sendStatus(400);
   }
 });
 
+
 router.post("/deleteMeal", async (req, res) => {
+
   try {
     const { date } = req.body;
     await mealModel.findOneAndDelete(date);

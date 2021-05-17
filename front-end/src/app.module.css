@@ -15,7 +15,7 @@ body {
 }
 
 .light {
-  background-color: rgb(121, 12, 97);
+  background-color: rgb(255, 180, 19);
   color: black;
   border: 5px solid white;
   border-radius: 15px;
@@ -34,7 +34,7 @@ body {
   padding: 0px;
   width: 100%;
   height: 100vh;
-  background-color: darkblue;
+  background-color: rgb(101, 101, 112);
   overflow: hidden;
 }
 
