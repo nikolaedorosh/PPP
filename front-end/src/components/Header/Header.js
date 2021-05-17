@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { Button, Modal } from "reactstrap";
 import styles from "./header.module.css";
 import * as AuthorizationAction from "../../redux/reducers/MAIN";
+import ProfileModal from "../ProfileModal/ProfileModal"
 
 function Header({ darkTheme, setDarkTheme }) {
   const isSignedIn = useSelector((state) => state.auth.isSignedIn);
@@ -34,6 +35,7 @@ function Header({ darkTheme, setDarkTheme }) {
           <Link to="/profile">Profile</Link>
           <Link to="/logger">Logger</Link>
           <button onClick={onSignOutClick}>LogOut</button>
+          <Button onClick={openProfile}>profile</Button>
         </>
       ) : (
         <>
@@ -43,17 +45,20 @@ function Header({ darkTheme, setDarkTheme }) {
       <li className="nav-item">
         <button onClick={() => setDarkTheme(!darkTheme)}>Change Theme</button>
       </li>
-      <Button onClick={openProfile}>profile</Button>
       <Modal
         fade={false}
         style={{ width: "40%", bottom: "5%", left: "30%" }}
         toggle={openProfile}
         isOpen={open}
       >
-        <div style={{ height: "100vh" }}>hello</div>
+        
+        <div style={{ height: "100vh" }}>
+          <ProfileModal setOpen={setOpen} />
+        </div>
       </Modal>
     </div>
   );
 }
 
 export default Header;
+

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   LineChart,
@@ -17,23 +17,54 @@ import { getUsersThunk } from "../../redux/actionCreators/graphicsAC";
 import styles from "../Logger/logger.module.css";
 
 function Logger() {
-  const dispatch = useDispatch();
-  const graphics = useSelector((state) => state.graphics);
-  const meal = useSelector((state) => state.meal);
+  const week = useSelector((state) => state.week);
+  const today = useSelector((state) => state.food.meals);
+  const info = useSelector((state) => state.info);
+  const id = useSelector((state) => state.auth.userId);
+  
+  const dispatch = useDispatch()
+
+  let graphics_target;
+  let graphics_need;
+  let result;
 
   useEffect(() => {
-    dispatch(getUsersThunk());
-  }, [meal]);
+      dispatch(getUsersThunk(id));
+    }, [today]);
+    
 
-  let graphics_target = graphics.map((el) => el.target);
-  let graphics_need = graphics.map((el) => el.need);
 
-  let result = [
-    {
-      ...graphics_target[graphics_target.length - 1],
-      ...graphics_need[graphics_need.length - 1],
-    },
-  ];
+
+      let weekArr = []
+      for (let i = 0; i < week.length; i++) {
+        let totalCarb = 0;
+        let totalFat = 0;
+        let totalProt = 0;
+        let totalCal = 0;
+        for (let j = 0; j < week[i].items.length; j++) {
+          const {carb, fat, prot, cal} = week[i].items[j].info
+          totalCarb += carb;
+          totalFat += fat;
+          totalProt += prot;
+          totalCal += cal;
+          if (j === week[i].items.length - 1) {
+            weekArr.push({targetCarbohydrates: totalCarb, targetFats: totalFat, targetProteins: totalProt, targetKcal: totalCal})
+          }
+        }
+      }
+        graphics_target = weekArr;
+  
+        const {targetWeight, kcal, proteins, carbohydrates, fats} = info;
+        graphics_need = {targetWeight, kcal, targetFats: proteins, carbohydrates, fats}
+      
+    result = [
+      {
+        ...graphics_target[graphics_target.length - 1],
+        ...graphics_need,
+      },
+    ];
+
+
 
   return (
     <>

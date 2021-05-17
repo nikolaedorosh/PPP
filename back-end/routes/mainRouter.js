@@ -66,21 +66,31 @@ mainRouter.post("/user/googleauth", async (req, res) => {
 
 mainRouter.patch("/profileData/:id", async (req, res) => {
   try {
-    const personalDetails = await userModel.findByIdAndUpdate(
-      "609ef2b7d02da1867f40dae8",
-      /*req.params.id*/ {
-        info: { ...req.body },
-      }
-    );
-    console.log(personalDetails);
-    return res.json(personalDetails);
+    const user = await userModel.findByIdAndUpdate(req.params.id, {
+      _id: req.body.id,
+      name: req.body.name,
+      email: req.body.email,
+      info: {
+        age: req.body.age,
+        gender: req.body.gender,
+        weight: req.body.weight,
+        height: req.body.height,
+        activity: req.body.activity,
+        bmi: req.body.bmi,
+        Proteins: req.body.Proteins,
+        carbohydrates: req.body.carbohydrates,
+        fats: req.body.fats,
+        kcal: req.body.kcal,
+        targetWeight: req.body.targetWeight,
+      },
+    });
+    return await res.json(user);
   } catch (error) {
     res.send(error);
   }
 });
 
 mainRouter.patch("/macroData/:id", async (req, res) => {
-  console.log(req.body);
   try {
     const { Proteins, carbohydrates, fats, kcal, targetWeigth } = req.body;
     const macros = await userModel.findByIdAndUpdate(req.params.id, {
@@ -93,7 +103,7 @@ mainRouter.patch("/macroData/:id", async (req, res) => {
 });
 
 mainRouter.post("/profileImg/:id", async (req, res) => {
-  console.log(req.body);
+  console.log(req.params.id, );
   try {
     const macros = await userModel.findByIdAndUpdate(req.params.id, {
       profileImg: { ...req.body },

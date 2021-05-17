@@ -9,6 +9,11 @@ import List from "./components/List/List";
 import WelcomePage from "./components/WelcomePage/WelcomePage";
 import EditProfile from "./pages/EditProfile/EditProfile";
 
+import Footer from "./components/Footer/Footer";
+
+import ProfileModal from "./components/ProfileModal/ProfileModal";
+
+
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
 
@@ -22,8 +27,10 @@ function App() {
             <Route exact path="/edit">
               <EditProfile />
             </Route>
-            <Route exact path="/profile">
-              <p>HELLO</p>
+            <Route exact path='/profile'>
+              {/* <ProfileContextProvider> */}
+              <ProfileModal />
+              {/* </ProfileContextProvider> */}
             </Route>
             <Route exact path="/logger">
               <Logger />
@@ -33,6 +40,9 @@ function App() {
               <PageNotFound />
             </Route>
           </Switch>
+          <Footer>
+            
+          </Footer>
         </div>
       </BrowserRouter>
     </>
