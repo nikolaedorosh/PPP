@@ -17,10 +17,10 @@ const initState = {
     meals: [],
   },
   auth: {
-    isSignedIn: null,
-    userId: "",
-    userName: "",
-    userEmail: "",
+    isSignedIn: false, // false
+    userId: null,
+    userName: null,
+    userEmail: null,
     userProfileImg: {},
   },
   week: []
