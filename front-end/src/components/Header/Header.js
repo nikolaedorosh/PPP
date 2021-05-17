@@ -116,8 +116,8 @@ function Header({ darkTheme, setDarkTheme }) {
             onClick={openProfile}
             placeholder="Profile"
           >
-          </IconButton>
             
+          </IconButton>
             <MenuItem onClick={onSignOutClick}>LogOut</MenuItem>
         </Box>
         <Modal
