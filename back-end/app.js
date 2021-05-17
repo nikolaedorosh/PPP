@@ -8,6 +8,8 @@ const cors = require("cors");
 const connectDB = require("./db/connect");
 require("dotenv").config();
 const User = require("./models/userModel");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 const loggerRouter = require("./routes/loggerRouter");
 const mainRouter = require("./routes/mainRouter");

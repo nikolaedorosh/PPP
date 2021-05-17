@@ -1,36 +1,29 @@
 const router = require("express").Router()
 const userModel = require('../models/userModel')
 const mealModel = require('../models/mealModel')
+const nutritionix = require("nutritionix-api");
 
 router.get("/", async (req, res) => {
   const allUsers = await userModel.find();
   return res.json(allUsers);
 });
 
+router.post('/getInfo', async (req, res) => {
+  const {text} = req.body
+  nutritionix.init("da8c820a","60e4e90848f242488cec22ff8af25e03");
+  
+  nutritionix.natural.search(text).then(result => {
+      res.json(result.foods);
+  })
+})
 
 router.post('/createMeal', async (req, res) => {
-  let totalCal = 0;
-  let totalProt = 0;
-  let totalCarb = 0;
-  let totalFat = 0;
 
   try {
-  const mealNames = req.body.map(el => {
-    totalCal += el.info.cal
-    totalProt += el.info.prot
-    totalFat += el.info.fat
-    totalCarb += el.info.carb
-    return el.name
-  })
+  const meals = req.body
   const myMeal = await mealModel.create({
     date: Date.now(),
-    itemNames: mealNames,
-    info: {
-      totalKcal: totalCal,
-      totalProteins: totalProt,
-      totalCarbohydrates:  totalCarb,
-      totalFats: totalFat,
-    },
+    items: meals,
   })
     res.json(myMeal)
   } catch (e) {

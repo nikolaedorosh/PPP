@@ -1,45 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import * as AuthorizationAction from "../../redux/reducers/userReducer";
+import * as AuthorizationAction from "../../redux/reducers/MAIN"; // стало
 
 const WelcomePage = () => {
-  // { isSignedIn, userId, userName }
   const dispatch = useDispatch();
+  const userName = useSelector((state) => state.auth.userName);
   const [inputPass, setInputPass] = useState("");
   const [inputMail, setInputMail] = useState("");
+  const [inputName, setInputName] = useState("");
   const [auth, setAuth] = useState(null);
   const [test, setTest] = useState(true);
-  const userName = useSelector((state) => state.auth.userName);
-
-  const inputPassHandler = (e) => {
-    setInputPass(e.target.value);
+  const history = useHistory();
+  const goToProf = () => {
+    history.push("/profile");
   };
-
-  const inputMailHandler = (e) => {
-    setInputMail(e.target.value);
-  };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    if (inputPass.trim() && inputMail.trim()) {
-      dispatch(
-        AuthorizationAction.addInfo({
-          userName: inputPass.trim(),
-          userEmail: inputMail.trim(),
-        })
-      );
-      // window.location.assign("/profile");
-    } else window.alert("Fill in form fields and try again");
-  };
-
   useEffect(() => {
     const params = {
       clientId:
         "463369379597-u90ubo7t61e08n9m80pmisgrmfh5g9gn.apps.googleusercontent.com",
       scope: "email",
     };
-
     window.gapi.load("client:auth2", () => {
       window.gapi.client.init(params).then(() => {
         setAuth(window.gapi.auth2.getAuthInstance());
@@ -49,90 +30,171 @@ const WelcomePage = () => {
     });
   }, []);
 
-  const history = useHistory();
-  const goToProf = () => {
-    history.push("/profile");
+  const inputPassHandler = (e) => {
+    setInputPass(e.target.value);
+  };
+
+  const inputMailHandler = (e) => {
+    setInputMail(e.target.value);
+  };
+
+  const inputNameHandler = (e) => {
+    setInputName(e.target.value);
+  };
+  // ДО ИЗМЕНЕНИЙ
+  // РАБОЧАЯ ВЕРСИЯ ПО SIGNUP
+  const addNewUser = (userEmail, userPass, userName) => {
+    fetch("http://localhost:3000/user/signupcheck", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: userEmail,
+        pass: userPass,
+        name: userName,
+      }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        response
+          ? dispatch(
+              AuthorizationAction.addInfo({
+                userName: inputName.trim(),
+                userEmail: inputMail.trim(),
+                userId: response,
+              })
+            )
+          : window.alert("This email already exists");
+      });
+  };
+
+  const submitHandler1 = (e) => {
+    e.preventDefault();
+    if (inputPass.trim() && inputMail.trim() && inputName.trim()) {
+      addNewUser(inputMail.trim(), inputPass.trim(), inputName.trim());
+    } else window.alert("Fill in form fields and try again");
+  };
+
+  const signInCheck = (userEmail, userPass) => {
+    fetch("http://localhost:3000/user/signincheck", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: userEmail,
+        pass: userPass,
+      }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        response
+          ? dispatch(
+              AuthorizationAction.addInfo({
+                userName: inputName.trim(),
+                userEmail: inputMail.trim(),
+                userId: response,
+              })
+            )
+          : window.alert("Incorrect email or password");
+      });
+  };
+
+  const submitHandler2 = (e) => {
+    e.preventDefault();
+    if (inputPass.trim() && inputMail.trim() && inputName.trim()) {
+      signInCheck(inputPass.trim(), inputMail.trim());
+    } else window.alert("Fill in form fields and try again");
+  };
+
+  const googleAuth = () => {
+    auth.signIn();
+    let userEmail = auth.currentUser.ee.ft.Qt;
+    let userName = auth.currentUser.ee.ft.Te;
+    // auth.currentUser.ee.ft.Te,
+    // //     userEmail: auth.currentUser.ee.ft.Qt,
+    fetch("http://localhost:3000/user/googleAuth", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: userEmail,
+        name: userName,
+      }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        response
+          ? dispatch(
+              AuthorizationAction.addInfo({
+                userName: userName,
+                userEmail: userEmail,
+                userId: response,
+              })
+            )
+          : window.alert("Something went wrong");
+      });
   };
 
   useEffect(() => {
-    console.log(userName);
     if (userName) {
       goToProf();
     }
   }, [userName]);
 
-  const onAuthChange = (isSignedIn) => {
-    if (isSignedIn) {
-      console.log("Dispatch enter");
-      dispatch(
-        AuthorizationAction.signIn(
-          window.gapi.auth2.getAuthInstance().currentUser.get().getId()
-        )
-      );
-    } else {
-      console.log("Dispatch exit");
-      dispatch(AuthorizationAction.signOut());
-    }
+  const onAuthChange = () => {
+    console.log("Dispatch enter");
+    dispatch(
+      AuthorizationAction.googleId(
+        window.gapi.auth2.getAuthInstance().currentUser.get().getId()
+      )
+    );
   };
-
-  // const history = useHistory()
 
   const onSignInClick = () => {
-    console.log(auth.currentUser.ee.ft.Te);
-    auth.signIn();
-    dispatch(
-      AuthorizationAction.addInfo({
-        userName: auth.currentUser.ee.ft.Te,
-        userEmail: auth.currentUser.ee.ft.Qt,
-      })
-    );
-    // setTimeout(() => {
-    //   history.push('/profile')
-
-    // }, 5000);
-    // .then(window.location.assign("/profile")); редиректит сразу и фетч не до конца отрабатывает, решить(!!!)
+    googleAuth();
+    // auth.signIn();
+    // googleAuth();
+    // dispatch(
+    //   AuthorizationAction.addInfo({
+    //     userName: auth.currentUser.ee.ft.Te,
+    //     userEmail: auth.currentUser.ee.ft.Qt,
+    //   })
+    // );
   };
 
-  const onSignOutClick = () => {
-    auth.signOut();
-  };
-
-  //     const renderAuthButton = () => {
-  //   // if (isSignedIn === null) {
-  //   //   return null;
-  //   // } else
-
-  //   // if (isSignedIn) {
-  //   //   return (
-  //   //     <div>
-  //   //       <span>{userId}</span>
-  //   //       <button onClick={onSignOutClick}>Signout</button>
-  //   //     </div>
-  //   //   );
-  //   // } else {
-  //     return <button onClick={onSignInClick}>Sign In with Google</button>;
-  //   // }
-  // };
   const changeTest = () => {
     setTest(!test);
   };
+
   return (
     <div>
       <h1>Some info about PPP</h1>
       {test ? (
-        <form onSubmit={submitHandler}>
+        <form onSubmit={submitHandler1}>
           <div>
             <input
               placeholder="Type email here..."
               onChange={inputMailHandler}
               value={inputMail}
               type="mail"
+              required
             />
             <input
               placeholder="Type password here..."
               onChange={inputPassHandler}
               value={inputPass}
               type="password"
+              required
+            />
+            <input
+              placeholder="Type your name and second name here..."
+              onChange={inputNameHandler}
+              value={inputName}
+              type="text"
+              required
             />
           </div>
 
@@ -141,19 +203,21 @@ const WelcomePage = () => {
           </button>
         </form>
       ) : (
-        <form onSubmit={submitHandler}>
+        <form onSubmit={submitHandler2}>
           <div>
             <input
               placeholder="Type email here..."
               onChange={inputMailHandler}
               value={inputMail}
               type="mail"
+              required
             />
             <input
               placeholder="Type password here..."
               onChange={inputPassHandler}
               value={inputPass}
               type="password"
+              required
             />
           </div>
 
@@ -163,7 +227,7 @@ const WelcomePage = () => {
         </form>
       )}
       You can choose another way to Sign Up
-      <button onClick={onSignInClick}>Sign Up with Google</button>
+      <button onClick={googleAuth}>Sign Up with Google</button>
       Already have an account? <button onClick={changeTest}>Sign In</button>
     </div>
   );

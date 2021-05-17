@@ -1,108 +1,122 @@
-import { useEffect, useState } from 'react';
-import React from 'react'
-import Item from '../Item/Item';
-import Meal from '../Meal/Meal';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form, FormGroup, Label } from 'reactstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { getMeal } from '../../redux/actionCreators/mealAC';
-import { changeTextSaga } from '../../redux/saga';
-import { CHANGE_OPTIONS } from '../../redux/types/foodTypes';
-
+import { useEffect, useState } from "react";
+import React from "react";
+import Item from "../Item/Item";
+import Meal from "../Meal/Meal";
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Input,
+  Form,
+  FormGroup,
+  Label,
+} from "reactstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getMeal } from "../../redux/actionCreators/mealAC";
+import { changeTextSaga } from "../../redux/saga";
+import * as TYPES from "../../redux/types/types";
 
 function List() {
-
-  const food = useSelector(state => state.food.meals)
-  const options = useSelector(state => state.food.options)
+  const meals = useSelector((state) => state.food.meals);
+  const options = useSelector((state) => state.food.options);
   const dispatch = useDispatch();
 
-  const [open, setOpen] = useState(false)
-  const [scan, setScan] = useState(false)  
-  const [text, setText] = useState(false)  
-  
-  const [meal, setMeal] = useState([])  
-  
+  const [open, setOpen] = useState(false);
+  const [scan, setScan] = useState(false);
+  const [text, setText] = useState(false);
+
   function clickHandler() {
-    setOpen(prev => !prev)
+    setOpen((prev) => !prev);
   }
-  
+
   function tabClickHandler() {
-    setScan(prev => !prev)
+    setScan((prev) => !prev);
   }
 
   useEffect(() => {
     if (text) {
-      dispatch(changeTextSaga(text))
+      dispatch(changeTextSaga(text));
     }
   }, [text]);
 
   function changeText(e) {
-    const textArr = e.target.value.split(' ')
-    if (!textArr.includes("score:")) {
-      setText(e.target.value)
-    } else {
-      const myItem = options.find(el => {
-        return el.score === +textArr[textArr.length - 1]
-      })
-      setMeal(prev => [...prev, {name: myItem.name, info: {cal: myItem.info.cal, prot: myItem.info.prot, carb: myItem.info.carb, fat: myItem.info.fat}}])
-      setText(false)
-      dispatch({
-        type: CHANGE_OPTIONS,
-        payload: []
-      })
-    }
-  }
-    
-    function createMeal(e) {
-      e.preventDefault()
-      dispatch(getMeal(meal))
-      setOpen(prev => !prev)
-      setMeal([])   
+    setText(e.target.value);
   }
 
-  function deleteItem(name) {
-    setMeal(prev => prev.filter(el => el.name !== name))
+  function createMeal(e) {
+    e.preventDefault();
+    dispatch(getMeal(options));
+    setOpen((prev) => !prev);
+    setText("");
+    dispatch({
+      type: TYPES.CHANGE_OPTIONS,
+      payload: [],
+    });
   }
 
   return (
     <>
-      <Button color="danger" onClick={clickHandler}>Eat</Button>
-      <Modal isOpen={open}>
-          <Form onSubmit={createMeal} inline>
-            <ModalHeader>
-              meal 
-              <div>
-                <Button onClick={tabClickHandler} type="button">{scan? "Type": "Scan"}</Button>
-              </div>
-            </ModalHeader>
-            <ModalBody>
-              {!scan? 
-                <>
+      <Button color='danger' onClick={clickHandler}>
+        Eat
+      </Button>
+      <Modal toggle={clickHandler} isOpen={open}>
+        <Form onSubmit={createMeal} inline>
+          <ModalHeader>
+            meal
+            <div>
+              <Button onClick={tabClickHandler} type='button'>
+                {scan ? "Type" : "Scan"}
+              </Button>
+            </div>
+          </ModalHeader>
+          <ModalBody>
+            {!scan ? (
+              <>
                 <FormGroup>
-                <Input onChange={changeText} placeholder="search food" list="food" value={text? text: ""}></Input>
-                  <datalist id="food">
-                  {options.length? options.map(el => 
-                      <option key={Math.random()} value={`${el.name}   score: ${el.score}`}/>
-                    ): <></>}
-                  </datalist>
-              </FormGroup> 
-              {Meal.length? 
-                meal.map(el => 
-                  <Item name={el.name} deleteItem={deleteItem} Kcals={el.info.cal} proteins={el.info.prot} fats={el.info.fat} carbs={el.info.carb}/>
-                  ): <></>}
-                  </>
-                  : "scan"}
-            </ModalBody>
-            <ModalFooter>
+                  <Input
+                    onChange={changeText}
+                    placeholder='search food example: 1 apple 100 grams of buckwheat'
+                    value={text ? text : ""}
+                  ></Input>
+                </FormGroup>
+                {options ? (
+                  options.map((el) => (
+                    <Item
+                      num={el.num}
+                      image={el.image}
+                      Kcals={el.info.cal}
+                      proteins={el.info.prot}
+                      fats={el.info.fat}
+                      carbs={el.info.carb}
+                    />
+                  ))
+                ) : (
+                  <></>
+                )}
+              </>
+            ) : (
+              "scan"
+            )}
+          </ModalBody>
+          <ModalFooter>
             Kcals/proteins/fats/carbs
-              <Button>Add Meal</Button>{' '}
-              <Button type="button" onClick={clickHandler} color="danger">Cancel</Button>
-            </ModalFooter>
-          </Form>
+            <Button>Add Meal</Button>{" "}
+            <Button type='button' onClick={clickHandler} color='danger'>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Form>
       </Modal>
       <div>
-        {food.length? food.map(el => 
-        <Meal key={Math.random()} date={el.date} itemNames={el.itemNames} totalKcal={el.info.totalKcal} totalProteins={el.info.totalProteins} totalCarbohydrates={el.info.totalCarbohydrates} totalFats={el.info.totalFats}/>
-          ) : <> </>}
+        {meals.length ? (
+          meals.map((el) => (
+            <Meal key={Math.random()} date={el.date} items={el.items} />
+          ))
+        ) : (
+          <> </>
+        )}
       </div>
     </>
   );

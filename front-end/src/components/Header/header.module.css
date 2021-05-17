@@ -15,3 +15,20 @@
     text-decoration: none;
     margin: 0 10px;
 }
+
+.modal {
+  position: fixed;
+  width: 30%;
+  height: fit-content;
+  
+  /* top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto; */
+
+  /* border: 2px solid #ccc;
+  border-radius: 3px;
+  background-color: ghostwhite;
+  text-align:center; */
+}

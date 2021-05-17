@@ -1,28 +1,28 @@
 const initState = {
-  isSignedIn: false,
-  userID: null,
   graphics: [],
-  info: { age: "", gender: "", weight: "", height: "", activity: "", bmi: "" },
+  info: {
+    age: "",
+    gender: "",
+    weight: "",
+    height: "",
+    activity: "",
+    bmi: "",
+    targetWeight: null,
+    kcal: null,
+    Proteins: null,
+    carbohydrates: null,
+    fats: null,
+  },
   food: {
     options: [],
-    meals: []
+    meals: [],
   },
   auth: {
-    isSignedIn: null, // false
+    isSignedIn: false, // false
     userId: null,
     userName: null,
     userEmail: null,
-  },
-
-  // graphics: {},
-  // auth: {},
-  // meal: {},
-  profile: {
-    targetWeight: null,
-    targetKcal: null,
-    targetProteins: null,
-    targetCarbs: null,
-    targetFats: null,
+    userProfileImg: {},
   },
 };
 

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   LineChart,
   XAxis,
@@ -10,110 +10,144 @@ import {
   YAxis,
   Bar,
   BarChart,
-  ReferenceLine,
-  ComposedChart,
-  Area
-} from 'recharts';
-import { getUsersThunk } from '../../redux/actionCreators/graphicsAC';
-import styles from '../Logger/logger.module.css';
+  LabelList,
+  Label,
+} from "recharts";
+import { getUsersThunk } from "../../redux/actionCreators/graphicsAC";
+import styles from "../Logger/logger.module.css";
 
 function Logger() {
   const dispatch = useDispatch();
   const graphics = useSelector((state) => state.graphics);
   const meal = useSelector((state) => state.meal);
-  const [graf, setGraf] = useState(true);
-  // const changeStatusHandler = () =>{
-  //   const changeStatusAction = {type:CHANGE_KCAL }
-  //   console.log(changeStatusAction , 'changeStatusAction')
-  //   dispatch(changeStatusAction)
-  // }
 
-  const changeStatusHandler = (e) => {
-    e.preventDefault();
-    setGraf((prev) => (prev = !prev));
-  };
-
-
-  
   useEffect(() => {
-    console.log('ya tut');
     dispatch(getUsersThunk());
-  },[meal]) 
-  
+  }, [meal]);
+
+  let graphics_target = graphics.map((el) => el.target);
+  let graphics_need = graphics.map((el) => el.need);
+
+  let result = [
+    {
+      ...graphics_target[graphics_target.length - 1],
+      ...graphics_need[graphics_need.length - 1],
+    },
+  ];
+
   return (
     <>
       <div className={styles.container}>
-        <div className="line-diagram">
+        <div className='line-diagram'>
+          <h5> Ваше кол-во элементов на неделю:</h5>
           <LineChart
-            width={730}
+            width={530}
             height={250}
-            data={graphics}
+            data={graphics_target}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="day" />
-            <YAxis />
+            <CartesianGrid strokeDasharray='' stroke='#999' />
+            <XAxis dataKey='day' stroke='red'>
+              <Label value='On week' position='insideBottom' />
+            </XAxis>
+            <YAxis stroke='red' />
             <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="fatsNow" stroke="#ffd500" />
-            <Line type="monotone" dataKey="kcalNow" stroke="#73ff00" />
-            <Line type="monotone" dataKey="ProteinsNow" stroke="#0004ff" />
-            <Line type="monotone" dataKey="carbohydratesNow" stroke="#00fbff" />
+            <Legend
+              layout='horizontal'
+              align='right'
+              verticalAlign='bottom'
+              iconType='line'
+            />
+            <Line
+              type='monotone'
+              dataKey='targetKcal'
+              stroke='#ffd500'
+              strokeWidth={4}
+            />
+            <Line
+              type='monotone'
+              dataKey='targetFats'
+              stroke='#73ff00'
+              strokeWidth={2}
+            />
+            <Line
+              type='monotone'
+              dataKey='targetProteins'
+              stroke='#0004ff'
+              strokeWidth={2}
+            />
+            <Line
+              type='monotone'
+              dataKey='targetCarbohydrates'
+              stroke='#00fbff'
+              strokeWidth={2}
+            />
           </LineChart>
         </div>
 
-        <div className="cube-diagram">
-          {graf ? (
-            // <BarChart width={730} height={250} data={graphics}>
-            //     <CartesianGrid strokeDasharray="3 3" />
-            //     <XAxis dataKey="day" />
-            //     <YAxis />
-            //     <Tooltip />
-            //     <Legend />
-            //     <Bar
-            //       dataKey="kcalNow"
-            //       barSize={40}
-            //       stackId="a"
-            //       fill="#80ff00"
-            //     />
-            //     <Bar dataKey="need" stackId="a" fill="#ff0000" />
-            //     <Line type="monotone" dataKey="need" stroke="#ff7300" />
-            //     {/* <ReferenceLine
-            //       y={graphics.need}
-            //       label="Max"
-            //       stroke="red"
-            //       strokeDasharray="3 3"
-            //     /> */}
-            //   </BarChart>
-            
-            <ComposedChart width={730} height={250} data={graphics} >
-              <XAxis dataKey="day" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <CartesianGrid stroke="#f5f5f5" />
-              <Bar dataKey="need"  stackId="a" barSize={40} fill="green" />
-              <Line type='monotoneX' dot={{ stroke: 'red', strokeWidth: 4 ,r:5 }} dataKey="kcalNow" stroke="blue" />
-            </ComposedChart>
-          ) : (
-            <BarChart width={730} height={250} data={graphics}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="weigthKG" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="need" fill="green" />
-              <Bar dataKey="fatsNow" fill="#e60000" />
-              <Bar dataKey="ProteinsNow" fill="#ff33ff" />
-              <Bar dataKey="carbohydratesNow" fill="#3333ff" />
+        <div className='cube-diagram'>
+          <h5> Ваше кол-во элементов на день:</h5>
+          <BarChart
+            width={730}
+            height={250}
+            data={result}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            barCategoryGap='10%'
+            barGap='10'
+          >
+            <XAxis dataKey='day'>
+              <Label value='Current day' position='insideBottom' />
+            </XAxis>
+            <YAxis />
+            <Tooltip />
+            <Legend
+              layout='vertical'
+              align='left'
+              verticalAlign='middle'
+              iconType='rect'
+            />
+            <CartesianGrid stroke='#999' />
 
-              <Bar dataKey="need" fill="green" />
-              <Bar dataKey="fatsNow" fill="#e60000" />
-              <Bar dataKey="ProteinsNow" fill="#ff33ff" />
-              <Bar dataKey="carbohydratesNow" fill="#3333ff" />
-            </BarChart>
-          )}
-          <button onClick={changeStatusHandler}>Kcal/Stats</button>
+            <Bar dataKey='targetKcal' barSize={40} fill='red' />
+            <Bar
+              dataKey='needKcal'
+              barSize={40}
+              fill='red'
+              isAnimationActive={false}
+            >
+              <LabelList dataKey='needKcal' position='top' fill='#ffffff' />
+            </Bar>
+
+            <Bar dataKey='targetProteins' barSize={40} fill='#0004ff'></Bar>
+            <Bar
+              dataKey='needProt'
+              barSize={40}
+              fill='#0004ff'
+              isAnimationActive={false}
+            >
+              <LabelList dataKey='needProt' position='top' fill='#ffffff' />
+            </Bar>
+
+            <Bar dataKey='targetCarbohydrates' barSize={40} fill='#00fbff' />
+            <Bar
+              dataKey='needCarboh'
+              barSize={40}
+              fill='#00fbff'
+              isAnimationActive={false}
+            >
+              <LabelList dataKey='needCarboh' position='top' fill='#ffffff' />
+            </Bar>
+
+            <Bar dataKey='targetFats' barSize={40} fill='#73ff00' />
+            <Bar
+              dataKey='needFast'
+              barSize={40}
+              fill='#73ff00'
+              isAnimationActive={false}
+            >
+              <LabelList dataKey='needFast' position='top' fill='#ffffff' />
+            </Bar>
+          </BarChart>
         </div>
       </div>
     </>
