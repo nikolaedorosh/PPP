@@ -15,16 +15,17 @@ const initState = {
   food: {
     options: [],
     meals: [],
+    scannedImg: null,
   },
   auth: {
-    isSignedIn: false, // false
-    userId: null,
-    userName: null,
-    userEmail: null,
-    userProfileImg: {},
+    isSignedIn: null,
+    userId: "609ef289d02da1867f40dae7",
+    userName: "O",
+    userEmail: "o@o.com",
+    userProfileImg: "img-1621266213352.png",
   },
   week: [],
-  loading: false,
+  loading: false
 };
 
 export default initState;

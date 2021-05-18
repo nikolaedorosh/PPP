@@ -1,12 +1,12 @@
 import * as TYPES from "../types/types";
 
 const mainReducer = (state = [], action) => {
-  console.log(action.payload)
   switch (action.type) {
     case TYPES.CHANGE_LOAD:
-    return {
-      ...state,
-      ...action.payload};
+      return {
+        ...state,
+        ...action.payload,
+      };
     case TYPES.USER_DATA_CHANGE:
       return {
         ...state,
@@ -49,11 +49,11 @@ const mainReducer = (state = [], action) => {
           meals: state.food.meals.filter((el) => el.date !== action.payload),
         },
       };
-      case TYPES.SET_WEEK:
-        return {
-          ...state,
-          week: action.payload
-        };
+    case TYPES.SET_WEEK:
+      return {
+        ...state,
+        week: action.payload,
+      };
     case TYPES.SIGN_IN:
       return {
         ...state,
@@ -65,7 +65,7 @@ const mainReducer = (state = [], action) => {
           userEmail: action.payload.userEmail,
         },
       };
-      case TYPES.GET_GGLID:
+    case TYPES.GET_GGLID:
       return {
         ...state,
         auth: {
@@ -107,7 +107,15 @@ const mainReducer = (state = [], action) => {
     case TYPES.PIC_UPLOAD:
       return {
         ...state,
-        auth: { ...state.auth, userProfileImg: action.payload.profileImg },
+        auth: { ...state.auth, userProfileImg: action.payload },
+      };
+    case TYPES.SCANN_UPLOAD:
+      return {
+        ...state,
+        food: {
+          ...state.food,
+          scannedImg: action.payload,
+        },
       };
 
     default:

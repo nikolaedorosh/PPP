@@ -22,7 +22,7 @@ function Logger() {
   const week = useSelector((state) => state.week);
   const today = useSelector((state) => state.food.meals);
   const info = useSelector((state) => state.info);
-  const id = useSelector((state) => state.auth.userId);
+  const email = useSelector((state) => state.auth.userEmail);
   
   const dispatch = useDispatch()
 
@@ -31,7 +31,7 @@ function Logger() {
   let result;
 
   useEffect(() => {
-      dispatch(getUsersThunk(id));
+      dispatch(getUsersThunk(email));
     }, [today]);
     
 

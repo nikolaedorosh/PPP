@@ -1,6 +1,8 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import EditIcon from "@material-ui/icons/Edit";
+import { newPicChange } from "../../redux/actionCreators/graphicsAC";
 import * as AuthorizationAction from '../../redux/reducers/MAIN';
 
 import React from 'react';
@@ -22,7 +24,9 @@ const ProfileModal = ({ setOpen }) => {
   const userName = useSelector((state) => state.auth.userName);
   const userEmail = useSelector((state) => state.auth.userEmail);
   const userTarget = useSelector((state) => state.info.targetWeight);
-
+  const id = useSelector((state) => state.auth.userId);
+  const userProfileImg = useSelector((state) => state.auth.userProfileImg);
+  const inputRef = useRef(null);
   const onSignOutClick = () => {
     dispatch(AuthorizationAction.signOut());
     setOpen((prev) => !prev);
@@ -53,12 +57,35 @@ const ProfileModal = ({ setOpen }) => {
     }
   }));
   const classes = useStyles();
+
+
+  //upload pic
+  const uploadOnChange = async (e) => {
+    e.preventDefault();
+    const img = e.target.files[0];
+    const data = new FormData();
+    console.log({ img });
+    data.append("photo", img);
+
+    let response = await fetch(`http://localhost:3000/picUpload/${id}`, {
+      method: "POST",
+      body: data,
+    });
+    response = await response.json();
+    console.log(response);
+    dispatch(newPicChange(response));
+  };
+  const picHandler = () => {
+    inputRef.current.click();
+  };
+
+  const newImg = (param) => `/img/${param}`;
   return (
     
     <>
         <DialogTitle>Profile</DialogTitle>
         <Box p={2} className={classes.container} >
-        <Avatar alt="Remy Sharp" src="https://res.cloudinary.com/demo/image/facebook/w_150,h_150,c_fill,d_avatar2.png/non_existing_id.jpg" className={classes.avatar} />
+        <Avatar alt="Remy Sharp" src={"/img/" + userProfileImg} className={classes.avatar} />
         <input
         accept="image/*"
         className={classes.input}
@@ -83,6 +110,24 @@ const ProfileModal = ({ setOpen }) => {
         </Box>
         <Button onClick={goToEdit} variant="outlined">Change My Details</Button>
         <Button  onClick={onSignOutClick} variant="outlined">LogOut</Button>
+      <h2>Profile</h2>
+
+      <div>
+        <img src={"/img/" + userProfileImg} width='100' alt='profile-pic' />
+      </div>
+
+      <input
+        type='file'
+        id='fileUploader'
+        hidden='hidden'
+        ref={inputRef}
+        onChange={uploadOnChange}
+      />
+      <IconButton onClick={picHandler} className='button'>
+        <EditIcon />
+      </IconButton>
+
+      
     </>
   );
 };
