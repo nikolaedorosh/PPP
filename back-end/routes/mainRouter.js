@@ -20,7 +20,7 @@ mainRouter.post(
       await img.save();
       await userModel.findByIdAndUpdate(
         { _id: mongoose.Types.ObjectId(userID) },
-        { $push: { img: img.id } }
+        { $set /*push*/: { img: img.id } }
       );
 
       return res.json({

@@ -151,28 +151,22 @@ function List() {
               </>
             ) : (
               <>
-                <>
-                  <h2>Scan your item!</h2>
+                <h2>Scan your item!</h2>
 
-                  <div>
-                    <img
-                      src={"/img/" + scannerPic}
-                      width='200'
-                      alt='scan-pic'
-                    />
-                  </div>
+                <div>
+                  <img src={"/img/" + scannerPic} width='200' alt='scan-pic' />
+                </div>
 
-                  <input
-                    type='file'
-                    id='fileUploader'
-                    hidden='hidden'
-                    ref={inputRef}
-                    onChange={uploadOnChange}
-                  />
-                  <IconButton onClick={picHandler} className='button'>
-                    <EditIcon />
-                  </IconButton>
-                </>
+                <input
+                  type='file'
+                  id='fileUploader'
+                  hidden='hidden'
+                  ref={inputRef}
+                  onChange={uploadOnChange}
+                />
+                <IconButton onClick={picHandler} className='button'>
+                  <EditIcon />
+                </IconButton>
               </>
             )}
           </ModalBody>
