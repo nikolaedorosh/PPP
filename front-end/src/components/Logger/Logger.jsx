@@ -17,7 +17,22 @@ import {
 import { getUsersThunk } from '../../redux/actionCreators/graphicsAC';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import { Typography } from '@material-ui/core';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  greeds: {
+    marginTop: 40,
+  },
+  typolog:{
+    marginLeft: 220
+  },
+  typolog2:{
+    marginLeft: 390
+  }
+}));
 function Logger() {
   const week = useSelector((state) => state.week);
   const today = useSelector((state) => state.food.meals);
@@ -28,17 +43,7 @@ function Logger() {
   let graphics_target;
   let graphics_need;
   let result;
-
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
-  }));
+  const classes = useStyles()
 
   useEffect(() => {
     dispatch(getUsersThunk(email));
@@ -87,8 +92,9 @@ function Logger() {
   ];
 
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={6}>
+    <Grid container spacing={3} className={classes.greeds} >
+      <Grid item xs={6} >
+        <Typography className={classes.typolog}>Вывод за неделю:</Typography>
         <LineChart
             width={530}
             height={250}
@@ -134,6 +140,7 @@ function Logger() {
           </LineChart>
       </Grid>
       <Grid item xs={6}>
+      <Typography className={classes.typolog2}>Вывод за день:</Typography>
       <BarChart
             width={730}
             height={250}

@@ -22,6 +22,7 @@ import { getMeal } from '../../redux/actionCreators/mealAC';
 import { changeTextSaga } from '../../redux/saga';
 import * as TYPES from '../../redux/types/types';
 import Grid from '@material-ui/core/Grid';
+import { Box } from '@material-ui/core';
 
 function List() {
   const inputRef = useRef(null);
@@ -98,209 +99,126 @@ function List() {
     inputRef.current.click();
   };
   // const newImg = (param) => `/img/${param}`;
-
+  function FormRow() {
+    return (
+      <React.Fragment>
+        <Grid item xs={6}>
+        </Grid>
+      </React.Fragment>
+    );
+  }
   return (
     <>
       <Grid container spacing={3}>
-        <Grid item xs={12}>
+        <Grid
+          item
+          xs={12}
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          p={5}
+        >
           <Button color="danger" onClick={clickHandler}>
             Eat
           </Button>
         </Grid>
-        <Grid item xs={4}>
-        <Modal toggle={clickHandler} isOpen={open}>
-        <Form onSubmit={createMeal} inline>
-          <ModalHeader>
-            meal
-            <div>
-              <Button onClick={tabClickHandler} type="button">
-                {scan ? 'Type' : 'Scan'}
-              </Button>
-            </div>
-          </ModalHeader>
-          <ModalBody>
-            <BounceLoader
-              color="blue"
-              size={150}
-              loading={loading}
-              css={{
-                zIndex: '100',
-                position: 'absolute',
-                margin: '35%',
-                marginTop: '20%',
-              }}
-            />
-            {!scan ? (
-              <>
-                <FormGroup>
-                  <Input
-                    onChange={changeText}
-                    placeholder="search food example: 1 apple 100 grams of buckwheat"
-                    value={text ? text : ''}
-                  ></Input>
-                </FormGroup>
-                {options ? (
-                  options.map((el) => (
-                    <Item
-                      num={el.num}
-                      image={el.image}
-                      Kcals={el.info.cal}
-                      proteins={el.info.prot}
-                      fats={el.info.fat}
-                      carbs={el.info.carb}
-                    />
-                  ))
+       
+          <Modal toggle={clickHandler} isOpen={open}>
+            <Form onSubmit={createMeal} inline>
+              <ModalHeader>
+                meal
+                <div>
+                  <Button onClick={tabClickHandler} type="button">
+                    {scan ? 'Type' : 'Scan'}
+                  </Button>
+                </div>
+              </ModalHeader>
+              <ModalBody>
+                <BounceLoader
+                  color="blue"
+                  size={150}
+                  loading={loading}
+                  css={{
+                    zIndex: '100',
+                    position: 'absolute',
+                    margin: '35%',
+                    marginTop: '20%',
+                  }}
+                />
+                {!scan ? (
+                  <>
+                    <FormGroup>
+                      <Input
+                        onChange={changeText}
+                        placeholder="search food example: 1 apple 100 grams of buckwheat"
+                        value={text ? text : ''}
+                      ></Input>
+                    </FormGroup>
+                    {options ? (
+                      options.map((el) => (
+                        <Item
+                          num={el.num}
+                          image={el.image}
+                          Kcals={el.info.cal}
+                          proteins={el.info.prot}
+                          fats={el.info.fat}
+                          carbs={el.info.carb}
+                        />
+                      ))
+                    ) : (
+                      <></>
+                    )}
+                  </>
                 ) : (
-                  <></>
+                  <>
+                    <>
+                      <h2>Scan your item!</h2>
+
+                      <div>
+                        <img
+                          src={'/img/' + scannerPic}
+                          width="200"
+                          alt="scan-pic"
+                        />
+                      </div>
+
+                      <input
+                        type="file"
+                        id="fileUploader"
+                        hidden="hidden"
+                        ref={inputRef}
+                        onChange={uploadOnChange}
+                      />
+                      <IconButton onClick={picHandler} className="button">
+                        <EditIcon />
+                      </IconButton>
+                    </>
+                  </>
                 )}
-              </>
-            ) : (
-              <>
-                <>
-                  <h2>Scan your item!</h2>
-
-                  <div>
-                    <img
-                      src={'/img/' + scannerPic}
-                      width="200"
-                      alt="scan-pic"
-                    />
-                  </div>
-
-                  <input
-                    type="file"
-                    id="fileUploader"
-                    hidden="hidden"
-                    ref={inputRef}
-                    onChange={uploadOnChange}
-                  />
-                  <IconButton onClick={picHandler} className="button">
-                    <EditIcon />
-                  </IconButton>
-                </>
-              </>
-            )}
-          </ModalBody>
-          <ModalFooter>
-            Kcals/proteins/fats/carbs
-            <Button>Add Meal</Button>{' '}
-            <Button type="button" onClick={clickHandler} color="danger">
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Form>
-      </Modal>
-      <div>
-        {week.length ? (
-          [...week]
-            .reverse()
-            .map((el) => (
-              <Meal key={Math.random()} date={el.date} items={el.items} />
-            ))
-        ) : (
-          <> </>
-        )}
-      </div>
-        </Grid>
-        {/* <Grid item xs={3}></Grid>
-        <Grid item xs={3}></Grid> */}
+              </ModalBody>
+              <ModalFooter>
+                Kcals/proteins/fats/carbs
+                <Button>Add Meal</Button>{' '}
+                <Button type="button" onClick={clickHandler} color="danger">
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </Form>
+          </Modal>
       </Grid>
-      {/* <Button color='danger' onClick={clickHandler}>
-        Eat
-      </Button> */}
-      {/* <Modal toggle={clickHandler} isOpen={open}>
-        <Form onSubmit={createMeal} inline>
-          <ModalHeader>
-            meal
-            <div>
-              <Button onClick={tabClickHandler} type="button">
-                {scan ? 'Type' : 'Scan'}
-              </Button>
-            </div>
-          </ModalHeader>
-          <ModalBody>
-            <BounceLoader
-              color="blue"
-              size={150}
-              loading={loading}
-              css={{
-                zIndex: '100',
-                position: 'absolute',
-                margin: '35%',
-                marginTop: '20%',
-              }}
-            />
-            {!scan ? (
-              <>
-                <FormGroup>
-                  <Input
-                    onChange={changeText}
-                    placeholder="search food example: 1 apple 100 grams of buckwheat"
-                    value={text ? text : ''}
-                  ></Input>
-                </FormGroup>
-                {options ? (
-                  options.map((el) => (
-                    <Item
-                      num={el.num}
-                      image={el.image}
-                      Kcals={el.info.cal}
-                      proteins={el.info.prot}
-                      fats={el.info.fat}
-                      carbs={el.info.carb}
-                    />
-                  ))
+            <Box display='flex' justifyContent='space-between'>
+            {week.length ? (
+              [...week]
+              .reverse()
+              .map((el) => (
+                <Meal key={Math.random()} date={el.date} items={el.items} />
+                ))
                 ) : (
-                  <></>
-                )}
-              </>
-            ) : (
-              <>
-                <>
-                  <h2>Scan your item!</h2>
-
-                  <div>
-                    <img
-                      src={'/img/' + scannerPic}
-                      width="200"
-                      alt="scan-pic"
-                    />
-                  </div>
-
-                  <input
-                    type="file"
-                    id="fileUploader"
-                    hidden="hidden"
-                    ref={inputRef}
-                    onChange={uploadOnChange}
-                  />
-                  <IconButton onClick={picHandler} className="button">
-                    <EditIcon />
-                  </IconButton>
-                </>
-              </>
-            )}
-          </ModalBody>
-          <ModalFooter>
-            Kcals/proteins/fats/carbs
-            <Button>Add Meal</Button>{' '}
-            <Button type="button" onClick={clickHandler} color="danger">
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Form>
-      </Modal>
-      <div>
-        {week.length ? (
-          [...week]
-            .reverse()
-            .map((el) => (
-              <Meal key={Math.random()} date={el.date} items={el.items} />
-            ))
-        ) : (
-          <> </>
-        )}
-      </div> */}
+                  <> </>
+                  )}
+                  </Box>
+     
     </>
   );
 }
