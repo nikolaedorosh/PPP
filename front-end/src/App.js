@@ -6,11 +6,9 @@ import Logger from "./components/Logger/Logger";
 // import SignUp from "./components/SignUp/SignUp";
 import styles from "./app.module.css";
 import List from "./components/List/List";
-import BounceLoader from "react-spinners/BounceLoader";
 import WelcomePage from "./components/WelcomePage/WelcomePage";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import Footer from "./components/Footer/Footer";
-import ProfileModal from "./components/ProfileModal/ProfileModal";
 import { useSelector } from "react-redux";
 
 
@@ -32,11 +30,6 @@ function App() {
             <Route exact path="/edit">
               <EditProfile />
             </Route>
-            {/* <Route exact path='/profile'> */}
-              {/* <ProfileContextProvider> */}
-              {/* <ProfileModal /> */}
-              {/* </ProfileContextProvider> */}
-            {/* </Route> */}
             <Route exact path="/logger">
               <Logger />
               <List />

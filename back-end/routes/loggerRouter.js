@@ -27,7 +27,7 @@ router.post("/createMeal", async (req, res) => {
     const { items, email } = req.body;
     // const user = await userModel.findOne({email})
     const user = await userModel.findOne({
-      email: "margosha.novikova@gmail.com",
+      // email: "margosha.novikova@gmail.com",
     });
     const myMeal = await mealModel.create({
       user: user._id,
