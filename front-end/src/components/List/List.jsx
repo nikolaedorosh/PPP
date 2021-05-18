@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import React from "react";
 import Item from "../Item/Item";
 import Meal from "../Meal/Meal";
 import BounceLoader from "react-spinners/BounceLoader";
+import IconButton from "@material-ui/core/IconButton";
+import EditIcon from "@material-ui/icons/Edit";
+import { scanPicChange } from "../../redux/actionCreators/graphicsAC";
 import {
   Button,
   Modal,
@@ -20,6 +23,10 @@ import { changeTextSaga } from "../../redux/saga";
 import * as TYPES from "../../redux/types/types";
 
 function List() {
+  const inputRef = useRef(null);
+  const scannerPic = useSelector((state) => state.food.scannedImg);
+  const id = useSelector((state) => state.auth.userId);
+  const meals = useSelector((state) => state.food.meals);
   const options = useSelector((state) => state.food.options);
   const week = useSelector((state) => state.week);
   const email = useSelector((state) => state.auth.userEmail);
@@ -32,7 +39,7 @@ function List() {
 
   function clickHandler() {
     setOpen((prev) => !prev);
-    setText("")
+    setText("");
     dispatch({
       type: TYPES.CHANGE_OPTIONS,
       payload: [],
@@ -44,13 +51,12 @@ function List() {
   }
 
   useEffect(() => {
-      dispatch({ type: TYPES.CHANGE_LOAD, payload: {loading: false}});
-  }, [options])
-
+    dispatch({ type: TYPES.CHANGE_LOAD, payload: { loading: false } });
+  }, [options]);
 
   useEffect(() => {
     if (text) {
-      dispatch({ type: TYPES.CHANGE_LOAD, payload: {loading: true}});
+      dispatch({ type: TYPES.CHANGE_LOAD, payload: { loading: true } });
       dispatch(changeTextSaga(text));
     }
   }, [text]);
@@ -70,6 +76,28 @@ function List() {
     });
   }
 
+  //upload scanned pic
+  const uploadOnChange = async (e) => {
+    e.preventDefault();
+    const img = e.target.files[0];
+    const data = new FormData();
+    // console.log({ img });
+    data.append("scan-pic", img);
+
+    let response = await fetch(`http://localhost:3000/scannedUpload/${id}`, {
+      method: "POST",
+      body: data,
+    });
+    response = await response.json();
+    console.log("pic comes back from back >>>", response);
+    dispatch(scanPicChange(response));
+  };
+
+  const picHandler = () => {
+    inputRef.current.click();
+  };
+  // const newImg = (param) => `/img/${param}`;
+
   return (
     <>
       <Button color='danger' onClick={clickHandler}>
@@ -86,7 +114,17 @@ function List() {
             </div>
           </ModalHeader>
           <ModalBody>
-          <BounceLoader color="blue" size={150} loading={loading} css={{zIndex: "100", position:"absolute", margin: "35%", marginTop: "20%"}}/>
+            <BounceLoader
+              color='blue'
+              size={150}
+              loading={loading}
+              css={{
+                zIndex: "100",
+                position: "absolute",
+                margin: "35%",
+                marginTop: "20%",
+              }}
+            />
             {!scan ? (
               <>
                 <FormGroup>
@@ -96,7 +134,7 @@ function List() {
                     value={text ? text : ""}
                   ></Input>
                 </FormGroup>
-                {options? (
+                {options ? (
                   options.map((el) => (
                     <Item
                       num={el.num}
@@ -112,7 +150,30 @@ function List() {
                 )}
               </>
             ) : (
-              "scan"
+              <>
+                <>
+                  <h2>Scan your item!</h2>
+
+                  <div>
+                    <img
+                      src={"/img/" + scannerPic}
+                      width='200'
+                      alt='scan-pic'
+                    />
+                  </div>
+
+                  <input
+                    type='file'
+                    id='fileUploader'
+                    hidden='hidden'
+                    ref={inputRef}
+                    onChange={uploadOnChange}
+                  />
+                  <IconButton onClick={picHandler} className='button'>
+                    <EditIcon />
+                  </IconButton>
+                </>
+              </>
             )}
           </ModalBody>
           <ModalFooter>
@@ -126,9 +187,11 @@ function List() {
       </Modal>
       <div>
         {week.length ? (
-          [...week].reverse().map((el) => (
-            <Meal key={Math.random()} date={el.date} items={el.items} />
-          ))
+          [...week]
+            .reverse()
+            .map((el) => (
+              <Meal key={Math.random()} date={el.date} items={el.items} />
+            ))
         ) : (
           <> </>
         )}

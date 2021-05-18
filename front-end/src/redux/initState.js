@@ -15,6 +15,7 @@ const initState = {
   food: {
     options: [],
     meals: [],
+    scannedImg: null,
   },
   auth: {
     isSignedIn: null,
