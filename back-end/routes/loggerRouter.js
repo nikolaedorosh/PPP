@@ -4,10 +4,10 @@ const mealModel = require("../models/mealModel");
 const nutritionix = require("nutritionix-api");
 
 router.post("/", async (req, res) => {
-  // const {id} = req.params
-  // const user = await userModel.findOne();
-  // const meals = mealModel.find({ id: user.id })
-  const meals = await mealModel.find({}, {user: 0})
+  // const {email} = req.params
+  // const user = await userModel.findOne({email})
+  const user = await userModel.findOne({email: "margosha.novikova@gmail.com"});
+  const meals = await mealModel.find({ user: user._id })
   return res.json(meals);
 });
 
@@ -23,10 +23,11 @@ router.post("/getInfo", async (req, res) => {
 
 router.post("/createMeal", async (req, res) => {
   try {
-    const {items, user} = req.body;
+    const {items, email} = req.body;
+    // const user = await userModel.findOne({email})
+    const user = await userModel.findOne({email: "margosha.novikova@gmail.com"})
     const myMeal = await mealModel.create({
-      user: user,
-      date: Date.now(),
+      user: user._id,
       items,
     });
     res.json(myMeal);

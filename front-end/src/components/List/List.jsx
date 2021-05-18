@@ -28,6 +28,8 @@ function List() {
   const id = useSelector((state) => state.auth.userId);
   const meals = useSelector((state) => state.food.meals);
   const options = useSelector((state) => state.food.options);
+  const week = useSelector((state) => state.week);
+  const email = useSelector((state) => state.auth.userEmail);
   const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
 
@@ -65,7 +67,7 @@ function List() {
 
   function createMeal(e) {
     e.preventDefault();
-    dispatch(getMeal(options));
+    dispatch(getMeal(options, email));
     setOpen((prev) => !prev);
     setText("");
     dispatch({
@@ -184,11 +186,15 @@ function List() {
         </Form>
       </Modal>
       <div>
-        {meals.length
-          ? meals.map((el) => (
+        {week.length ? (
+          [...week]
+            .reverse()
+            .map((el) => (
               <Meal key={Math.random()} date={el.date} items={el.items} />
             ))
-          : ""}
+        ) : (
+          <> </>
+        )}
       </div>
     </>
   );

@@ -25,7 +25,7 @@ const initState = {
     userProfileImg: "img-1621266213352.png",
   },
   week: [],
-  loading: false,
+  loading: false
 };
 
 export default initState;

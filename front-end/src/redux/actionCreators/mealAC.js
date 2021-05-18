@@ -8,13 +8,13 @@ function changeOptions(payload) {
   return { type: TYPES.CHANGE_OPTIONS, payload: payload };
 }
 
-export const getMeal = (items) => async (dispatch, getState) => {  
+export const getMeal = (items, email) => async (dispatch, getState) => {  
   const response = await fetch("http://localhost:3000/logger/createMeal", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({items, user: {id: "609ffea57c6d466c384901b2", name:"Kolya", email: "Kolya@gmail.com"}}),
+    body: JSON.stringify({items, email}),
   })
   const resp = await response.json();
   if (resp) {

@@ -155,35 +155,4 @@ mainRouter.patch("/profileData/:id", async (req, res) => {
   return res.json(user);
 });
 
-// mainRouter.post("/api/v1/findPic/:id", async (req, res) => {
-//   const user = await userModel.findById(
-//     //req.params.id ,
-//     { _id: "609ef2b7d02da1867f40dae8" }
-//   );
-//   res.json(user.img);
-// });
-// mainRouter.patch("/macroData/:id", async (req, res) => {
-//   try {
-//     const { Proteins, carbohydrates, fats, kcal, targetWeigth } = req.body;
-//     const macros = await userModel.findByIdAndUpdate(req.params.id, {
-//       target: { ...req.body },
-//     });
-//     return res.sendStatus(200);
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
-
-// mainRouter.post("/profileImg/:id", async (req, res) => {
-//   console.log(req.params.id);
-//   try {
-//     const macros = await userModel.findByIdAndUpdate(req.params.id, {
-//       profileImg: { ...req.body },
-//     });
-//     return res.sendStatus(200);
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
-
 module.exports = mainRouter;

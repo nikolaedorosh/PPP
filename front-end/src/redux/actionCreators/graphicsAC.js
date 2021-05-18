@@ -1,11 +1,11 @@
 import * as TYPES from "../types/types";
 import * as AuthorizationAction from "../reducers/MAIN";
 
-const getUsersThunk = (id) => async (dispatch, getState) => {
+const getUsersThunk = (email) => async (dispatch, getState) => {
   const resp = await fetch("http://localhost:3000/logger", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id: id }),
+    body: JSON.stringify({ email }),
   });
   const res = await resp.json();
   dispatch(setWeek(res));
@@ -56,7 +56,7 @@ export const personalInfoHandler =
       kcal,
       targetWeight,
     };
-    console.log(data);
+
     const response = await fetch(`http://localhost:3000/profileData/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
