@@ -126,7 +126,7 @@ function List() {
       </Modal>
       <div>
         {week.length ? (
-          week.map((el) => (
+          [...week].reverse().map((el) => (
             <Meal key={Math.random()} date={el.date} items={el.items} />
           ))
         ) : (
