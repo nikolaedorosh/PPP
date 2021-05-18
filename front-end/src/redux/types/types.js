@@ -18,3 +18,4 @@ export const GET_GGLID = "GET_GGLID";
 export const SET_WEEK = "SET_WEEK";
 export const CHANGE_LOAD = "CHANGE_LOAD";
 export const SCANN_UPLOAD = "SCANN_UPLOAD";
+export const ADD_TOLOCALSTORAGE = "ADD_TOLOCALSTORAGE";

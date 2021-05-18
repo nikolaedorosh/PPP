@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import PageNotFound from "./components/404/404";
 import Logger from "./components/Logger/Logger";
-// import SignUp from "./components/SignUp/SignUp";
 import styles from "./app.module.css";
 import List from "./components/List/List";
 import WelcomePage from "./components/WelcomePage/WelcomePage";
@@ -11,17 +10,29 @@ import EditProfile from "./pages/EditProfile/EditProfile";
 import Footer from "./components/Footer/Footer";
 import { useSelector } from "react-redux";
 
-
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
 
-  const loading = useSelector(state => state.loading)
-  
+  const loading = useSelector((state) => state.loading);
+
   return (
     <>
-    { loading?
-    <div style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "black", opacity: 0.6, zIndex: 100}}></div>
-    : <></>}
+      {loading ? (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "black",
+            opacity: 0.6,
+            zIndex: 100,
+          }}
+        ></div>
+      ) : (
+        <></>
+      )}
       <BrowserRouter>
         <div className={darkTheme ? styles.dark : styles.light}>
           <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
@@ -38,9 +49,7 @@ function App() {
               <PageNotFound />
             </Route>
           </Switch>
-          <Footer>
-            
-          </Footer>
+          <Footer></Footer>
         </div>
       </BrowserRouter>
     </>

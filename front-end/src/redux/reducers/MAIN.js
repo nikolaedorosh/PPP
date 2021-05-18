@@ -2,6 +2,8 @@ import * as TYPES from "../types/types";
 
 const mainReducer = (state = [], action) => {
   switch (action.type) {
+    case TYPES.ADD_TOLOCALSTORAGE:
+      return { ...state, auth: action.payload };
     case TYPES.CHANGE_LOAD:
       return {
         ...state,
@@ -155,6 +157,13 @@ export const addInfo = (userInfo) => {
 export const defaultSignIn = (userInfo) => {
   return {
     type: TYPES.DEFAULT_SIGNIN,
+    payload: userInfo,
+  };
+};
+
+export const pushIntoLocalStorage = (userInfo) => {
+  return {
+    type: TYPES.ADD_TOLOCALSTORAGE,
     payload: userInfo,
   };
 };

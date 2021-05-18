@@ -51,7 +51,7 @@ const WelcomePage = () => {
       },
       body: JSON.stringify({
         email: userEmail,
-        pass: userPass,
+        password: userPass,
         name: userName,
       }),
     })
@@ -84,7 +84,7 @@ const WelcomePage = () => {
       },
       body: JSON.stringify({
         email: userEmail,
-        pass: userPass,
+        password: userPass,
       }),
     })
       .then((response) => response.json())
@@ -92,9 +92,9 @@ const WelcomePage = () => {
         response
           ? dispatch(
               AuthorizationAction.addInfo({
-                userName: inputName.trim(),
+                userName: response.userName,
                 userEmail: inputMail.trim(),
-                userId: response,
+                userId: response.userId,
               })
             )
           : window.alert("Incorrect email or password");
@@ -103,8 +103,8 @@ const WelcomePage = () => {
 
   const submitHandler2 = (e) => {
     e.preventDefault();
-    if (inputPass.trim() && inputMail.trim() && inputName.trim()) {
-      signInCheck(inputPass.trim(), inputMail.trim());
+    if (inputPass.trim() && inputMail.trim()) {
+      signInCheck(inputMail.trim(), inputPass.trim());
     } else window.alert("Fill in form fields and try again");
   };
 
@@ -112,8 +112,6 @@ const WelcomePage = () => {
     auth.signIn();
     let userEmail = auth.currentUser.ee.ft.Qt;
     let userName = auth.currentUser.ee.ft.Te;
-    // auth.currentUser.ee.ft.Te,
-    // //     userEmail: auth.currentUser.ee.ft.Qt,
     fetch("http://localhost:3000/user/googleAuth", {
       method: "POST",
       headers: {
@@ -145,7 +143,7 @@ const WelcomePage = () => {
   }, [userName]);
 
   const onAuthChange = () => {
-    console.log("Dispatch enter");
+    console.log("Get googleId");
     dispatch(
       AuthorizationAction.googleId(
         window.gapi.auth2.getAuthInstance().currentUser.get().getId()
@@ -227,13 +225,14 @@ const WelcomePage = () => {
         </form>
       )}
       You can choose another way to Sign Up
-      <button onClick={googleAuth}>Sign Up with Google</button>
+      <button onClick={onSignInClick}>Sign Up with Google</button>
       Already have an account? <button onClick={changeTest}>Sign In</button>
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId };
 };
 

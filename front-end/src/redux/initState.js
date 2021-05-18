@@ -17,15 +17,17 @@ const initState = {
     meals: [],
     scannedImg: null,
   },
-  auth: {
-    isSignedIn: null,
-    userId: "609ef289d02da1867f40dae7",
-    userName: "O",
-    userEmail: "o@o.com",
-    userProfileImg: "img-1621266213352.png",
-  },
+  auth: localStorage.getItem("auth")
+    ? JSON.parse(localStorage.getItem("auth"))
+    : {
+        isSignedIn: false,
+        userId: null,
+        userName: null,
+        userEmail: null,
+        userProfileImg: "img-1621266213352.png",
+      },
   week: [],
-  loading: false
+  loading: false,
 };
 
 export default initState;
