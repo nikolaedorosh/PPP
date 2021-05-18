@@ -7,15 +7,6 @@ const EditProfile = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  // //use States
-  // const [age, setAge] = useState("");
-  // const [gender, setGender] = useState("");
-  // const [weight, setWeight] = useState("");
-  // const [height, setHeight] = useState("");
-  // const [activity, setActivity] = useState("");
-  // const [bmi, setBmi] = useState("");
-  // const [targetWeight, setTargetWeight] = useState("");
-
   //form handler
   const setInputDetailsHandler = (e) => {
     e.preventDefault();
