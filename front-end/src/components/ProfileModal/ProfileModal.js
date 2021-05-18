@@ -1,12 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import { newPicChange } from "../../redux/actionCreators/graphicsAC";
 import * as AuthorizationAction from '../../redux/reducers/MAIN';
 
-const ProfileModal = ({ setOpen }) => {
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@material-ui/core/styles';
+import { Box, Typography } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+
+
+
+const ProfileModal = ({ setOpen }) => {  
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -21,11 +31,32 @@ const ProfileModal = ({ setOpen }) => {
     dispatch(AuthorizationAction.signOut());
     setOpen((prev) => !prev);
   };
-
   const goToEdit = () => {
-    history.push("/edit");
+    history.push('/edit');
     setOpen((prev) => !prev);
   };
+  const useStyles = makeStyles((theme) => ({
+    container:{
+      display: 'flex',
+      justifyContent: 'center'
+    },
+    avatar:{
+      width: "150px",
+      height: "150px"
+    },
+    classForText:{
+      marginLeft: "12px",
+      padding: "8px"
+    },
+    input: {
+      display: 'none',
+    },
+    button:{
+      padding: '2px 8px',
+      fontSize:  '12px'
+    }
+  }));
+  const classes = useStyles();
 
 
   //upload pic
@@ -50,12 +81,52 @@ const ProfileModal = ({ setOpen }) => {
 
   const newImg = (param) => `/img/${param}`;
   return (
+    
     <>
-      <h2>Profile</h2>
+        <DialogTitle>Profile</DialogTitle>
+        <Box p={2} className={classes.container} >
+        <Avatar alt="Remy Sharp" src={"/img/" + userProfileImg} className={classes.avatar} />
+        <input
+        accept="image/*"
+        className={classes.input}
+        id="contained-button-file"
+        multiple
+        type="file"
+      />
+        <label htmlFor="icon-button-file">
+          <IconButton color="primary" aria-label="upload picture" component="span" onClick={picHandler}>
+           <PhotoCamera />
+         </IconButton>
+         </label>
+        </Box>
+        <Box p={1} component="span"display="flex" flexDirection="row" alignItems="center">Name:
+        <Typography className={classes.classForText} variant='subtitle2'>{userName}</Typography>
+        </Box>
+        <Box p={1} component="span" display="flex" flexDirection="row" alignItems="center">Email:
+        <Typography className={classes.classForText} variant='subtitle2'>{userEmail}</Typography>
+        </Box>
+        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Weigth:
+        <Typography className={classes.classForText} variant='subtitle2'>{userTarget}</Typography>
+        </Box>
+        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current kcal:
+        <Typography className={classes.classForText} variant='subtitle2'>Kcal</Typography>
+        </Box>
+        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current Prot:
+        <Typography className={classes.classForText} variant='subtitle2'>Prot</Typography>
+        </Box>
+        
+        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current fats:
+        <Typography className={classes.classForText} variant='subtitle2'>Fats</Typography>
+        </Box>
+        
+        
+        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current carboh :
+        <Typography className={classes.classForText} variant='subtitle2'>Carboh</Typography>
+        </Box>
+        <Button onClick={goToEdit} variant="outlined">Change My Details</Button>
+        <Button  onClick={onSignOutClick} variant="outlined">LogOut</Button>
 
-      <div>
-        <img src={"/img/" + userProfileImg} width='100' alt='profile-pic' />
-      </div>
+     
 
       <input
         type='file'
@@ -64,21 +135,11 @@ const ProfileModal = ({ setOpen }) => {
         ref={inputRef}
         onChange={uploadOnChange}
       />
-      <IconButton onClick={picHandler} className='button'>
+      {/* <IconButton onClick={picHandler} className='button'>
         <EditIcon />
-      </IconButton>
+      </IconButton> */}
 
-      <h4>Name</h4>
-      <span>{userName}</span>
-
-      <h4>Email</h4>
-      <span>{userEmail}</span>
-
-      <h4>Target Weight</h4>
-      <span>{userTarget}</span>
-
-      <button onClick={goToEdit}>Change My Details</button>
-      <button onClick={onSignOutClick}>LogOut</button>
+      
     </>
   );
 };

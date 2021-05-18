@@ -69,19 +69,16 @@ mainRouter.post(
 //
 mainRouter.post("/user/signupcheck", async (req, res) => {
   const { email, name, password } = req.body;
-  // console.log(req.body, "1111");
+  console.log(req.body);
   try {
-    //if (email && name && password) все ломает
     const currentUser = await userModel.findOne({ email });
-    // console.log(currentUser, "222");
     if (currentUser) {
       return res.status(516).send("The email is already used");
     } else {
       const user = await userModel.create({ name, email, password });
-      // console.log(user, "333333");
+      console.log(user, "333333");
       return res.status(200).json(user._id);
     }
-    // } return status(516).send("Could not sign up! Please insert form fields");
   } catch (error) {
     return res.status(500).send(error);
   }
@@ -89,20 +86,20 @@ mainRouter.post("/user/signupcheck", async (req, res) => {
 
 mainRouter.post("/user/signincheck", async (req, res) => {
   const { email, password } = req.body;
-  // console.log(req.body, "4444");
+  console.log(req.body, "4444");
   try {
-    //if (email && name && password) все ломает
     const currentUser = await userModel.findOne({ email });
-    // console.log(currentUser, "555");
+    console.log(currentUser, "555");
     if (currentUser) {
       if (currentUser.password === password) {
-        return res.status(200).json(currentUser._id);
+        return res
+          .status(200)
+          .json({ userId: currentUser._id, userName: currentUser.name });
       }
       return res.status(516).send("Incorrect password");
     } else {
       return res.status(516).send("This email is not registered");
     }
-    // } return status(516).send("Could not sign up! Please insert form fields");
   } catch (error) {
     return res.status(500).send(error);
   }
@@ -111,9 +108,7 @@ mainRouter.post("/user/signincheck", async (req, res) => {
 mainRouter.post("/user/googleauth", async (req, res) => {
   const { email, name } = req.body;
   try {
-    //if (email && name && password) все ломает
     const currentUser = await userModel.findOne({ email });
-    // console.log(currentUser, "555");
     if (currentUser) {
       console.log(currentUser);
       return res.status(200).json(currentUser._id);
@@ -122,7 +117,6 @@ mainRouter.post("/user/googleauth", async (req, res) => {
       console.log(user);
       return res.status(200).json(user._id);
     }
-    // } return status(516).send("Could not sign up! Please insert form fields");
   } catch (error) {
     return res.status(500).send(error);
   }

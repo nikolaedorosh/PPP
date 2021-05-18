@@ -5,6 +5,7 @@ import initState from "./initState";
 import { composeWithDevTools } from "redux-devtools-extension";
 import watchAddLoad from "./saga";
 import createSagaMiddleware from "redux-saga";
+import { saveState } from "./actionCreators/localStorage";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -13,6 +14,10 @@ const store = createStore(
   initState,
   composeWithDevTools(applyMiddleware(thunk, sagaMiddleware))
 );
+
+store.subscribe(async () => {
+  saveState(store.getState().auth);
+});
 
 sagaMiddleware.run(watchAddLoad);
 
