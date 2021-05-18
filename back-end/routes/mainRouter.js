@@ -133,6 +133,8 @@ mainRouter.post("/api/v1/findPic/:id", async (req, res) => {
     { _id: "609ef2b7d02da1867f40dae8" }
   );
   res.json(user.img);
+})
+
 mainRouter.patch("/macroData/:id", async (req, res) => {
   try {
     const { Proteins, carbohydrates, fats, kcal, targetWeigth } = req.body;

@@ -20,8 +20,9 @@ import { changeTextSaga } from "../../redux/saga";
 import * as TYPES from "../../redux/types/types";
 
 function List() {
-  const meals = useSelector((state) => state.food.meals);
   const options = useSelector((state) => state.food.options);
+  const week = useSelector((state) => state.week);
+  const email = useSelector((state) => state.auth.userEmail);
   const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
 
@@ -60,7 +61,7 @@ function List() {
 
   function createMeal(e) {
     e.preventDefault();
-    dispatch(getMeal(options));
+    dispatch(getMeal(options, email));
     setOpen((prev) => !prev);
     setText("");
     dispatch({
@@ -95,7 +96,7 @@ function List() {
                     value={text ? text : ""}
                   ></Input>
                 </FormGroup>
-                {options ? (
+                {options? (
                   options.map((el) => (
                     <Item
                       num={el.num}
@@ -124,8 +125,8 @@ function List() {
         </Form>
       </Modal>
       <div>
-        {meals.length ? (
-          meals.map((el) => (
+        {week.length ? (
+          week.map((el) => (
             <Meal key={Math.random()} date={el.date} items={el.items} />
           ))
         ) : (

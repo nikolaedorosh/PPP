@@ -2,11 +2,13 @@ const {Schema, model} = require('mongoose')
 
 const mealSchema = new Schema({
     user: {
-      id: String, name:String, email: String
-      // type: Schema.Types.ObjectId,
-      // ref: "userModel"
+      type: Schema.Types.ObjectId,
+      ref: "userModel"
     },
-    date:Number,
+    date: {
+     type: Date,
+     default: Date.now() 
+    },
     items:[]
 })
 
