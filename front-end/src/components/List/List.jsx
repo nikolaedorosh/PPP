@@ -195,7 +195,7 @@ function List() {
           [...week]
             .reverse()
             .map((el) => (
-              <Meal key={Math.random()} date={el.date} items={el.items} />
+              <Meal key={Math.random()} date={el.date} id={el._id} items={el.items} />
             ))
         ) : (
           <> </>

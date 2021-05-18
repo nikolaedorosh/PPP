@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import {sendMeal} from '../../redux/actionCreators/mealAC'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Item from '../Item/Item';
 
-function Meal({ date, items}) {
+function Meal({ date, items, id}) {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false)
 
@@ -13,8 +13,8 @@ function Meal({ date, items}) {
   const dateStr = `${myDate.toLocaleDateString('en-US')} at ${myDate.toLocaleTimeString(['it-IT'], { hour: '2-digit', minute: '2-digit' })}`
 
 
-  function deleteClickHandler(date) {
-    dispatch(sendMeal(date))
+  function deleteClickHandler(id) {
+    dispatch(sendMeal(id))
  }
 
  function clickHandler() {
@@ -44,7 +44,7 @@ totalProteins = totalProteins.toFixed(2)
     <Button onClick={clickHandler}>
         {items[0].name}...
        {totalKcal}/{totalProteins}/{totalFats}/{totalCarbohydrates}
-      <Button onClick={() => deleteClickHandler(date)} color="danger">Delete</Button>
+      <Button onClick={() => deleteClickHandler(id)} color="danger">Delete</Button>
       </Button>
       <Modal toggle={clickHandler} isOpen={open}>
         <ModalHeader>
