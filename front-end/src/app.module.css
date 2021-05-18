@@ -15,16 +15,16 @@ body {
 }
 
 .light {
-  background-color: rgb(255, 211, 116);
+  background-color: #B6C6EB;
   color: black;
   border: 5px solid white;
   border-radius: 15px;
   margin: 15px;
   padding: 15px;
   filter: drop-shadow(2px 2px 5px black);
-}
+} 
 
-.buttons {
+ .buttons {
   display: flex;
   justify-content: space-around;
 }
@@ -46,3 +46,17 @@ body {
   background-color: dimgray;
   overflow: hidden;
 }
+
+a{
+  text-decoration: none;
+  font-size: 18px;
+  color: aliceblue;
+}
+
+a:hover{
+  color: blue;
+  font-size: 18px;
+}
+
+
+

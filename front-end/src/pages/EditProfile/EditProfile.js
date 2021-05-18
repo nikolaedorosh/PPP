@@ -1,39 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { personalInfoHandler } from "../../redux/actionCreators/graphicsAC";
-import { saveState } from "../../redux/actionCreators/localStorage";
-import store from "../../redux/store";
 
 const EditProfile = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const isSignedIn = useSelector((state) => state.auth.isSignedIn);
-
-useEffect(() => {
-  console.log(isSignedIn);
-  store.subscribe(() => {
-    if(isSignedIn) {
-      saveState({ auth: store.getState().auth })
-    }
-    // console.log("store auth", store.getState().auth);
-  
-    // const localStor = await JSON.parse(localStorage.state)
-    // console.log(localStorage)
-    // if (localStor.auth.isSignedIn) {
-    //   console.log(localStorage.auth.isSignedIn)
-    //   loadState()
-    // } else {
-    //   saveState({ auth: store.getState().auth });
-    // }
-    // if
-    //   // localStorage.state.auth
-      // else if(JSON.parse(localStorage.state).auth.isSignedIn) {
-      // }
-  });
-}, [])
-
-  //use States
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [weight, setWeight] = useState("");
@@ -68,11 +40,9 @@ useEffect(() => {
   const id = useSelector((state) => state.auth.userId);
   const email = useSelector((state) => state.auth.userEmail);
 
-
   const clickHandler = () => {
     history.push("/logger");
   };
-
 
   // on change input
   const changeInputHandler = async (e) => {

@@ -5,9 +5,13 @@ import { useDispatch } from 'react-redux';
 import Item from '../Item/Item';
 
 function Meal({ date, items}) {
-  console.log(items , '<-------- items from meal')
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false)
+
+
+  const myDate = new Date(date)
+  const dateStr = `${myDate.toLocaleDateString('en-US')} at ${myDate.toLocaleTimeString(['it-IT'], { hour: '2-digit', minute: '2-digit' })}`
+
 
   function deleteClickHandler(date) {
     dispatch(sendMeal(date))
@@ -28,7 +32,13 @@ function Meal({ date, items}) {
   totalKcal += el.info.cal
   totalProteins += el.info.prot
  });
-//  {items[0].name}...
+
+totalCarbohydrates = totalCarbohydrates.toFixed(2)
+totalFats = totalFats.toFixed(2)
+totalKcal = totalKcal.toFixed(2)
+totalProteins = totalProteins.toFixed(2)
+
+
   return (
     <>
     <Button onClick={clickHandler}>
@@ -38,7 +48,7 @@ function Meal({ date, items}) {
       </Button>
       <Modal toggle={clickHandler} isOpen={open}>
         <ModalHeader>
-          {date}
+          {dateStr}
         </ModalHeader>
         <ModalBody>
           {items.map(el => 

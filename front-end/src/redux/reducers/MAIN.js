@@ -2,6 +2,13 @@ import * as TYPES from "../types/types";
 
 const mainReducer = (state = [], action) => {
   switch (action.type) {
+    case TYPES.ADD_TOLOCALSTORAGE:
+      return { ...state, auth: action.payload };
+    case TYPES.CHANGE_LOAD:
+      return {
+        ...state,
+        ...action.payload,
+      };
     case TYPES.USER_DATA_CHANGE:
       return {
         ...state,
@@ -102,7 +109,15 @@ const mainReducer = (state = [], action) => {
     case TYPES.PIC_UPLOAD:
       return {
         ...state,
-        auth: { ...state.auth, userProfileImg: action.payload.profileImg },
+        auth: { ...state.auth, userProfileImg: action.payload },
+      };
+    case TYPES.SCANN_UPLOAD:
+      return {
+        ...state,
+        food: {
+          ...state.food,
+          scannedImg: action.payload,
+        },
       };
 
     default:
@@ -142,6 +157,13 @@ export const addInfo = (userInfo) => {
 export const defaultSignIn = (userInfo) => {
   return {
     type: TYPES.DEFAULT_SIGNIN,
+    payload: userInfo,
+  };
+};
+
+export const pushIntoLocalStorage = (userInfo) => {
+  return {
+    type: TYPES.ADD_TOLOCALSTORAGE,
     payload: userInfo,
   };
 };

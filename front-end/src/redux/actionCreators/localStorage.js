@@ -8,7 +8,7 @@ export const loadState = () => {
         userId: null,
         userName: null,
         userEmail: null,
-        userProfileImg: {},
+        userProfileImg:"img-1621266213352.png",
       };
     }
     return JSON.parse(serializedState.auth);
@@ -20,6 +20,6 @@ export const loadState = () => {
 export const saveState = (state) => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem("state", serializedState);
+    localStorage.setItem("auth", serializedState);
   } catch (err) {}
 };

@@ -1,5 +1,3 @@
-import { loadState } from "./actionCreators/localStorage";
-
 const initState = {
   info: {
     age: "",
@@ -17,17 +15,19 @@ const initState = {
   food: {
     options: [],
     meals: [],
+    scannedImg: null,
   },
-  auth: 
-  loadState(),
-  // {
-  //   isSignedIn: false, // false
-  //   userId: null,
-  //   userName: null,
-  //   userEmail: null,
-  //   userProfileImg: {},
-  // },
+  auth: localStorage.getItem("auth")
+    ? JSON.parse(localStorage.getItem("auth"))
+    : {
+        isSignedIn: false,
+        userId: null,
+        userName: null,
+        userEmail: null,
+        userProfileImg: "img-1621266213352.png",
+      },
   week: [],
+  loading: false,
 };
 
 export default initState;
