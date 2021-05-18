@@ -7,14 +7,14 @@ const EditProfile = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  //use States
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [weight, setWeight] = useState("");
-  const [height, setHeight] = useState("");
-  const [activity, setActivity] = useState("");
-  const [bmi, setBmi] = useState("");
-  const [targetWeight, setTargetWeight] = useState("");
+  // //use States
+  // const [age, setAge] = useState("");
+  // const [gender, setGender] = useState("");
+  // const [weight, setWeight] = useState("");
+  // const [height, setHeight] = useState("");
+  // const [activity, setActivity] = useState("");
+  // const [bmi, setBmi] = useState("");
+  // const [targetWeight, setTargetWeight] = useState("");
 
   //form handler
   const setInputDetailsHandler = (e) => {
@@ -42,7 +42,6 @@ const EditProfile = () => {
   const id = useSelector((state) => state.auth.userId);
   const userEmail = useSelector((state) => state.auth.userEmail);
 
-
   //use States
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -54,11 +53,9 @@ const EditProfile = () => {
   const [bmi, setBmi] = useState("");
   const [targetWeight, setTargetWeight] = useState("");
 
-
   const clickHandler = () => {
     history.push("/logger");
   };
-
 
   // on change input
   const changeInputHandler = async (e) => {
@@ -147,10 +144,10 @@ const EditProfile = () => {
       <br />
       <br />
       <form onSubmit={setInputDetailsHandler}>
-        <select className="gender" onChange={changeInputHandler}>
+        <select className='gender' onChange={changeInputHandler}>
           <option selected>Open this select menu</option>
-          <option value="man">Man</option>
-          <option value="woman">Woman</option>
+          <option value='man'>Man</option>
+          <option value='woman'>Woman</option>
         </select>
         <input
           onChange={changeInputHandler}
@@ -182,37 +179,34 @@ const EditProfile = () => {
           min='0'
           max='400'
           placeholder='weight'
-
         ></input>
         <input
-          required="No Input Inserted!"
+          required='No Input Inserted!'
           onChange={changeInputHandler}
           className='height'
           type='number'
           min='300'
           placeholder='height'
-
         ></input>
-        <select className="activity" onChange={changeInputHandler}>
-          <option value="sedentary">Sedentary: little to no oxercise</option>
-          <option value="light">Light: 1-3 times/week</option>
-          <option value="moderate">Moderate: 4-5 times/week</option>
-          <option value="extraActive">
+        <select className='activity' onChange={changeInputHandler}>
+          <option value='sedentary'>Sedentary: little to no oxercise</option>
+          <option value='light'>Light: 1-3 times/week</option>
+          <option value='moderate'>Moderate: 4-5 times/week</option>
+          <option value='extraActive'>
             Extra Active: very intense exercise daily
           </option>
         </select>
         <input
-          required="No Input Inserted!"
+          required='No Input Inserted!'
           value={targetWeight}
           onChange={changeInputHandler}
           className='targetWeight'
           placeholder='weight target'
           min='0'
           max='150'
-
         ></input>
         <button>Add</button>{" "}
-        <button type="button" onClick={clickHandler} color="danger">
+        <button type='button' onClick={clickHandler} color='danger'>
           Cancel
         </button>
       </form>
