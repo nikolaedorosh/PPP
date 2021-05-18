@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Modal } from 'reactstrap';
-import styles from './header.module.css';
-// import * as AuthorizationAction from '../../redux/reducers/MAIN';
-// import ProfileModal from '../ProfileModal/ProfileModal';
-// import { Link } from "react-router-dom";
-// import { Button, Modal } from "reactstrap";
-// import styles from './header.module.css';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -18,11 +11,9 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
-// import Modal from '@material-ui/core/Modal';
 import ProfileModal from '../ProfileModal/ProfileModal';
 import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
-import MenuItem from '@material-ui/core/MenuItem';
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
 const useStyles = makeStyles((theme) => ({
@@ -30,9 +21,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     justifyContent: 'space-between',
     width: '100%',
-  },
-  menuButton: {
-    // marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
@@ -57,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction="left" ref={ref} {...props} />;
 });
 function Header({ darkTheme, setDarkTheme }) {
   const isSignedIn = useSelector((state) => state.auth.isSignedIn);
@@ -116,6 +104,8 @@ function Header({ darkTheme, setDarkTheme }) {
               }
             />
           </FormGroup>
+          {!userName ? '' : 
+          <>
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -124,7 +114,6 @@ function Header({ darkTheme, setDarkTheme }) {
             onClick={openProfile}
             placeholder="Profile"
           ></IconButton>
-          {!userName ? '' : 
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -136,21 +125,22 @@ function Header({ darkTheme, setDarkTheme }) {
               style={{ color: 'white' }}
             ></MenuIcon>
           </IconButton>
-           }
-        </Box>
           <Dialog
-            open={open}
-            TransitionComponent={Transition}
-            keepMounted
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-slide-title"
-            aria-describedby="alert-dialog-slide-description"
-            className={classes.modal}
+          open={open}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+          className={classes.modal}
           >
 
               <ProfileModal setOpen={setOpen} />
 
           </Dialog>
+          </>
+          }
+          </Box>
 
       </Toolbar>
     </AppBar>
