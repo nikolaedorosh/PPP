@@ -3,6 +3,20 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as AuthorizationAction from "../../redux/reducers/MAIN"; // стало
 
+import {
+  LineChart,
+  XAxis,
+  Tooltip,
+  CartesianGrid,
+  Line,
+  Legend,
+  YAxis,
+  Bar,
+  BarChart,
+  LabelList,
+  Label,
+} from "recharts";
+
 const WelcomePage = () => {
   const dispatch = useDispatch();
   const userName = useSelector((state) => state.auth.userName);
@@ -41,8 +55,7 @@ const WelcomePage = () => {
   const inputNameHandler = (e) => {
     setInputName(e.target.value);
   };
-  // ДО ИЗМЕНЕНИЙ
-  // РАБОЧАЯ ВЕРСИЯ ПО SIGNUP
+
   const addNewUser = (userEmail, userPass, userName) => {
     fetch("http://localhost:3000/user/signupcheck", {
       method: "POST",
@@ -108,10 +121,10 @@ const WelcomePage = () => {
     } else window.alert("Fill in form fields and try again");
   };
 
-  const googleAuth = () => {
-    auth.signIn();
-    let userEmail = auth.currentUser.ee.ft.Qt;
-    let userName = auth.currentUser.ee.ft.Te;
+  const googleAuth = async () => {
+    await auth.signIn();
+    let userEmail = auth.currentUser.fe.Ft.pu;
+    let userName = auth.currentUser.fe.Ft.Ue;
     fetch("http://localhost:3000/user/googleAuth", {
       method: "POST",
       headers: {
@@ -153,14 +166,6 @@ const WelcomePage = () => {
 
   const onSignInClick = () => {
     googleAuth();
-    // auth.signIn();
-    // googleAuth();
-    // dispatch(
-    //   AuthorizationAction.addInfo({
-    //     userName: auth.currentUser.ee.ft.Te,
-    //     userEmail: auth.currentUser.ee.ft.Qt,
-    //   })
-    // );
   };
 
   const changeTest = () => {
@@ -231,9 +236,4 @@ const WelcomePage = () => {
   );
 };
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId };
-};
-
-export default connect(mapStateToProps)(WelcomePage);
+export default WelcomePage;
