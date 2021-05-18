@@ -94,27 +94,39 @@ const ProfileModal = ({ setOpen }) => {
         type="file"
       />
         <label htmlFor="icon-button-file">
-          <IconButton color="primary" aria-label="upload picture" component="span">
+          <IconButton color="primary" aria-label="upload picture" component="span" onClick={picHandler}>
            <PhotoCamera />
          </IconButton>
          </label>
         </Box>
-        <Box p={2} component="span"display="flex" flexDirection="row" alignItems="center">Name:
+        <Box p={1} component="span"display="flex" flexDirection="row" alignItems="center">Name:
         <Typography className={classes.classForText} variant='subtitle2'>{userName}</Typography>
         </Box>
-        <Box p={2} component="span" display="flex" flexDirection="row" alignItems="center">Email:
-        <Typography className={classes.classForText} variant='subtitle2'>Email</Typography>
+        <Box p={1} component="span" display="flex" flexDirection="row" alignItems="center">Email:
+        <Typography className={classes.classForText} variant='subtitle2'>{userEmail}</Typography>
         </Box>
-        <Box  p={2} component="span" display="flex" flexDirection="row" alignItems="center">Weigth:
-        <Typography className={classes.classForText} variant='subtitle2'>Weigth</Typography>
+        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Weigth:
+        <Typography className={classes.classForText} variant='subtitle2'>{userTarget}</Typography>
+        </Box>
+        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current kcal:
+        <Typography className={classes.classForText} variant='subtitle2'>Kcal</Typography>
+        </Box>
+        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current Prot:
+        <Typography className={classes.classForText} variant='subtitle2'>Prot</Typography>
+        </Box>
+        
+        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current fats:
+        <Typography className={classes.classForText} variant='subtitle2'>Fats</Typography>
+        </Box>
+        
+        
+        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current carboh :
+        <Typography className={classes.classForText} variant='subtitle2'>Carboh</Typography>
         </Box>
         <Button onClick={goToEdit} variant="outlined">Change My Details</Button>
         <Button  onClick={onSignOutClick} variant="outlined">LogOut</Button>
-      <h2>Profile</h2>
 
-      <div>
-        <img src={"/img/" + userProfileImg} width='100' alt='profile-pic' />
-      </div>
+     
 
       <input
         type='file'
@@ -123,9 +135,9 @@ const ProfileModal = ({ setOpen }) => {
         ref={inputRef}
         onChange={uploadOnChange}
       />
-      <IconButton onClick={picHandler} className='button'>
+      {/* <IconButton onClick={picHandler} className='button'>
         <EditIcon />
-      </IconButton>
+      </IconButton> */}
 
       
     </>

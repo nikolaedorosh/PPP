@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import React from "react";
-import Item from "../Item/Item";
-import Meal from "../Meal/Meal";
-import BounceLoader from "react-spinners/BounceLoader";
-import IconButton from "@material-ui/core/IconButton";
-import EditIcon from "@material-ui/icons/Edit";
-import { scanPicChange } from "../../redux/actionCreators/graphicsAC";
+import { useEffect, useRef, useState } from 'react';
+import React from 'react';
+import Item from '../Item/Item';
+import Meal from '../Meal/Meal';
+import BounceLoader from 'react-spinners/BounceLoader';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import { scanPicChange } from '../../redux/actionCreators/graphicsAC';
 import {
   Button,
   Modal,
@@ -16,11 +16,12 @@ import {
   Form,
   FormGroup,
   Label,
-} from "reactstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { getMeal } from "../../redux/actionCreators/mealAC";
-import { changeTextSaga } from "../../redux/saga";
-import * as TYPES from "../../redux/types/types";
+} from 'reactstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMeal } from '../../redux/actionCreators/mealAC';
+import { changeTextSaga } from '../../redux/saga';
+import * as TYPES from '../../redux/types/types';
+import Grid from '@material-ui/core/Grid';
 
 function List() {
   const inputRef = useRef(null);
@@ -39,7 +40,7 @@ function List() {
 
   function clickHandler() {
     setOpen((prev) => !prev);
-    setText("");
+    setText('');
     dispatch({
       type: TYPES.CHANGE_OPTIONS,
       payload: [],
@@ -69,7 +70,7 @@ function List() {
     e.preventDefault();
     dispatch(getMeal(options, email));
     setOpen((prev) => !prev);
-    setText("");
+    setText('');
     dispatch({
       type: TYPES.CHANGE_OPTIONS,
       payload: [],
@@ -82,14 +83,14 @@ function List() {
     const img = e.target.files[0];
     const data = new FormData();
     // console.log({ img });
-    data.append("scan-pic", img);
+    data.append('scan-pic', img);
 
     let response = await fetch(`http://localhost:3000/scannedUpload/${id}`, {
-      method: "POST",
+      method: 'POST',
       body: data,
     });
     response = await response.json();
-    console.log("pic comes back from back >>>", response);
+    console.log('pic comes back from back >>>', response);
     dispatch(scanPicChange(response));
   };
 
@@ -100,29 +101,33 @@ function List() {
 
   return (
     <>
-      <Button color='danger' onClick={clickHandler}>
-        Eat
-      </Button>
-      <Modal toggle={clickHandler} isOpen={open}>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Button color="danger" onClick={clickHandler}>
+            Eat
+          </Button>
+        </Grid>
+        <Grid item xs={4}>
+        <Modal toggle={clickHandler} isOpen={open}>
         <Form onSubmit={createMeal} inline>
           <ModalHeader>
             meal
             <div>
-              <Button onClick={tabClickHandler} type='button'>
-                {scan ? "Type" : "Scan"}
+              <Button onClick={tabClickHandler} type="button">
+                {scan ? 'Type' : 'Scan'}
               </Button>
             </div>
           </ModalHeader>
           <ModalBody>
             <BounceLoader
-              color='blue'
+              color="blue"
               size={150}
               loading={loading}
               css={{
-                zIndex: "100",
-                position: "absolute",
-                margin: "35%",
-                marginTop: "20%",
+                zIndex: '100',
+                position: 'absolute',
+                margin: '35%',
+                marginTop: '20%',
               }}
             />
             {!scan ? (
@@ -130,8 +135,8 @@ function List() {
                 <FormGroup>
                   <Input
                     onChange={changeText}
-                    placeholder='search food example: 1 apple 100 grams of buckwheat'
-                    value={text ? text : ""}
+                    placeholder="search food example: 1 apple 100 grams of buckwheat"
+                    value={text ? text : ''}
                   ></Input>
                 </FormGroup>
                 {options ? (
@@ -156,20 +161,20 @@ function List() {
 
                   <div>
                     <img
-                      src={"/img/" + scannerPic}
-                      width='200'
-                      alt='scan-pic'
+                      src={'/img/' + scannerPic}
+                      width="200"
+                      alt="scan-pic"
                     />
                   </div>
 
                   <input
-                    type='file'
-                    id='fileUploader'
-                    hidden='hidden'
+                    type="file"
+                    id="fileUploader"
+                    hidden="hidden"
                     ref={inputRef}
                     onChange={uploadOnChange}
                   />
-                  <IconButton onClick={picHandler} className='button'>
+                  <IconButton onClick={picHandler} className="button">
                     <EditIcon />
                   </IconButton>
                 </>
@@ -178,8 +183,8 @@ function List() {
           </ModalBody>
           <ModalFooter>
             Kcals/proteins/fats/carbs
-            <Button>Add Meal</Button>{" "}
-            <Button type='button' onClick={clickHandler} color='danger'>
+            <Button>Add Meal</Button>{' '}
+            <Button type="button" onClick={clickHandler} color="danger">
               Cancel
             </Button>
           </ModalFooter>
@@ -196,6 +201,106 @@ function List() {
           <> </>
         )}
       </div>
+        </Grid>
+        {/* <Grid item xs={3}></Grid>
+        <Grid item xs={3}></Grid> */}
+      </Grid>
+      {/* <Button color='danger' onClick={clickHandler}>
+        Eat
+      </Button> */}
+      {/* <Modal toggle={clickHandler} isOpen={open}>
+        <Form onSubmit={createMeal} inline>
+          <ModalHeader>
+            meal
+            <div>
+              <Button onClick={tabClickHandler} type="button">
+                {scan ? 'Type' : 'Scan'}
+              </Button>
+            </div>
+          </ModalHeader>
+          <ModalBody>
+            <BounceLoader
+              color="blue"
+              size={150}
+              loading={loading}
+              css={{
+                zIndex: '100',
+                position: 'absolute',
+                margin: '35%',
+                marginTop: '20%',
+              }}
+            />
+            {!scan ? (
+              <>
+                <FormGroup>
+                  <Input
+                    onChange={changeText}
+                    placeholder="search food example: 1 apple 100 grams of buckwheat"
+                    value={text ? text : ''}
+                  ></Input>
+                </FormGroup>
+                {options ? (
+                  options.map((el) => (
+                    <Item
+                      num={el.num}
+                      image={el.image}
+                      Kcals={el.info.cal}
+                      proteins={el.info.prot}
+                      fats={el.info.fat}
+                      carbs={el.info.carb}
+                    />
+                  ))
+                ) : (
+                  <></>
+                )}
+              </>
+            ) : (
+              <>
+                <>
+                  <h2>Scan your item!</h2>
+
+                  <div>
+                    <img
+                      src={'/img/' + scannerPic}
+                      width="200"
+                      alt="scan-pic"
+                    />
+                  </div>
+
+                  <input
+                    type="file"
+                    id="fileUploader"
+                    hidden="hidden"
+                    ref={inputRef}
+                    onChange={uploadOnChange}
+                  />
+                  <IconButton onClick={picHandler} className="button">
+                    <EditIcon />
+                  </IconButton>
+                </>
+              </>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            Kcals/proteins/fats/carbs
+            <Button>Add Meal</Button>{' '}
+            <Button type="button" onClick={clickHandler} color="danger">
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
+      <div>
+        {week.length ? (
+          [...week]
+            .reverse()
+            .map((el) => (
+              <Meal key={Math.random()} date={el.date} items={el.items} />
+            ))
+        ) : (
+          <> </>
+        )}
+      </div> */}
     </>
   );
 }
