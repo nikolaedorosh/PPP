@@ -3,6 +3,7 @@ const { Schema, model } = require("mongoose");
 const userSchema = new Schema({
   name: String,
   email: String,
+  password: String,
   img: [{ type: Schema.Types.ObjectId, ref: "Img" }],
   info: {
     age: String,
