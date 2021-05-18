@@ -1,3 +1,5 @@
+import { loadState } from "./actionCreators/localStorage";
+
 const initState = {
   info: {
     age: "",
@@ -16,14 +18,16 @@ const initState = {
     options: [],
     meals: [],
   },
-  auth: {
-    isSignedIn: false, // false
-    userId: null,
-    userName: null,
-    userEmail: null,
-    userProfileImg: {},
-  },
-  week: []
+  auth: 
+  loadState(),
+  // {
+  //   isSignedIn: false, // false
+  //   userId: null,
+  //   userName: null,
+  //   userEmail: null,
+  //   userProfileImg: {},
+  // },
+  week: [],
 };
 
 export default initState;

@@ -4,14 +4,13 @@ import { Link, useHistory } from "react-router-dom";
 import { Button, Modal } from "reactstrap";
 import styles from "./header.module.css";
 import * as AuthorizationAction from "../../redux/reducers/MAIN";
-import ProfileModal from "../ProfileModal/ProfileModal"
+import ProfileModal from "../ProfileModal/ProfileModal";
 
 function Header({ darkTheme, setDarkTheme }) {
   const isSignedIn = useSelector((state) => state.auth.isSignedIn);
   const userName = useSelector((state) => state.auth.userName);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-
   const history = useHistory();
   const goToWelcomePage = () => history.push("/welcomepage");
   useEffect(() => {
@@ -51,7 +50,6 @@ function Header({ darkTheme, setDarkTheme }) {
         toggle={openProfile}
         isOpen={open}
       >
-        
         <div style={{ height: "100vh" }}>
           <ProfileModal setOpen={setOpen} />
         </div>
@@ -61,4 +59,3 @@ function Header({ darkTheme, setDarkTheme }) {
 }
 
 export default Header;
-
