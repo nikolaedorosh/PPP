@@ -142,11 +142,11 @@ function Logger() {
             />
             <CartesianGrid stroke='#999' />
 
-            <Bar dataKey='Kcalories' barSize={40} fill='red' />
+            <Bar dataKey='Kcalories' barSize={40} fill='#ffd500' />
             <Bar
               dataKey='targetKCal'
               barSize={40}
-              fill='red'
+              fill='#ffd500'
               isAnimationActive={false}
             >
               <LabelList dataKey='targetKCal' position='top' fill='#ffffff' />
