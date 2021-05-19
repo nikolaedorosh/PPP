@@ -58,13 +58,6 @@ function Meal({ date, items, id }) {
 
   return (
     <>
-        {/* <Button onClick={clickHandler}>
-          {items[0].name}...
-          {totalKcal}/{totalProteins}/{totalFats}/{totalCarbohydrates}
-          <Button onClick={() => deleteClickHandler(id)} color="danger">
-            Delete
-          </Button>
-        </Button> */}
           <TableCell>{date}</TableCell>
           <TableCell> <Button onClick={clickHandler}>
             {items[0].name}

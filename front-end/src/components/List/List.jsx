@@ -14,21 +14,37 @@ import {
   ModalFooter,
   Input,
   Form,
-  FormGroup,
-  Label,
+  FormGroup
 } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMeal } from '../../redux/actionCreators/mealAC';
 import { changeTextSaga } from '../../redux/saga';
 import * as TYPES from '../../redux/types/types';
 import Grid from '@material-ui/core/Grid';
-import { Box } from '@material-ui/core';
+import { Box, Paper } from '@material-ui/core';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles((theme) => ({
+  table:{
+    marginTop: "40px"
+  },
+  paper:{
+    backgroundColor: '#B6C6EB'
+  },
+  button:{
+    marginTop: '30px',
+    width: '100px'
+  }
+}));
+
+
 
 function List() {
   const inputRef = useRef(null);
@@ -42,6 +58,8 @@ function List() {
   const [open, setOpen] = useState(false);
   const [scan, setScan] = useState(false);
   const [text, setText] = useState(false);
+
+  const classes = useStyles()
 
   function clickHandler() {
     setOpen((prev) => !prev);
@@ -97,14 +115,7 @@ function List() {
   const picHandler = () => {
     inputRef.current.click();
   };
-  // const newImg = (param) => `/img/${param}`;
-  function FormRow() {
-    return (
-      <React.Fragment>
-        <Grid item xs={6}></Grid>
-      </React.Fragment>
-    );
-  }
+
   return (
     <>
       <Grid container spacing={3}>
@@ -117,7 +128,7 @@ function List() {
           alignItems="center"
           p={5}
         >
-          <Button color="danger" onClick={clickHandler}>
+          <Button color="danger" onClick={clickHandler} className={classes.button}>
             Eat
           </Button>
         </Grid>
@@ -204,7 +215,8 @@ function List() {
           </Form>
         </Modal>
       </Grid>
-      <Box>
+      <Box className={classes.table}>
+        <Paper elevation={3} variant="outlined" className={classes.paper}>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -229,6 +241,7 @@ function List() {
           <> </>
         )}
       </Table>
+      </Paper>
       </Box>
     </>
   );

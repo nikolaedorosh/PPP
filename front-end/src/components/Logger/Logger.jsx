@@ -18,6 +18,7 @@ import { getUsersThunk,getUserInfo } from '../../redux/actionCreators/graphicsAC
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
+import {Paper } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +32,13 @@ const useStyles = makeStyles((theme) => ({
   },
   typolog2:{
     marginLeft: 390
+  },
+  table:{
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  paper:{
+    backgroundColor: '#B6C6EB'
   }
 }));
 function Logger() {
@@ -44,11 +52,6 @@ function Logger() {
   let graphics_need;
   let result;
   const classes = useStyles()
-
-  // useEffect(() => {
-  //   console.log(id , '<-------id')
-  //   dispatch(getUserInfo(id));
-  // }, []);
 
   useEffect(() => {
     dispatch(getUsersThunk(id));
@@ -132,6 +135,7 @@ result = [
   return (
     <Grid container spacing={3} className={classes.greeds} >
       <Grid item xs={6} >
+      <Paper elevation={3} variant="outlined" className={classes.paper}>
         <Typography className={classes.typolog}>Вывод за неделю:</Typography>
         <LineChart
             width={530}
@@ -176,6 +180,7 @@ result = [
               strokeWidth={2}
             />
           </LineChart>
+          </Paper>
       </Grid>
       <Grid item xs={6}>
       <Typography className={classes.typolog}>Вывод за day:</Typography>
