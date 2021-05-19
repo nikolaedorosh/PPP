@@ -1,4 +1,4 @@
-import { Spinner } from "reactstrap";
+
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,7 +14,7 @@ import {
   LabelList,
   Label,
 } from 'recharts';
-import { getUsersThunk } from '../../redux/actionCreators/graphicsAC';
+import { getUsersThunk,getUserInfo } from '../../redux/actionCreators/graphicsAC';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
@@ -37,7 +37,7 @@ function Logger() {
   const week = useSelector((state) => state.week);
   const today = useSelector((state) => state.food.meals);
   const info = useSelector((state) => state.info);
-  const email = useSelector((state) => state.auth.userEmail);
+  const id = useSelector((state) => state.auth.userId);
 
   const dispatch = useDispatch();
   let graphics_target;
@@ -45,8 +45,13 @@ function Logger() {
   let result;
   const classes = useStyles()
 
+  // useEffect(() => {
+  //   console.log(id , '<-------id')
+  //   dispatch(getUserInfo(id));
+  // }, []);
+
   useEffect(() => {
-    dispatch(getUsersThunk(email));
+    dispatch(getUsersThunk(id));
   }, [today]);
 
   let newArr = [];
@@ -56,6 +61,13 @@ function Logger() {
     fats: 0,
     proteins: 0,
     Kcalories: 0
+  }
+
+  graphics_need = {
+    targetKCal: info.kcal,
+    targetProt: info.Proteins,
+    targetCarb: info.carbohydrates,
+    targetFat: info.fats
   }
 
   if (week.length) {
@@ -107,10 +119,8 @@ function Logger() {
       todayGraph = newArr[newArr.length - 1]
     }
   }
-  
-  graphics_target = newArr;
 
-
+  graphics_target = newArr
 
 result = [
     {
@@ -168,6 +178,7 @@ result = [
           </LineChart>
       </Grid>
       <Grid item xs={6}>
+      <Typography className={classes.typolog}>Вывод за day:</Typography>
         <BarChart
           width={730}
           height={250}

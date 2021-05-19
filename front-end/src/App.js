@@ -9,7 +9,7 @@ import WelcomePage from "./components/WelcomePage/WelcomePage";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import Footer from "./components/Footer/Footer";
 import { useSelector } from "react-redux";
-import Orders from "./components/Ober/Ober";
+
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
@@ -45,7 +45,6 @@ function App() {
             <Route exact path="/logger">
               <Logger />
               <List />
-              <Orders/>
             </Route>
             <Route>
               <PageNotFound />

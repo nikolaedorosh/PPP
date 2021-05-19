@@ -34,10 +34,8 @@ function List() {
   const inputRef = useRef(null);
   const scannerPic = useSelector((state) => state.food.scannedImg);
   const id = useSelector((state) => state.auth.userId);
-  const meals = useSelector((state) => state.food.meals);
   const options = useSelector((state) => state.food.options);
   const week = useSelector((state) => state.week);
-  const email = useSelector((state) => state.auth.userEmail);
   const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
 
@@ -70,7 +68,7 @@ function List() {
 
   function createMeal(e) {
     e.preventDefault();
-    dispatch(getMeal(options, email));
+    dispatch(getMeal(options, id));
     setOpen((prev) => !prev);
     setText('');
     dispatch({
@@ -223,7 +221,7 @@ function List() {
           [...week].reverse().map((el) => (
             <TableBody>
               <TableRow>
-                  <Meal key={Math.random()} date={el.date} items={el.items} />
+                  <Meal key={Math.random()} date={el.date} items={el.items} id={el._id} />
               </TableRow>
             </TableBody>
           ))
@@ -237,17 +235,4 @@ function List() {
 }
 
 export default List;
-{
-  /* <TableBody>
-            
-            <TableRow>
-               <TableCell>{id}</TableCell>
-              <TableCell>{date}</TableCell> 
-              <TableCell>{totalCarbohydrates}</TableCell>
-              <TableCell>{totalFats}</TableCell>
-              <TableCell>{totalProteins}</TableCell>
-              <TableCell align="right">{totalKcal}</TableCell>
-            </TableRow>
-         
-        </TableBody> */
-}
+

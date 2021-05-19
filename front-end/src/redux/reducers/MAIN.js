@@ -11,12 +11,6 @@ const mainReducer = (state = [], action) => {
         ...action.payload,
       };
     case TYPES.USER_DATA_CHANGE:
-      console.log({
-        ...state.auth,
-        userId: action.payload.dbData._id,
-        userName: action.payload.dbData.name,
-        userEmail: action.payload.dbData.email,
-      });
       return {
         ...state,
         auth: {
