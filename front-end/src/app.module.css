@@ -15,11 +15,11 @@ body {
 }
 
 .light {
-  background-color: #D8E7E9;
+  background-color: #e7f2f3;
   color: black;
   border: 5px solid white;
   border-radius: 15px;
-  margin: 15px;
+  margin: 0 180px;
   padding: 15px;
   filter: drop-shadow(2px 2px 5px black);
 } 

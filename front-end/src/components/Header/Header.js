@@ -40,12 +40,18 @@ const useStyles = makeStyles((theme) => ({
   },
   colorPrimary: {
     background: "#427276",
+    padding: 8,
+    borderRadius: 10
   },
   modal: {
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "inherit",
   },
+  logger:{
+    marginLeft: 60,
+    
+  }
 }));
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='left' ref={ref} {...props} />;
@@ -92,7 +98,7 @@ function Header({ darkTheme, setDarkTheme }) {
           {userName ? "" : <Link to='/welcomepage'>HomePage</Link>}
           {userName ? (
             <>
-              <Button>
+              <Button className={classes.logger}>
                 <Link to='/logger'>Logger</Link>
               </Button>
             </>

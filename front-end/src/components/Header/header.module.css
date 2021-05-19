@@ -1,37 +1,3 @@
-/* .wrap {
-    background-color: #282c34;
-    min-height: 5vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 1vmin);
-    color: white;
-    word-spacing: 20px;
-    margin-bottom: 26px;
-}
-
-.wrap a {
-    color: white;
-    text-decoration: none;
-    margin: 0 10px;
-}  */
-
-/* .modal {
-  position: fixed;
-  width: 30%;
-  height: fit-content;
-  
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto; 
-
-   border: 2px solid #ccc;
-  border-radius: 3px;
-  background-color: ghostwhite;
-  text-align:center;
-} */
 .Logo {
   width: 30px
 }

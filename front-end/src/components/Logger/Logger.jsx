@@ -31,19 +31,26 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 40,
   },
   typolog: {
-    marginLeft: 220,
+    marginLeft: 78,
   },
   typolog2: {
-    marginLeft: 390,
+    marginLeft: 76,
   },
-  // paper: {
-  //   backgroundColor: '#B6C6EB',
-  // },
-  styleForContainer:{
+  styleForContainer: {
     display: 'flex',
-    justifyContent:'center',
-    marginTop: 40
-  }
+    justifyContent: 'center',
+    marginTop: 40,
+    marginLeft: -40,
+  },
+  forBox1: {
+    marginRight: 10,
+  },
+  legend: {
+    paddingTop: 52,
+  },
+  text: {
+    fontSize: 15,
+  },
 }));
 function Logger() {
   const week = useSelector((state) => state.week);
@@ -142,112 +149,151 @@ function Logger() {
   ];
 
   return (
-    // <Grid container spacing={3} className={classes.greeds} >
-    // <Grid item xs={6} className={classes.gridTest}>
-  //  <Paper elevation={3} variant="outlined" className={classes.paper}>
     <Box className={classes.styleForContainer}>
-      <Box>
-        {/* <Paper elevation={3} variant="outlined" className={classes.paper}> */}
-          <Typography className={classes.typolog}>Вывод за неделю:</Typography>
-          <LineChart
-            width={530}
-            height={250}
-            data={graphics_target}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+      <Box className={classes.forBox1}>
+        <Box className={classes.typolog}>
+          <Typography >Data:</Typography>
+        </Box>
+        <LineChart
+          width={550}
+          height={350}
+          data={graphics_target}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="" stroke="#999" />
+          <XAxis dataKey="day" stroke="red">
+            <Label position="insideBottom" />
+          </XAxis>
+          <YAxis />
+          <Tooltip />
+          <Line
+            type="monotone"
+            dataKey="Kcalories"
+            stroke="#F17455"
+            strokeWidth={4}
+          />
+          <Line
+            type="monotone"
+            dataKey="fats"
+            stroke="#776E18"
+            strokeWidth={2}
+          />
+          <Line
+            type="monotone"
+            dataKey="proteins"
+            stroke="#A3526C"
+            strokeWidth={2}
+          />
+          <Line
+            type="monotone"
+            dataKey="carbohydrates"
+            stroke="#EEC458"
+            strokeWidth={2}
+          />
+        </LineChart>
+      </Box>
+      <Box className={classes.legend}>
+        <Typography variant="body1">
+          <Box
+            className={classes.text}
+            style={{ color: '#F17455', opacity: 0.5 }}
           >
-            <CartesianGrid strokeDasharray="" stroke="#999" />
-            <XAxis dataKey="day" stroke="red">
-              <Label value="days" position="insideBottom" />
-            </XAxis>
-            <YAxis />
-            <Tooltip />
-            <Line
-              type="monotone"
-              dataKey="Kcalories"
-              stroke="#F17455"
-              strokeWidth={4}
-            />
-            <Line
-              type="monotone"
-              dataKey="fats"
-              stroke="#776E18"
-              strokeWidth={2}
-            />
-            <Line
-              type="monotone"
-              dataKey="proteins"
-              stroke="#A3526C"
-              strokeWidth={2}
-            />
-            <Line
-              type="monotone"
-              dataKey="carbohydrates"
-              stroke="#EEC458"
-              strokeWidth={2}
-            />
-          </LineChart>
-        {/* </Paper> */}
+            ◆ Kcalories
+          </Box>
+          <Box className={classes.text} style={{ color: '#F17455' }}>
+            ◆ Target Kcalories
+          </Box>
+          <Box
+            className={classes.text}
+            style={{ color: '#A3526C', opacity: 0.5 }}
+          >
+            ◆ Proteins
+          </Box>
+          <Box className={classes.text} style={{ color: '#A3526C' }}>
+            ◆ Target Proteins
+          </Box>
+          <Box
+            className={classes.text}
+            style={{ color: '#DFA616', opacity: 0.5 }}
+          >
+            ◆ Carbs
+          </Box>
+          <Box className={classes.text} style={{ color: '#DFA616' }}>
+            ◆ Target Carbs
+          </Box>
+          <Box
+            className={classes.text}
+            style={{ color: '#776E18', opacity: 0.5 }}
+          >
+            ◆ Fats
+          </Box>
+          <Box className={classes.text} style={{ color: '#776E18' }}>
+            ◆Target Fats
+          </Box>
+        </Typography>
       </Box>
       <Box>
-        <Typography className={classes.typolog}>Вывод за day:</Typography>
+        <Box className={classes.typolog2}>
+          <Typography >Today:</Typography>
+        </Box>
+
         <BarChart
-          width={730}
-          height={250}
+          width={600}
+          height={350}
           data={result}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           barCategoryGap="10%"
           barGap="10"
         >
           <XAxis dataKey="day">
-            <Label value="Current day" position="insideBottom" />
+            <Label position="insideBottom" />
           </XAxis>
           <YAxis />
           <Tooltip />
-          <Legend
-            layout="vertical"
-            align="left"
-            verticalAlign="middle"
-            iconType="rect"
-          />
           <CartesianGrid stroke="#999" />
 
-          <Bar dataKey="Kcalories" barSize={40} fill="#F17455" />
+          <Bar dataKey="Kcalories" barSize={40} fill="#F17455" opacity="0.5" />
           <Bar
             dataKey="targetKCal"
             barSize={40}
-            fill="#F4937B"
+            fill="#F17455"
             isAnimationActive={false}
-          >
-          </Bar>
+          ></Bar>
 
-          <Bar dataKey="proteins" barSize={40} fill="#A3526C"></Bar>
+          <Bar
+            dataKey="proteins"
+            barSize={40}
+            fill="#A3526C"
+            opacity="0.5"
+          ></Bar>
           <Bar
             dataKey="targetProt"
             barSize={40}
-            fill="#B46A81"
+            fill="#A3526C"
             isAnimationActive={false}
-          >
-          </Bar>
+          ></Bar>
 
-          <Bar dataKey="carbohydrates" barSize={40} fill="#A77C11" />
+          <Bar
+            dataKey="carbohydrates"
+            barSize={40}
+            fill="#DFA616"
+            opacity="0.5"
+          />
           <Bar
             dataKey="targetCarb"
             barSize={40}
             fill="#DFA616"
             isAnimationActive={false}
-          >
-          </Bar>
+          ></Bar>
 
-          <Bar dataKey="fats" barSize={40} fill="#776E18" />
+          <Bar dataKey="fats" barSize={40} fill="#776E18" opacity="0.5" />
           <Bar
             dataKey="targetFat"
             barSize={40}
-            fill="#988C1F"
+            fill="#776E18"
             isAnimationActive={false}
-          >
-          </Bar>
+          ></Bar>
         </BarChart>
-        {/* <RandomBurger /> */}
       </Box>
     </Box>
   );

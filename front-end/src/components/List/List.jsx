@@ -21,8 +21,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMeal } from '../../redux/actionCreators/mealAC';
 import { changeTextSaga } from '../../redux/saga';
 import * as TYPES from '../../redux/types/types';
-import Grid from '@material-ui/core/Grid';
-import { Box , Paper } from '@material-ui/core';
+
+import { Box, Paper } from '@material-ui/core';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -31,22 +31,27 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
-import style from './list.module.css'
+import style from './list.module.css';
 const useStyles = makeStyles((theme) => ({
-  table:{
-    marginTop: "40px",
+  table: {
+    marginTop: '40px',
     // width: '100%',
-    marginLeft : "200px",
-    marginRight: '200px'
+    marginLeft: '200px',
+    marginRight: '200px',
     // display:'flex',
     // justifyContent: 'center'
   },
-  paper:{
-    backgroundColor: '#D8E7E9'
+  paper: {
+    backgroundColor: '#D8E7E9',
   },
-  button:{
+  button: {
     marginTop: '30px',
-    width: '200px'
+    width: '200px',
+  },
+  button2:{
+   display:'flex',
+   justifyContent:'center',
+   paddingRight:36
   }
 }));
 
@@ -63,8 +68,7 @@ function List() {
   const [scan, setScan] = useState(false);
   const [text, setText] = useState(false);
 
-
-  const classes = useStyles()
+  const classes = useStyles();
 
   function clickHandler() {
     setOpen((prev) => !prev);
@@ -121,84 +125,68 @@ function List() {
     inputRef.current.click();
   };
   // const newImg = (param) => `/img/${param}`;
-  function FormRow() {
-    return (
-      <React.Fragment>
-        <Grid item xs={6}></Grid>
-      </React.Fragment>
-    );
-  }
+
   return (
     <>
-      <Grid container spacing={3}>
-        <Grid
-          item
-          xs={12}
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          p={5}
-        >
-          <Tooltip title="Add meal" placement="bottom">
+      <Box className={classes.button2}>
+        <Tooltip title="Add meal" placement="bottom">
           <Button className={style.glow} onClick={clickHandler}>
             Eat
           </Button>
-          </Tooltip>
-        </Grid>
+        </Tooltip>
+      </Box>
 
-
-        <Modal toggle={clickHandler} isOpen={open}>
-          <Form inline>
-            <ModalHeader>
-              meal
-              <div>
-                <Button onClick={tabClickHandler} type="button">
-                  {scan ? 'Type' : 'Scan'}
-                </Button>
-              </div>
-            </ModalHeader>
-            <ModalBody>
-              <BounceLoader
-                color="blue"
-                size={150}
-                loading={loading}
-                css={{
-                  zIndex: '100',
-                  position: 'absolute',
-                  margin: '35%',
-                  marginTop: '20%',
-                }}
-              />
-              {!scan ? (
-                <>
-                  <p>meals</p>
-                  <FormGroup>
-                    <Input
-                      onChange={changeText}
-                      placeholder="search food example: 1 apple 100 grams of buckwheat"
-                      value={text ? text : ''}
-                    ></Input>
-                  </FormGroup>
-                  {options ? (
-                    options.map((el) => (
-                      <Item
-                        num={el.num}
-                        image={el.image}
-                        Kcals={el.info.cal}
-                        proteins={el.info.prot}
-                        fats={el.info.fat}
-                        carbs={el.info.carb}
-                      />
-                    ))
-                  ) : (
-                    <></>
-                  )}
-                </>
-              ) : (
-                <>
+      <Modal toggle={clickHandler} isOpen={open}>
+        <Form inline>
+          <ModalHeader>
+            meal
+            <div>
+              <Button onClick={tabClickHandler} type="button">
+                {scan ? 'Type' : 'Scan'}
+              </Button>
+            </div>
+          </ModalHeader>
+          <ModalBody>
+            <BounceLoader
+              color="blue"
+              size={150}
+              loading={loading}
+              css={{
+                zIndex: '100',
+                position: 'absolute',
+                margin: '35%',
+                marginTop: '20%',
+              }}
+            />
+            {!scan ? (
+              <>
+                <p>meals</p>
+                <FormGroup>
+                  <Input
+                    onChange={changeText}
+                    placeholder="search food example: 1 apple 100 grams of buckwheat"
+                    value={text ? text : ''}
+                  ></Input>
+                </FormGroup>
+                {options ? (
+                  options.map((el) => (
+                    <Item
+                      num={el.num}
+                      image={el.image}
+                      Kcals={el.info.cal}
+                      proteins={el.info.prot}
+                      fats={el.info.fat}
+                      carbs={el.info.carb}
+                    />
+                  ))
+                ) : (
+                  <></>
+                )}
+              </>
+            ) : (
+              <>
                 {/* <RandomBurger/> */}
-                  {/* <h2>Scan your item!</h2>
+                {/* <h2>Scan your item!</h2>
 
                   <div>
                     <img
@@ -218,50 +206,55 @@ function List() {
                   <IconButton onClick={picHandler} className="button">
                     <EditIcon />
                   </IconButton> */}
-                </>
-              )}
-            </ModalBody>
-            <ModalFooter>
-              Kcals/proteins/fats/carbs
-              <Button type="button" onClick={createMeal}>Add Meal</Button>{' '}
-              <Button type="button" onClick={clickHandler} color="danger">
-                Cancel
-              </Button>
-            </ModalFooter>
-          </Form>
-        </Modal>
-      </Grid>
+              </>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            Kcals/proteins/fats/carbs
+            <Button type="button" onClick={createMeal}>
+              Add Meal
+            </Button>{' '}
+            <Button type="button" onClick={clickHandler} color="danger">
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
       <Box className={classes.table}>
-      <Paper elevation={5} variant="outlined" className={classes.paper}>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Date:</TableCell>
-            <TableCell>Name:</TableCell>
-            <TableCell>Proteins:</TableCell>
-            <TableCell>Fats:</TableCell>
-            <TableCell>Carbohydrates:</TableCell>
-            <TableCell >Kcal:</TableCell>
-            <TableCell align="right" ></TableCell>
-          </TableRow>
-        </TableHead>
-        {week.length ? (
-          [...week].reverse().map((el) => (
-            <TableBody>
+        <Paper elevation={5} variant="outlined" className={classes.paper}>
+          <Table size="small">
+            <TableHead>
               <TableRow>
-                  <Meal key={Math.random()} date={el.date} items={el.items} id={el._id} />
+                <TableCell>Date:</TableCell>
+                <TableCell>Name:</TableCell>
+                <TableCell>Proteins:</TableCell>
+                <TableCell>Fats:</TableCell>
+                <TableCell>Carbohydrates:</TableCell>
+                <TableCell>Kcal:</TableCell>
+                <TableCell align="right"></TableCell>
               </TableRow>
-            </TableBody>
-          ))
-        ) : (
-          <> </>
-        )}
-      </Table>
-      </Paper>
+            </TableHead>
+            {week.length ? (
+              [...week].reverse().map((el) => (
+                <TableBody>
+                  <TableRow>
+                    <Meal
+                      key={Math.random()}
+                      date={el.date}
+                      items={el.items}
+                      id={el._id}
+                    />
+                  </TableRow>
+                </TableBody>
+              ))
+            ) : (
+              <> </>
+            )}
+          </Table>
+        </Paper>
       </Box>
     </>
   );
 }
 
 export default List;
-
