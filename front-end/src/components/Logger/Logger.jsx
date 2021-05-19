@@ -114,6 +114,8 @@ function Logger() {
     }
   }
 
+  graphics_target = newArr
+
 result = [
     {
       ...todayGraph,
