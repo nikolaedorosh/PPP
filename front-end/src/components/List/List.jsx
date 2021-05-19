@@ -52,12 +52,7 @@ function List() {
   }
 
   useEffect(() => {
-    dispatch({ type: TYPES.CHANGE_LOAD, payload: { loading: false } });
-  }, [options]);
-
-  useEffect(() => {
     if (text) {
-      dispatch({ type: TYPES.CHANGE_LOAD, payload: { loading: true } });
       dispatch(changeTextSaga(text));
     }
   }, [text]);

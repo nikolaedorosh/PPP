@@ -45,6 +45,14 @@ function Logger() {
   }, [today]);
   
   let newArr = [];
+
+  let todayGraph = {
+    carbohydrates: 0,
+    fats: 0,
+    proteins: 0,
+    Kcalories: 0
+  }
+
   if (week.length) {
 
     let acc = {date: week[0].date,
@@ -70,7 +78,6 @@ function Logger() {
 
       if (new Date(acc.date).toLocaleDateString() !== new Date(el.date).toLocaleDateString()) {
         newArr.push(acc)
-
         acc = {
           date: el.date,
           carbohydrates: totalCarb,
@@ -86,21 +93,23 @@ function Logger() {
           proteins: acc.proteins + totalProt,
           Kcalories: acc.Kcalories + totalCal,
         }
-        if (i === week.length - 1) {
-          newArr.push(acc)
-        }
+      }
+      if (i === week.length - 1) {
+        newArr.push(acc)
       }
     })
+    if (new Date(newArr[newArr.length - 1].date).toLocaleDateString() === new Date().toLocaleDateString()) {
+      todayGraph = newArr[newArr.length - 1]
+    }
   }
-
   
   graphics_target = newArr;
 
-  console.log(graphics_target)
 
-  result = [
+
+result = [
     {
-      ...graphics_target[graphics_target.length - 1],
+      ...todayGraph,
       ...graphics_need,
     },
   ];
@@ -116,7 +125,7 @@ function Logger() {
           >
             <CartesianGrid strokeDasharray="" stroke="#999" />
             <XAxis dataKey="day" stroke="red">
-              <Label value="Week" position="insideBottom" />
+              <Label value="days" position="insideBottom" />
             </XAxis>
             <YAxis stroke="red" />
             <Tooltip />
