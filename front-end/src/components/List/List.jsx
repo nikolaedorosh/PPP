@@ -29,6 +29,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import RandomBurger from '../RandomBurger/RandomBurger';
 
 function List() {
   const inputRef = useRef(null);
@@ -67,7 +68,7 @@ function List() {
   }
 
   function createMeal(e) {
-    e.preventDefault();
+    // e.preventDefault();
     dispatch(getMeal(options, id));
     setOpen((prev) => !prev);
     setText('');
@@ -122,8 +123,9 @@ function List() {
           </Button>
         </Grid>
 
+
         <Modal toggle={clickHandler} isOpen={open}>
-          <Form onSubmit={createMeal} inline>
+          <Form inline>
             <ModalHeader>
               meal
               <div>
@@ -171,7 +173,8 @@ function List() {
                 </>
               ) : (
                 <>
-                  <h2>Scan your item!</h2>
+                <RandomBurger/>
+                  {/* <h2>Scan your item!</h2>
 
                   <div>
                     <img
@@ -190,13 +193,13 @@ function List() {
                   />
                   <IconButton onClick={picHandler} className="button">
                     <EditIcon />
-                  </IconButton>
+                  </IconButton> */}
                 </>
               )}
             </ModalBody>
             <ModalFooter>
               Kcals/proteins/fats/carbs
-              <Button>Add Meal</Button>{' '}
+              <Button type="button" onClick={createMeal}>Add Meal</Button>{' '}
               <Button type="button" onClick={clickHandler} color="danger">
                 Cancel
               </Button>

@@ -184,7 +184,9 @@ const WelcomePage = () => {
       <br></br>Зарегистрируйтесь, чтобы ознакомиться с интерфейсом приложения
       <hr></hr>
       {test ? (
+
         <FormGroup style={{ alignItems: "center" }}>
+
           <TextField
             label="Email"
             variant="outlined"
@@ -218,12 +220,14 @@ const WelcomePage = () => {
             style={{ width: "400px" }}
           />
           <br />
+
           <Button
             variant="contained"
             color="primary"
             endIcon={<Icon>send</Icon>}
             onClick={submitHandler1}
           >
+
             Sign Up
           </Button>
           <br />
@@ -242,12 +246,14 @@ const WelcomePage = () => {
           </Button>
         </FormGroup>
       ) : (
+
         <>
           <FormGroup style={{ alignItems: "center" }}>
             <TextField
               label="Email"
               variant="outlined"
               placeholder="Type email here..."
+
               onChange={inputMailHandler}
               value={inputMail}
               type="mail"
@@ -264,6 +270,7 @@ const WelcomePage = () => {
               required
               style={{ width: "400px" }}
             />
+
 
             <Button
               variant="contained"
