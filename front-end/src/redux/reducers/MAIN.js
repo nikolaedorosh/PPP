@@ -16,8 +16,6 @@ const mainReducer = (state = [], action) => {
         auth: {
           ...state.auth,
           userId: action.payload.dbData._id,
-          userName: action.payload.dbData.name,
-          userEmail: action.payload.dbData.email,
         },
         info: {
           ...state.info,
