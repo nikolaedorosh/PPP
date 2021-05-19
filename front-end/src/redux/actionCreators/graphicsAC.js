@@ -18,7 +18,20 @@ function setWeek(payload) {
   };
 }
 
-export { getUsersThunk };
+const getUserInfo = (id) => async (dispatch, getState) => {
+  const resp = await fetch("http://localhost:3000/logger/info", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({id: id}),
+  });
+  const res = await resp.json();
+  dispatch({
+    type: TYPES.USER_DATA_CHANGE,
+    payload: {dbData: res},
+  });
+};
+
+export { getUsersThunk, getUserInfo };
 
 // update user details
 export const personalInfoHandler =

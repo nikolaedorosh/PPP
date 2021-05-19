@@ -27,7 +27,6 @@ function deleteMeal(payload) {
 }
 
 export const sendMeal = (id) => async (dispatch, getState) => {
-  console.log(id)
   const response = await fetch("http://localhost:3000/logger/deleteMeal", {
     method: "POST",
     headers: {
