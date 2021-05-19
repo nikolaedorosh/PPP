@@ -6,15 +6,10 @@ import Item from '../Item/Item';
 
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import TableCell from '@material-ui/core/TableCell';
 
-  
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -24,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Meal({ date, items ,id }) {
+function Meal({ date, items, id }) {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const classes = useStyles();
@@ -37,8 +32,8 @@ function Meal({ date, items ,id }) {
   })}`;
 
   function deleteClickHandler(id) {
-    dispatch(sendMeal(id))
- }
+    dispatch(sendMeal(id));
+  }
 
   function clickHandler() {
     setOpen((prev) => !prev);
@@ -63,20 +58,25 @@ function Meal({ date, items ,id }) {
 
   return (
     <>
-      <Box>
-        <Button onClick={clickHandler} variant="outlined" color="secondary">
+        {/* <Button onClick={clickHandler}>
           {items[0].name}...
-          {totalKcal}/{totalProteins}/{totalFats}/{totalCarbohydrates}ы
-          <Button
-            onClick={() => deleteClickHandler(date)}
-            variant="contained"
-            color="secondary"
-            size="small"
-          >
+          {totalKcal}/{totalProteins}/{totalFats}/{totalCarbohydrates}
+          <Button onClick={() => deleteClickHandler(id)} color="danger">
             Delete
           </Button>
-        </Button>
-
+        </Button> */}
+          <TableCell>{date}</TableCell>
+          <TableCell> <Button onClick={clickHandler}>
+            {items[0].name}
+            </Button></TableCell>
+          <TableCell>{totalProteins}</TableCell>
+          <TableCell>{totalFats}</TableCell>
+          <TableCell>{totalCarbohydrates}</TableCell>
+          <TableCell>{totalKcal}</TableCell>
+          <TableCell> <Button onClick={() => deleteClickHandler(id)}>
+            Delete
+            </Button></TableCell>
+          <Box>
         <Modal toggle={clickHandler} isOpen={open}>
           <ModalHeader>{dateStr}</ModalHeader>
           <ModalBody>
@@ -96,29 +96,7 @@ function Meal({ date, items ,id }) {
         </Modal>
       </Box>
     </>
-    // <Button onClick={clickHandler}>
-    //     {items[0].name}...
-    //    {totalKcal}/{totalProteins}/{totalFats}/{totalCarbohydrates}
-    //   <Button onClick={() => deleteClickHandler(id)} color="danger">Delete</Button>
-    //   </Button>
-    //   <Modal toggle={clickHandler} isOpen={open}>
-    //     <ModalHeader>
-    //       {dateStr}
-    //     </ModalHeader>
-    //     <ModalBody>
-    //       {items.map(el => 
-    //         <Item image={el.image} Kcals={el.info.cal} proteins={el.info.prot} fats={el.info.fat} carbs={el.info.carb}/>
-    //         )}
-    //       <ModalFooter>
-    //         <Button onClick={clickHandler}>Cancel</Button>
-    //       </ModalFooter>
-    //     </ModalBody>
-    //   </Modal>
-    //   </>
-  
   );
 }
 
 export default Meal;
-
-
