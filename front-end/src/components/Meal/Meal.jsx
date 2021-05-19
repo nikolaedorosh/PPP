@@ -14,6 +14,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+  
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Meal({ date, items }) {
+function Meal({ date, items ,id }) {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const classes = useStyles();
@@ -35,9 +36,9 @@ function Meal({ date, items }) {
     minute: '2-digit',
   })}`;
 
-  function deleteClickHandler(date) {
-    dispatch(sendMeal(date));
-  }
+  function deleteClickHandler(id) {
+    dispatch(sendMeal(id))
+ }
 
   function clickHandler() {
     setOpen((prev) => !prev);
@@ -95,40 +96,29 @@ function Meal({ date, items }) {
         </Modal>
       </Box>
     </>
+    // <Button onClick={clickHandler}>
+    //     {items[0].name}...
+    //    {totalKcal}/{totalProteins}/{totalFats}/{totalCarbohydrates}
+    //   <Button onClick={() => deleteClickHandler(id)} color="danger">Delete</Button>
+    //   </Button>
+    //   <Modal toggle={clickHandler} isOpen={open}>
+    //     <ModalHeader>
+    //       {dateStr}
+    //     </ModalHeader>
+    //     <ModalBody>
+    //       {items.map(el => 
+    //         <Item image={el.image} Kcals={el.info.cal} proteins={el.info.prot} fats={el.info.fat} carbs={el.info.carb}/>
+    //         )}
+    //       <ModalFooter>
+    //         <Button onClick={clickHandler}>Cancel</Button>
+    //       </ModalFooter>
+    //     </ModalBody>
+    //   </Modal>
+    //   </>
+  
   );
 }
 
 export default Meal;
 
-// <Button onClick={clickHandler} variant="outlined" color="secondary">
-// {items[0].name}...
-// {/* {totalKcal}/{totalProteins}/{totalFats}/{totalCarbohydrates} */}
-// <Button
-//   onClick={() => deleteClickHandler(date)}
-//   variant="contained"
-//   color="secondary"
-//   size='small'
-// >
-//   Delete
-// </Button>
-// </Button>
-// Card className={classes.root}>
-//           <CardActionArea>
-//             <CardMedia
-//               className={classes.media}
-//               image="/static/images/cards/contemplative-reptile.jpg"
-//               title="Contemplative Reptile"
-//             />
-//             <CardContent>
-//               <Typography gutterBottom variant="h5" component="h2">
-//                 {items[0].name}
-//               </Typography>
-//             </CardContent>
-//           </CardActionArea>
-//           <CardActions>
-//             <Button onClick={() => deleteClickHandler(date)}>Delete</Button>
-//             <Button onClick={clickHandler} variant="outlined" color="secondary">
-//               Learn More
-//             </Button>
-// </CardActions>
-// </Card>
+

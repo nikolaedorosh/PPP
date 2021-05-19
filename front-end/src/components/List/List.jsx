@@ -206,7 +206,58 @@ function List() {
               </ModalFooter>
             </Form>
           </Modal>
-      </Grid>
+              {/* </>
+            ) : (
+              <>
+                <>
+                  <h2>Scan your item!</h2>
+
+                  <div>
+                    <img
+                      src={'/img/' + scannerPic}
+                      width="200"
+                      alt="scan-pic"
+                    />
+                  </div>
+
+                  <input
+                    type="file"
+                    id="fileUploader"
+                    hidden="hidden"
+                    ref={inputRef}
+                    onChange={uploadOnChange}
+                  />
+                  <IconButton onClick={picHandler} className="button">
+                    <EditIcon />
+                  </IconButton>
+                </>
+              </>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            Kcals/proteins/fats/carbs
+            <Button>Add Meal</Button>{' '}
+            <Button type="button" onClick={clickHandler} color="danger">
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
+      <div>
+        {week.length ? (
+          [...week]
+            .reverse()
+            .map((el) => (
+              <Meal key={Math.random()} date={el.date} id={el._id} items={el.items} />
+            ))
+        ) : (
+          <> </>
+        )}
+      </div> */}
+        </Grid>
+        {/* <Grid item xs={3}></Grid>
+        <Grid item xs={3}></Grid> */}
+      {/* </Grid> */}
             <Box display='flex' justifyContent='space-between'>
             {week.length ? (
               [...week]

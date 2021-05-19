@@ -48,41 +48,60 @@ function Logger() {
   useEffect(() => {
     dispatch(getUsersThunk(email));
   }, [today]);
+  
+  let newArr = [];
+  if (week.length) {
+    
+    let acc = {date: week[0].date,
+      carbohydrates: 0,
+      fats: 0,
+      proteins: 0,
+      Kcalories: 0}
 
-  let weekArr = [];
-  for (let i = 0; i < week.length; i++) {
-    let totalCarb = 0;
-    let totalFat = 0;
-    let totalProt = 0;
-    let totalCal = 0;
-    for (let j = 0; j < week[i].items.length; j++) {
-      const { carb, fat, prot, cal } = week[i].items[j].info;
-      totalCarb += carb;
-      totalFat += fat;
-      totalProt += prot;
-      totalCal += cal;
-      if (j === week[i].items.length - 1) {
-        weekArr.push({
+
+    week.forEach((el, i) => {
+      let totalCarb = 0;
+      let totalFat = 0;
+      let totalProt = 0;
+      let totalCal = 0;
+
+      el.items.forEach(ele => {
+        const { carb, fat, prot, cal } = ele.info;
+        totalCarb += carb;
+        totalFat += fat;
+        totalProt += prot;
+        totalCal += cal;
+      })
+
+      if (new Date(acc.date).toLocaleDateString() !== new Date(el.date).toLocaleDateString()) {
+        newArr.push(acc)
+
+        acc = {
+          date: el.date,
           carbohydrates: totalCarb,
           fats: totalFat,
           proteins: totalProt,
           Kcalories: totalCal,
-        });
+        }
+      } else {
+        acc = {
+          ...acc,
+          carbohydrates: acc.carbohydrates + totalCarb,
+          fats: acc.fats + totalFat,
+          proteins: acc.proteins + totalProt,
+          Kcalories: acc.Kcalories + totalCal,
+        }
+        if (i === week.length - 1) {
+          newArr.push(acc)
+        }
       }
-    }
+    })
   }
-  graphics_target = weekArr;
 
-  const myKcal = info.kcal;
-  const myProt = info.proteins;
-  const myCarb = info.carbohydrates;
-  const myFat = info.fats;
-  graphics_need = {
-    targetKCal: myKcal,
-    targetProt: myProt,
-    targetCarb: myCarb,
-    targetFat: myFat,
-  };
+  
+  graphics_target = newArr;
+
+  console.log(graphics_target)
 
   result = [
     {
