@@ -22,15 +22,20 @@ import { getMeal } from '../../redux/actionCreators/mealAC';
 import { changeTextSaga } from '../../redux/saga';
 import * as TYPES from '../../redux/types/types';
 import Grid from '@material-ui/core/Grid';
+import { Box } from '@material-ui/core';
+
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 function List() {
   const inputRef = useRef(null);
   const scannerPic = useSelector((state) => state.food.scannedImg);
   const id = useSelector((state) => state.auth.userId);
-  const meals = useSelector((state) => state.food.meals);
   const options = useSelector((state) => state.food.options);
   const week = useSelector((state) => state.week);
-  const email = useSelector((state) => state.auth.userEmail);
   const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
 
@@ -52,12 +57,7 @@ function List() {
   }
 
   useEffect(() => {
-    dispatch({ type: TYPES.CHANGE_LOAD, payload: { loading: false } });
-  }, [options]);
-
-  useEffect(() => {
     if (text) {
-      dispatch({ type: TYPES.CHANGE_LOAD, payload: { loading: true } });
       dispatch(changeTextSaga(text));
     }
   }, [text]);
@@ -68,7 +68,7 @@ function List() {
 
   function createMeal(e) {
     e.preventDefault();
-    dispatch(getMeal(options, email));
+    dispatch(getMeal(options, id));
     setOpen((prev) => !prev);
     setText('');
     dispatch({
@@ -98,64 +98,78 @@ function List() {
     inputRef.current.click();
   };
   // const newImg = (param) => `/img/${param}`;
-
+  function FormRow() {
+    return (
+      <React.Fragment>
+        <Grid item xs={6}></Grid>
+      </React.Fragment>
+    );
+  }
   return (
     <>
       <Grid container spacing={3}>
-        <Grid item xs={12}>
+        <Grid
+          item
+          xs={12}
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          p={5}
+        >
           <Button color="danger" onClick={clickHandler}>
             Eat
           </Button>
         </Grid>
-        <Grid item xs={4}>
+
         <Modal toggle={clickHandler} isOpen={open}>
-        <Form onSubmit={createMeal} inline>
-          <ModalHeader>
-            meal
-            <div>
-              <Button onClick={tabClickHandler} type="button">
-                {scan ? 'Type' : 'Scan'}
-              </Button>
-            </div>
-          </ModalHeader>
-          <ModalBody>
-            <BounceLoader
-              color="blue"
-              size={150}
-              loading={loading}
-              css={{
-                zIndex: '100',
-                position: 'absolute',
-                margin: '35%',
-                marginTop: '20%',
-              }}
-            />
-            {!scan ? (
-              <>
-                <FormGroup>
-                  <Input
-                    onChange={changeText}
-                    placeholder="search food example: 1 apple 100 grams of buckwheat"
-                    value={text ? text : ''}
-                  ></Input>
-                </FormGroup>
-                {options ? (
-                  options.map((el) => (
-                    <Item
-                      num={el.num}
-                      image={el.image}
-                      Kcals={el.info.cal}
-                      proteins={el.info.prot}
-                      fats={el.info.fat}
-                      carbs={el.info.carb}
-                    />
-                  ))
-                ) : (
-                  <></>
-                )}
-              </>
-            ) : (
-              <>
+          <Form onSubmit={createMeal} inline>
+            <ModalHeader>
+              meal
+              <div>
+                <Button onClick={tabClickHandler} type="button">
+                  {scan ? 'Type' : 'Scan'}
+                </Button>
+              </div>
+            </ModalHeader>
+            <ModalBody>
+              <BounceLoader
+                color="blue"
+                size={150}
+                loading={loading}
+                css={{
+                  zIndex: '100',
+                  position: 'absolute',
+                  margin: '35%',
+                  marginTop: '20%',
+                }}
+              />
+              {!scan ? (
+                <>
+                  <p>meals</p>
+                  <FormGroup>
+                    <Input
+                      onChange={changeText}
+                      placeholder="search food example: 1 apple 100 grams of buckwheat"
+                      value={text ? text : ''}
+                    ></Input>
+                  </FormGroup>
+                  {options ? (
+                    options.map((el) => (
+                      <Item
+                        num={el.num}
+                        image={el.image}
+                        Kcals={el.info.cal}
+                        proteins={el.info.prot}
+                        fats={el.info.fat}
+                        carbs={el.info.carb}
+                      />
+                    ))
+                  ) : (
+                    <></>
+                  )}
+                </>
+              ) : (
                 <>
                   <h2>Scan your item!</h2>
 
@@ -178,131 +192,47 @@ function List() {
                     <EditIcon />
                   </IconButton>
                 </>
-              </>
-            )}
-          </ModalBody>
-          <ModalFooter>
-            Kcals/proteins/fats/carbs
-            <Button>Add Meal</Button>{' '}
-            <Button type="button" onClick={clickHandler} color="danger">
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Form>
-      </Modal>
-      <div>
-        {week.length ? (
-          [...week]
-            .reverse()
-            .map((el) => (
-              <Meal key={Math.random()} date={el.date} items={el.items} />
-            ))
-        ) : (
-          <> </>
-        )}
-      </div>
-        </Grid>
-        {/* <Grid item xs={3}></Grid>
-        <Grid item xs={3}></Grid> */}
+              )}
+            </ModalBody>
+            <ModalFooter>
+              Kcals/proteins/fats/carbs
+              <Button>Add Meal</Button>{' '}
+              <Button type="button" onClick={clickHandler} color="danger">
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Form>
+        </Modal>
       </Grid>
-      {/* <Button color='danger' onClick={clickHandler}>
-        Eat
-      </Button> */}
-      {/* <Modal toggle={clickHandler} isOpen={open}>
-        <Form onSubmit={createMeal} inline>
-          <ModalHeader>
-            meal
-            <div>
-              <Button onClick={tabClickHandler} type="button">
-                {scan ? 'Type' : 'Scan'}
-              </Button>
-            </div>
-          </ModalHeader>
-          <ModalBody>
-            <BounceLoader
-              color="blue"
-              size={150}
-              loading={loading}
-              css={{
-                zIndex: '100',
-                position: 'absolute',
-                margin: '35%',
-                marginTop: '20%',
-              }}
-            />
-            {!scan ? (
-              <>
-                <FormGroup>
-                  <Input
-                    onChange={changeText}
-                    placeholder="search food example: 1 apple 100 grams of buckwheat"
-                    value={text ? text : ''}
-                  ></Input>
-                </FormGroup>
-                {options ? (
-                  options.map((el) => (
-                    <Item
-                      num={el.num}
-                      image={el.image}
-                      Kcals={el.info.cal}
-                      proteins={el.info.prot}
-                      fats={el.info.fat}
-                      carbs={el.info.carb}
-                    />
-                  ))
-                ) : (
-                  <></>
-                )}
-              </>
-            ) : (
-              <>
-                <>
-                  <h2>Scan your item!</h2>
-
-                  <div>
-                    <img
-                      src={'/img/' + scannerPic}
-                      width="200"
-                      alt="scan-pic"
-                    />
-                  </div>
-
-                  <input
-                    type="file"
-                    id="fileUploader"
-                    hidden="hidden"
-                    ref={inputRef}
-                    onChange={uploadOnChange}
-                  />
-                  <IconButton onClick={picHandler} className="button">
-                    <EditIcon />
-                  </IconButton>
-                </>
-              </>
-            )}
-          </ModalBody>
-          <ModalFooter>
-            Kcals/proteins/fats/carbs
-            <Button>Add Meal</Button>{' '}
-            <Button type="button" onClick={clickHandler} color="danger">
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Form>
-      </Modal>
-      <div>
+      <Box>
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell>Date:</TableCell>
+            <TableCell>Name:</TableCell>
+            <TableCell>Proteins:</TableCell>
+            <TableCell>Fats:</TableCell>
+            <TableCell>Carbohydrates:</TableCell>
+            <TableCell >Kcal:</TableCell>
+            <TableCell align="right" ></TableCell>
+          </TableRow>
+        </TableHead>
         {week.length ? (
-          [...week]
-            .reverse()
-            .map((el) => (
-              <Meal key={Math.random()} date={el.date} items={el.items} />
-            ))
+          [...week].reverse().map((el) => (
+            <TableBody>
+              <TableRow>
+                  <Meal key={Math.random()} date={el.date} items={el.items} id={el._id} />
+              </TableRow>
+            </TableBody>
+          ))
         ) : (
           <> </>
         )}
-      </div> */}
+      </Table>
+      </Box>
     </>
   );
 }
 
 export default List;
+
