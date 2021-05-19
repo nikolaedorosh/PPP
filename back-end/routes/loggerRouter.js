@@ -12,9 +12,10 @@ router.post("/", async (req, res) => {
 
 router.post("/getInfo", async (req, res) => {
   const { text } = req.body;
-  nutritionix.init("da8c820a", "60e4e90848f242488cec22ff8af25e03");
+  nutritionix.init("da8c820a", "565f0e552b1922526af40def174df0a1");
 
   nutritionix.natural.search(text).then((result) => {
+    console.log(result.foods)
     res.json(result.foods);
   });
 });
