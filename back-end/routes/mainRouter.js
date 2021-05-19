@@ -12,7 +12,7 @@ mainRouter.post(
   uploadMulter.single("photo"),
   async (req, res, next) => {
     try {
-      const userID = "609ef2b7d02da1867f40dae8";
+      const userID = req.params.id;
       const img = new Img({
         user: userID,
         path: req.file.filename,
@@ -44,7 +44,7 @@ mainRouter.post(
   uploadMulter.single("scan-pic"),
   async (req, res, next) => {
     try {
-      const userID = "609ef2b7d02da1867f40dae8";
+      const userID = req.params.id;
       const img = new Img({
         user: userID,
         path: req.file.filename,
@@ -124,9 +124,10 @@ mainRouter.post("/user/googleauth", async (req, res) => {
 
 //upload edit data
 mainRouter.patch("/profileData/:id", async (req, res) => {
+  console.log(">>>coming to back", req.body);
+  console.log(req.params.id);
   const user = await userModel.findByIdAndUpdate(
-    //req.params.id ,
-    "609ef2b7d02da1867f40dae8",
+    req.params.id,
     {
       name: req.body.name,
       email: req.body.email,
