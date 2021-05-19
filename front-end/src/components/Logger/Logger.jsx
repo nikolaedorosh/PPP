@@ -1,6 +1,8 @@
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import RandomBurger from "../RandomBurger/RandomBurger";
+
 import {
   LineChart,
   XAxis,
@@ -60,6 +62,7 @@ function Logger() {
     carbohydrates: 0,
     fats: 0,
     proteins: 0,
+
     Kcalories: 0
   }
 
@@ -70,6 +73,7 @@ function Logger() {
     targetFat: info.fats
   }
 
+
   if (week.length) {
     let acc = {
       date: week[0].date,
@@ -78,13 +82,11 @@ function Logger() {
       proteins: 0,
       Kcalories: 0,
     };
-
     week.forEach((el, i) => {
       let totalCarb = 0;
       let totalFat = 0;
       let totalProt = 0;
       let totalCal = 0;
-
       el.items.forEach((ele) => {
         const { carb, fat, prot, cal } = ele.info;
         totalCarb += carb;
@@ -92,6 +94,7 @@ function Logger() {
         totalProt += prot;
         totalCal += cal;
       });
+
 
       if (new Date(acc.date).toLocaleDateString() !== new Date(el.date).toLocaleDateString()) {
         newArr.push(acc)
@@ -109,6 +112,7 @@ function Logger() {
           fats: acc.fats + totalFat,
           proteins: acc.proteins + totalProt,
           Kcalories: acc.Kcalories + totalCal,
+
         }
       }
       if (i === week.length - 1) {
@@ -240,6 +244,7 @@ result = [
             <LabelList dataKey='targetFat' position='top' fill='#ffffff' />
           </Bar>
         </BarChart>
+        <RandomBurger />
       </Grid>
     </Grid>
   );
