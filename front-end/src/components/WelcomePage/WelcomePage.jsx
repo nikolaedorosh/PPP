@@ -2,22 +2,17 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as AuthorizationAction from "../../redux/reducers/MAIN"; // стало
+import Button from "@material-ui/core/Button";
+import { Icon, makeStyles, TextField } from "@material-ui/core";
 
-import {
-  LineChart,
-  XAxis,
-  Tooltip,
-  CartesianGrid,
-  Line,
-  Legend,
-  YAxis,
-  Bar,
-  BarChart,
-  LabelList,
-  Label,
-} from "recharts";
+// const useStyles = makeStyles((theme) => ({
+//   button: {
+//     margin: theme.spacing(1),
+//   },
+// }));
 
 const WelcomePage = () => {
+  // const classes = useStyles();
   const dispatch = useDispatch();
   const userName = useSelector((state) => state.auth.userName);
   const [inputPass, setInputPass] = useState("");
@@ -177,33 +172,42 @@ const WelcomePage = () => {
       <h1>Some info about PPP</h1>
       {test ? (
         <form onSubmit={submitHandler1}>
-          <div>
-            <input
-              placeholder="Type email here..."
-              onChange={inputMailHandler}
-              value={inputMail}
-              type="mail"
-              required
-            />
-            <input
-              placeholder="Type password here..."
-              onChange={inputPassHandler}
-              value={inputPass}
-              type="password"
-              required
-            />
-            <input
-              placeholder="Type your name and second name here..."
-              onChange={inputNameHandler}
-              value={inputName}
-              type="text"
-              required
-            />
-          </div>
+          <TextField
+            label="Email"
+            variant="outlined"
+            placeholder="Type email here..."
+            onChange={inputMailHandler}
+            value={inputMail}
+            type="mail"
+            required
+          />
+          <br />
+          <TextField
+            label="Password"
+            type="password"
+            variant="outlined"
+            placeholder="Type password here..."
+            onChange={inputPassHandler}
+            value={inputPass}
+            required
+          />
+          
+          <br />
+          <TextField
+            label="Name"
+            variant="outlined"
+            placeholder="Name and second name here..."
+            onChange={inputNameHandler}
+            value={inputName}
+            type="text"
+            required
+          />
+          <br />
 
-          <button type="submit" className="btn btn-primary mx-1">
+          <Button variant="contained" color="primary" 
+        endIcon={<Icon>send</Icon>}>
             Sign Up
-          </button>
+          </Button>
         </form>
       ) : (
         <form onSubmit={submitHandler2}>
@@ -224,14 +228,27 @@ const WelcomePage = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary mx-1">
+          <Button variant="contained" color="primary" endIcon={<Icon>send</Icon>}>
             Sign In
-          </button>
+          </Button>
         </form>
       )}
-      You can choose another way to Sign Up
-      <button onClick={onSignInClick}>Sign Up with Google</button>
-      Already have an account? <button onClick={changeTest}>Sign In</button>
+      <hr></hr>
+      <Button
+        variant="contained"
+        color="primary"
+        // className={classes.button}
+        endIcon={<Icon>fingerprint</Icon>}
+        onClick={onSignInClick}
+      >
+        Sign In with Google
+      </Button>
+      {/* <button onClick={onSignInClick}>Sign In with Google</button> */}
+      <hr></hr>
+      Already have an account?{" "}
+      <Button variant="contained" color="primary" onClick={changeTest}>
+        Sign In
+      </Button>
     </div>
   );
 };
