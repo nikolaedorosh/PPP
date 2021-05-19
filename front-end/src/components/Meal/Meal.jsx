@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Item from '../Item/Item';
 
 function Meal({ date, items, id}) {
+  console.log(id, "my id")
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false)
-
-
+  
+  
   const myDate = new Date(date)
   const dateStr = `${myDate.toLocaleDateString('en-US')} at ${myDate.toLocaleTimeString(['it-IT'], { hour: '2-digit', minute: '2-digit' })}`
 

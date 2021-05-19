@@ -63,7 +63,7 @@ function List() {
 
   function createMeal(e) {
     e.preventDefault();
-    dispatch(getMeal(options, email));
+    dispatch(getMeal(options, id));
     setOpen((prev) => !prev);
     setText("");
     dispatch({
@@ -189,7 +189,7 @@ function List() {
               [...week]
                 .reverse()
                 .map((el) => (
-                  <Meal key={Math.random()} date={el.date} items={el.items} />
+                  <Meal key={Math.random()} id={el._id} date={el.date} items={el.items} />
                 ))
             ) : (
               <> </>

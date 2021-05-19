@@ -22,7 +22,7 @@ function Logger() {
   const week = useSelector((state) => state.week);
   const today = useSelector((state) => state.food.meals);
   const info = useSelector((state) => state.info);
-  const email = useSelector((state) => state.auth.userEmail);
+  const id = useSelector((state) => state.auth.userId);
 
   const dispatch = useDispatch();
   let graphics_target;
@@ -41,7 +41,7 @@ function Logger() {
   }));
 
   useEffect(() => {
-    dispatch(getUsersThunk(email));
+    dispatch(getUsersThunk(id));
   }, [today]);
 
   let newArr = [];
