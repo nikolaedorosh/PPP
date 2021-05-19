@@ -16,6 +16,9 @@ import Box from "@material-ui/core/Box";
 import { Link } from "react-router-dom";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
+
+import styles from "./header.module.css";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -68,10 +71,22 @@ function Header({ darkTheme, setDarkTheme }) {
     setOpen(false);
   };
   return (
-    <AppBar position='static' className={classes.colorPrimary}>
-      <Toolbar variant='dense' className={classes.root}>
-        <Typography variant='h6' color='inherit'>
-          PPP
+
+    <AppBar position="static" className={classes.colorPrimary}>
+      <Toolbar variant="dense" className={classes.root}>
+        <Typography variant="h6" color="inherit">
+          {darkTheme ? (
+            <img
+              src="https://image000.flaticon.com/png/512/706/706133.png"
+              className={styles.Logo}
+            ></img>
+          ) : (
+            <img
+              src="https://image000.flaticon.com/png/512/706/706195.png"
+              className={styles.Logo}
+            ></img>
+          )}
+
         </Typography>
         <Box className={classes.linkStyle}>
           {userName ? "" : <Link to='/welcomepage'>HomePage</Link>}
@@ -108,18 +123,20 @@ function Header({ darkTheme, setDarkTheme }) {
           ) : (
             <>
               <IconButton
-                edge='start'
+
+                edge="start"
                 className={classes.menuButton}
-                color='inherit'
-                aria-label='menu'
+                color="inherit"
+                aria-label="menu"
                 onClick={openProfile}
-                placeholder='Profile'
+                placeholder="Profile"
               ></IconButton>
               <IconButton
-                edge='start'
+                edge="start"
                 className={classes.menuButton}
-                color='inherit'
-                aria-label='menu'
+                color="inherit"
+                aria-label="menu"
+
               >
                 <MenuIcon
                   onClick={openProfile}
@@ -131,8 +148,9 @@ function Header({ darkTheme, setDarkTheme }) {
                 TransitionComponent={Transition}
                 keepMounted
                 onClose={handleClose}
-                aria-labelledby='alert-dialog-slide-title'
-                aria-describedby='alert-dialog-slide-description'
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+
                 className={classes.modal}
               >
                 <ProfileModal setOpen={setOpen} />

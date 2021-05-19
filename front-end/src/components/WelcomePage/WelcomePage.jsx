@@ -3,7 +3,14 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as AuthorizationAction from "../../redux/reducers/MAIN"; // стало
 import Button from "@material-ui/core/Button";
-import { Icon, makeStyles, TextField } from "@material-ui/core";
+import {
+  Dialog,
+  DialogTitle,
+  FormGroup,
+  Icon,
+  makeStyles,
+  TextField,
+} from "@material-ui/core";
 
 // const useStyles = makeStyles((theme) => ({
 //   button: {
@@ -169,10 +176,16 @@ const WelcomePage = () => {
   };
 
   return (
-    <div>
-      <h1>Some info about PPP</h1>
+    <div style={{ width: "1000px", margin: "15px 150px" }}>
+      <h1>MARGO SKAZALA PPP</h1>
+      <hr></hr>
+      Наше приложение создано и разработано комадной экспертов из лаборатории
+      Elbrus Bootcamp под чутким руководством царицы пчел Юлии и падре Егора.
+      <br></br>Зарегистрируйтесь, чтобы ознакомиться с интерфейсом приложения
+      <hr></hr>
       {test ? (
-        <form onSubmit={submitHandler1}>
+
+        <FormGroup style={{ alignItems: "center" }}>
 
           <TextField
             label="Email"
@@ -182,6 +195,7 @@ const WelcomePage = () => {
             value={inputMail}
             type="mail"
             required
+            style={{ width: "400px" }}
           />
           <br />
           <TextField
@@ -192,8 +206,8 @@ const WelcomePage = () => {
             onChange={inputPassHandler}
             value={inputPass}
             required
+            style={{ width: "400px" }}
           />
-          
           <br />
           <TextField
             label="Name"
@@ -203,57 +217,87 @@ const WelcomePage = () => {
             value={inputName}
             type="text"
             required
+            style={{ width: "400px" }}
           />
           <br />
 
-          <Button variant="contained" color="primary" 
-        endIcon={<Icon>send</Icon>}>
+          <Button
+            variant="contained"
+            color="primary"
+            endIcon={<Icon>send</Icon>}
+            onClick={submitHandler1}
+          >
 
             Sign Up
           </Button>
-        </form>
-      ) : (
-        <form onSubmit={submitHandler2}>
-          <div>
-            <input
-              placeholder='Type email here...'
-              onChange={inputMailHandler}
-              value={inputMail}
-              type='mail'
-              required
-            />
-            <input
-              placeholder='Type password here...'
-              onChange={inputPassHandler}
-              value={inputPass}
-              type='password'
-              required
-            />
-          </div>
-
-
-          <Button variant="contained" color="primary" endIcon={<Icon>send</Icon>}>
-
+          <br />
+          <Button
+            variant="contained"
+            color="primary"
+            // className={classes.button}
+            endIcon={<Icon>fingerprint</Icon>}
+            onClick={onSignInClick}
+          >
+            Sign In with Google
+          </Button>
+          Already have an account?{" "}
+          <Button variant="contained" color="primary" onClick={changeTest}>
             Sign In
           </Button>
-        </form>
+        </FormGroup>
+      ) : (
+
+        <>
+          <FormGroup style={{ alignItems: "center" }}>
+            <TextField
+              label="Email"
+              variant="outlined"
+              placeholder="Type email here..."
+
+              onChange={inputMailHandler}
+              value={inputMail}
+              type="mail"
+              required
+              style={{ width: "400px" }}
+            />
+            <TextField
+              label="Password"
+              type="password"
+              variant="outlined"
+              placeholder="Type password here..."
+              onChange={inputPassHandler}
+              value={inputPass}
+              required
+              style={{ width: "400px" }}
+            />
+
+
+            <Button
+              variant="contained"
+              color="primary"
+              endIcon={<Icon>send</Icon>}
+              onClick={submitHandler2}
+            >
+              Sign In
+            </Button>
+          </FormGroup>
+          <div style={{ alignItems: "center" }}>
+            <Button
+              variant="contained"
+              color="primary"
+              endIcon={<Icon>fingerprint</Icon>}
+              onClick={onSignInClick}
+            >
+              Sign In with Google
+            </Button>
+            Already have an account?{" "}
+            <Button variant="contained" color="primary" onClick={changeTest}>
+              Sign In
+            </Button>
+          </div>
+        </>
       )}
       <hr></hr>
-      <Button
-        variant="contained"
-        color="primary"
-        // className={classes.button}
-        endIcon={<Icon>fingerprint</Icon>}
-        onClick={onSignInClick}
-      >
-        Sign In with Google
-      </Button>
-      {/* <button onClick={onSignInClick}>Sign In with Google</button> */}
-      <hr></hr>
-      Already have an account?{" "}
-      <Button variant="contained" color="primary" onClick={changeTest}>
-        Sign In
-      </Button>
     </div>
   );
 };

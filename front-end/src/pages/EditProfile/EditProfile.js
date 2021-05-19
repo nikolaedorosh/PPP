@@ -149,19 +149,6 @@ const EditProfile = () => {
           placeholder='age'
         ></input>
         <input
-          onChange={changeInputHandler}
-          required='No Input Inserted!'
-          className='name'
-          placeholder='name'
-        ></input>
-        <input
-          onChange={changeInputHandler}
-          required='No Input Inserted!'
-          className='email'
-          type='email'
-          placeholder='email'
-        ></input>
-        <input
           required='No Input Inserted!'
           onChange={changeInputHandler}
           className='weight'
