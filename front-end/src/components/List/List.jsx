@@ -127,7 +127,6 @@ function List() {
                 />
                 {!scan ? (
                   <>
-                    <p>meals</p>
                     <FormGroup>
                       <Input
                         onChange={changeText}
