@@ -5,7 +5,7 @@ body {
 
 .dark {
   color: white;
-  background-color: #121212;
+  background-color: #0E1428;
 
   border: 5px solid white;
   border-radius: 15px;
@@ -15,7 +15,7 @@ body {
 }
 
 .light {
-  background-color: #B6C6EB;
+  background-color:white;
   color: black;
   border: 5px solid white;
   border-radius: 15px;
