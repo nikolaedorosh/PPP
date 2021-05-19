@@ -43,8 +43,8 @@ export const personalInfoHandler =
     const data = {
       name,
       email,
-      id,
       age,
+      id,
       gender,
       weight,
       height,
@@ -57,6 +57,8 @@ export const personalInfoHandler =
       targetWeight,
     };
 
+    console.log("data> ", data);
+
     const response = await fetch(`http://localhost:3000/profileData/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -64,16 +66,13 @@ export const personalInfoHandler =
     });
     const dbData = await response.json();
 
-    dispatch(newUserData(dbData));
-  };
+    console.log("coming from back", dbData);
 
-//update user action
-export const newUserData = (data) => {
-  return {
-    type: TYPES.USER_DATA_CHANGE,
-    payload: data,
+    return dispatch({
+      type: TYPES.USER_DATA_CHANGE,
+      payload: { dbData: dbData },
+    });
   };
-};
 
 //upload Img
 //

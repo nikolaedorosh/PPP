@@ -110,8 +110,8 @@ const WelcomePage = () => {
 
   const googleAuth = () => {
     auth.signIn();
-    let userEmail = auth.currentUser.ee.ft.Qt;
-    let userName = auth.currentUser.ee.ft.Te;
+    let userEmail = auth.currentUser.fe.Ft.pu;
+    let userName = auth.currentUser.fe.Ft.Ue;
     fetch("http://localhost:3000/user/googleAuth", {
       method: "POST",
       headers: {
@@ -174,29 +174,29 @@ const WelcomePage = () => {
         <form onSubmit={submitHandler1}>
           <div>
             <input
-              placeholder="Type email here..."
+              placeholder='Type email here...'
               onChange={inputMailHandler}
               value={inputMail}
-              type="mail"
+              type='mail'
               required
             />
             <input
-              placeholder="Type password here..."
+              placeholder='Type password here...'
               onChange={inputPassHandler}
               value={inputPass}
-              type="password"
+              type='password'
               required
             />
             <input
-              placeholder="Type your name and second name here..."
+              placeholder='Type your name and second name here...'
               onChange={inputNameHandler}
               value={inputName}
-              type="text"
+              type='text'
               required
             />
           </div>
 
-          <button type="submit" className="btn btn-primary mx-1">
+          <button type='submit' className='btn btn-primary mx-1'>
             Sign Up
           </button>
         </form>
@@ -204,22 +204,22 @@ const WelcomePage = () => {
         <form onSubmit={submitHandler2}>
           <div>
             <input
-              placeholder="Type email here..."
+              placeholder='Type email here...'
               onChange={inputMailHandler}
               value={inputMail}
-              type="mail"
+              type='mail'
               required
             />
             <input
-              placeholder="Type password here..."
+              placeholder='Type password here...'
               onChange={inputPassHandler}
               value={inputPass}
-              type="password"
+              type='password'
               required
             />
           </div>
 
-          <button type="submit" className="btn btn-primary mx-1">
+          <button type='submit' className='btn btn-primary mx-1'>
             Sign In
           </button>
         </form>
