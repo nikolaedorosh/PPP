@@ -24,6 +24,7 @@ const ProfileModal = ({ setOpen }) => {
   const userName = useSelector((state) => state.auth.userName);
   const userEmail = useSelector((state) => state.auth.userEmail);
   const userTarget = useSelector((state) => state.info.targetWeight);
+  console.log()
   const id = useSelector((state) => state.auth.userId);
   const userProfileImg = useSelector((state) => state.auth.userProfileImg);
   const inputRef = useRef(null);

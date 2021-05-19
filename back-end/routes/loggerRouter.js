@@ -4,11 +4,16 @@ const mealModel = require("../models/mealModel");
 const nutritionix = require("nutritionix-api");
 
 router.post("/", async (req, res) => {
-  const {email} = req.body
-  const user = await userModel.findOne({email})
-  const meals = await mealModel.find({ user: user._id });
+  const {id} = req.body
+  const meals = await mealModel.find({ user: id });
   return res.json(meals);
 });
+
+// router.post("/info", async (req, res) => {
+//   const {id} = req.body
+//   const user = await userModel.findById(id);
+//   return res.json(user);
+// });
 
 router.post("/getInfo", async (req, res) => {
   const { text } = req.body;
@@ -21,10 +26,9 @@ router.post("/getInfo", async (req, res) => {
 
 router.post("/createMeal", async (req, res) => {
   try {
-    const { items, email } = req.body;
-    const user = await userModel.findOne({email})
+    const { items, id } = req.body;
     const myMeal = await mealModel.create({
-      user: user._id,
+      user: id,
       items,
     });
     res.json(myMeal);
@@ -34,6 +38,7 @@ router.post("/createMeal", async (req, res) => {
 });
 
 router.post("/deleteMeal", async (req, res) => {
+  console.log(req.body)
   try {
     const { id } = req.body;
     await mealModel.findByIdAndDelete(id);

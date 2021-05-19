@@ -1,11 +1,13 @@
 import * as TYPES from "../types/types";
 import * as AuthorizationAction from "../reducers/MAIN";
 
-const getUsersThunk = (email) => async (dispatch, getState) => {
+const getUsersThunk = (id) => async (dispatch, getState) => {
   const resp = await fetch("http://localhost:3000/logger", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: email }),
+
+    body: JSON.stringify({id: id}),
+
   });
   const res = await resp.json();
   dispatch(setWeek(res));
@@ -18,7 +20,20 @@ function setWeek(payload) {
   };
 }
 
-export { getUsersThunk };
+const getUserInfo = (id) => async (dispatch, getState) => {
+  const resp = await fetch("http://localhost:3000/logger/info", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({id: id}),
+  });
+  const res = await resp.json();
+  dispatch({
+    type: TYPES.USER_DATA_CHANGE,
+    payload: {dbData: res},
+  });
+};
+
+export { getUsersThunk, getUserInfo };
 
 // update user details
 export const personalInfoHandler =

@@ -1,4 +1,4 @@
-import { Spinner } from "reactstrap";
+
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import RandomBurger from "../RandomBurger/RandomBurger";
@@ -15,44 +15,65 @@ import {
   BarChart,
   LabelList,
   Label,
-} from "recharts";
-import { getUsersThunk } from "../../redux/actionCreators/graphicsAC";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+} from 'recharts';
+import { getUsersThunk,getUserInfo } from '../../redux/actionCreators/graphicsAC';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import { Typography } from '@material-ui/core';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  greeds: {
+    marginTop: 40,
+  },
+  typolog:{
+    marginLeft: 220
+  },
+  typolog2:{
+    marginLeft: 390
+  }
+}));
 function Logger() {
   const week = useSelector((state) => state.week);
   const today = useSelector((state) => state.food.meals);
   const info = useSelector((state) => state.info);
-  const email = useSelector((state) => state.auth.userEmail);
+  const id = useSelector((state) => state.auth.userId);
 
   const dispatch = useDispatch();
   let graphics_target;
   let graphics_need;
   let result;
+  const classes = useStyles()
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: "center",
-      color: theme.palette.text.secondary,
-    },
-  }));
+  // useEffect(() => {
+  //   console.log(id , '<-------id')
+  //   dispatch(getUserInfo(id));
+  // }, []);
 
   useEffect(() => {
-    dispatch(getUsersThunk(email));
+    dispatch(getUsersThunk(id));
   }, [today]);
 
   let newArr = [];
+
   let todayGraph = {
     carbohydrates: 0,
     fats: 0,
     proteins: 0,
-    Kcalories: 0,
-  };
+
+    Kcalories: 0
+  }
+
+  graphics_need = {
+    targetKCal: info.kcal,
+    targetProt: info.Proteins,
+    targetCarb: info.carbohydrates,
+    targetFat: info.fats
+  }
+
+
   if (week.length) {
     let acc = {
       date: week[0].date,
@@ -73,11 +94,10 @@ function Logger() {
         totalProt += prot;
         totalCal += cal;
       });
-      if (
-        new Date(acc.date).toLocaleDateString() !==
-        new Date(el.date).toLocaleDateString()
-      ) {
-        newArr.push(acc);
+
+
+      if (new Date(acc.date).toLocaleDateString() !== new Date(el.date).toLocaleDateString()) {
+        newArr.push(acc)
         acc = {
           date: el.date,
           carbohydrates: totalCarb,
@@ -92,21 +112,21 @@ function Logger() {
           fats: acc.fats + totalFat,
           proteins: acc.proteins + totalProt,
           Kcalories: acc.Kcalories + totalCal,
-        };
+
+        }
       }
       if (i === week.length - 1) {
-        newArr.push(acc);
+        newArr.push(acc)
       }
-    });
-    if (
-      new Date(newArr[newArr.length - 1].date).toLocaleDateString() ===
-      new Date().toLocaleDateString()
-    ) {
-      todayGraph = newArr[newArr.length - 1];
+    })
+    if (new Date(newArr[newArr.length - 1].date).toLocaleDateString() === new Date().toLocaleDateString()) {
+      todayGraph = newArr[newArr.length - 1]
     }
   }
-  graphics_target = newArr;
-  result = [
+
+  graphics_target = newArr
+
+result = [
     {
       ...todayGraph,
       ...graphics_need,
@@ -114,53 +134,55 @@ function Logger() {
   ];
 
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={6}>
+    <Grid container spacing={3} className={classes.greeds} >
+      <Grid item xs={6} >
+        <Typography className={classes.typolog}>Вывод за неделю:</Typography>
         <LineChart
-          width={530}
-          height={250}
-          data={graphics_target}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray='' stroke='#999' />
-          <XAxis dataKey='day' stroke='red'>
-            <Label value='Week' position='insideBottom' />
-          </XAxis>
-          <YAxis stroke='red' />
-          <Tooltip />
-          <Legend
-            layout='horizontal'
-            align='right'
-            verticalAlign='bottom'
-            iconType='line'
-          />
-          <Line
-            type='monotone'
-            dataKey='Kcalories'
-            stroke='#ffd500'
-            strokeWidth={4}
-          />
-          <Line
-            type='monotone'
-            dataKey='fats'
-            stroke='#73ff00'
-            strokeWidth={2}
-          />
-          <Line
-            type='monotone'
-            dataKey='proteins'
-            stroke='#0004ff'
-            strokeWidth={2}
-          />
-          <Line
-            type='monotone'
-            dataKey='carbohydrates'
-            stroke='#00fbff'
-            strokeWidth={2}
-          />
-        </LineChart>
+            width={530}
+            height={250}
+            data={graphics_target}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="" stroke="#999" />
+            <XAxis dataKey="day" stroke="red">
+              <Label value="days" position="insideBottom" />
+            </XAxis>
+            <YAxis stroke="red" />
+            <Tooltip />
+            <Legend
+              layout="horizontal"
+              align="right"
+              verticalAlign="bottom"
+              iconType="line"
+            />
+            <Line
+              type="monotone"
+              dataKey="Kcalories"
+              stroke="#ffd500"
+              strokeWidth={4}
+            />
+            <Line
+              type="monotone"
+              dataKey="fats"
+              stroke="#73ff00"
+              strokeWidth={2}
+            />
+            <Line
+              type="monotone"
+              dataKey="proteins"
+              stroke="#0004ff"
+              strokeWidth={2}
+            />
+            <Line
+              type="monotone"
+              dataKey="carbohydrates"
+              stroke="#00fbff"
+              strokeWidth={2}
+            />
+          </LineChart>
       </Grid>
       <Grid item xs={6}>
+      <Typography className={classes.typolog}>Вывод за day:</Typography>
         <BarChart
           width={730}
           height={250}
