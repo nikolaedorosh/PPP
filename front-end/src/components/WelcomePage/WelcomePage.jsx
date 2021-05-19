@@ -2,8 +2,17 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as AuthorizationAction from "../../redux/reducers/MAIN"; // стало
+import Button from "@material-ui/core/Button";
+import { Icon, makeStyles, TextField } from "@material-ui/core";
+
+// const useStyles = makeStyles((theme) => ({
+//   button: {
+//     margin: theme.spacing(1),
+//   },
+// }));
 
 const WelcomePage = () => {
+  // const classes = useStyles();
   const dispatch = useDispatch();
   const userName = useSelector((state) => state.auth.userName);
   const [inputPass, setInputPass] = useState("");
@@ -41,8 +50,7 @@ const WelcomePage = () => {
   const inputNameHandler = (e) => {
     setInputName(e.target.value);
   };
-  // ДО ИЗМЕНЕНИЙ
-  // РАБОЧАЯ ВЕРСИЯ ПО SIGNUP
+
   const addNewUser = (userEmail, userPass, userName) => {
     fetch("http://localhost:3000/user/signupcheck", {
       method: "POST",
@@ -108,8 +116,9 @@ const WelcomePage = () => {
     } else window.alert("Fill in form fields and try again");
   };
 
-  const googleAuth = () => {
-    auth.signIn();
+  const googleAuth = async () => {
+    await auth.signIn();
+
     let userEmail = auth.currentUser.fe.Ft.pu;
     let userName = auth.currentUser.fe.Ft.Ue;
     fetch("http://localhost:3000/user/googleAuth", {
@@ -153,14 +162,6 @@ const WelcomePage = () => {
 
   const onSignInClick = () => {
     googleAuth();
-    // auth.signIn();
-    // googleAuth();
-    // dispatch(
-    //   AuthorizationAction.addInfo({
-    //     userName: auth.currentUser.ee.ft.Te,
-    //     userEmail: auth.currentUser.ee.ft.Qt,
-    //   })
-    // );
   };
 
   const changeTest = () => {
@@ -172,33 +173,44 @@ const WelcomePage = () => {
       <h1>Some info about PPP</h1>
       {test ? (
         <form onSubmit={submitHandler1}>
-          <div>
-            <input
-              placeholder='Type email here...'
-              onChange={inputMailHandler}
-              value={inputMail}
-              type='mail'
-              required
-            />
-            <input
-              placeholder='Type password here...'
-              onChange={inputPassHandler}
-              value={inputPass}
-              type='password'
-              required
-            />
-            <input
-              placeholder='Type your name and second name here...'
-              onChange={inputNameHandler}
-              value={inputName}
-              type='text'
-              required
-            />
-          </div>
 
-          <button type='submit' className='btn btn-primary mx-1'>
+          <TextField
+            label="Email"
+            variant="outlined"
+            placeholder="Type email here..."
+            onChange={inputMailHandler}
+            value={inputMail}
+            type="mail"
+            required
+          />
+          <br />
+          <TextField
+            label="Password"
+            type="password"
+            variant="outlined"
+            placeholder="Type password here..."
+            onChange={inputPassHandler}
+            value={inputPass}
+            required
+          />
+          
+          <br />
+          <TextField
+            label="Name"
+            variant="outlined"
+            placeholder="Name and second name here..."
+            onChange={inputNameHandler}
+            value={inputName}
+            type="text"
+            required
+          />
+          <br />
+
+          <Button variant="contained" color="primary" 
+        endIcon={<Icon>send</Icon>}>
+
             Sign Up
-          </button>
+          </Button>
         </form>
       ) : (
         <form onSubmit={submitHandler2}>
@@ -219,21 +231,31 @@ const WelcomePage = () => {
             />
           </div>
 
-          <button type='submit' className='btn btn-primary mx-1'>
+
+          <Button variant="contained" color="primary" endIcon={<Icon>send</Icon>}>
+
             Sign In
-          </button>
+          </Button>
         </form>
       )}
-      You can choose another way to Sign Up
-      <button onClick={onSignInClick}>Sign Up with Google</button>
-      Already have an account? <button onClick={changeTest}>Sign In</button>
+      <hr></hr>
+      <Button
+        variant="contained"
+        color="primary"
+        // className={classes.button}
+        endIcon={<Icon>fingerprint</Icon>}
+        onClick={onSignInClick}
+      >
+        Sign In with Google
+      </Button>
+      {/* <button onClick={onSignInClick}>Sign In with Google</button> */}
+      <hr></hr>
+      Already have an account?{" "}
+      <Button variant="contained" color="primary" onClick={changeTest}>
+        Sign In
+      </Button>
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return { isSignedIn: state.auth.isSignedIn, userId: state.auth.userId };
-};
-
-export default connect(mapStateToProps)(WelcomePage);
+export default WelcomePage;
