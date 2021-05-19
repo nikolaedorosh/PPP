@@ -36,7 +36,9 @@ function changeTextSaga(payload) {
 }
 
 function* workerAddMealLoad({ payload }) {
+  yield put({ type: TYPES.CHANGE_LOAD, payload: { loading: true } });
   const options = yield call(fetchAddMeal, payload);
+  yield put({ type: TYPES.CHANGE_LOAD, payload: { loading: false } });
   yield put(changeOptions(options));
 }
 

@@ -118,6 +118,7 @@ const WelcomePage = () => {
 
   const googleAuth = async () => {
     await auth.signIn();
+
     let userEmail = auth.currentUser.fe.Ft.pu;
     let userName = auth.currentUser.fe.Ft.Ue;
     fetch("http://localhost:3000/user/googleAuth", {
@@ -172,6 +173,7 @@ const WelcomePage = () => {
       <h1>Some info about PPP</h1>
       {test ? (
         <form onSubmit={submitHandler1}>
+
           <TextField
             label="Email"
             variant="outlined"
@@ -206,6 +208,7 @@ const WelcomePage = () => {
 
           <Button variant="contained" color="primary" 
         endIcon={<Icon>send</Icon>}>
+
             Sign Up
           </Button>
         </form>
@@ -213,22 +216,24 @@ const WelcomePage = () => {
         <form onSubmit={submitHandler2}>
           <div>
             <input
-              placeholder="Type email here..."
+              placeholder='Type email here...'
               onChange={inputMailHandler}
               value={inputMail}
-              type="mail"
+              type='mail'
               required
             />
             <input
-              placeholder="Type password here..."
+              placeholder='Type password here...'
               onChange={inputPassHandler}
               value={inputPass}
-              type="password"
+              type='password'
               required
             />
           </div>
 
+
           <Button variant="contained" color="primary" endIcon={<Icon>send</Icon>}>
+
             Sign In
           </Button>
         </form>

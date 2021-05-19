@@ -1,6 +1,7 @@
 import * as TYPES from "../types/types";
 
 const mainReducer = (state = [], action) => {
+  console.log("heyyyyyyy", action.payload);
   switch (action.type) {
     case TYPES.ADD_TOLOCALSTORAGE:
       return { ...state, auth: action.payload };
@@ -14,23 +15,13 @@ const mainReducer = (state = [], action) => {
         ...state,
         auth: {
           ...state.auth,
-          userId: action.payload._id,
-          userName: action.payload.name,
-          userEmail: action.payload.email,
+          userId: action.payload.dbData._id,
+          userName: action.payload.dbData.name,
+          userEmail: action.payload.dbData.email,
         },
         info: {
           ...state.info,
-          age: action.payload.age,
-          gender: action.payload.gender,
-          weight: action.payload.weight,
-          height: action.payload.height,
-          activity: action.payload.activity,
-          bmi: action.payload.bmi,
-          Proteins: action.payload.Proteins,
-          carbohydrates: action.payload.carbohydrates,
-          fats: action.payload.fats,
-          kcal: action.payload.kcal,
-          targetWeight: action.payload.targetWeight,
+          ...action.payload.dbData.info,
         },
       };
     case TYPES.CHANGE_OPTIONS:
