@@ -15,6 +15,7 @@ router.post("/getInfo", async (req, res) => {
   nutritionix.init("da8c820a", "565f0e552b1922526af40def174df0a1");
 
   nutritionix.natural.search(text).then((result) => {
+    console.log(result.foods)
     res.json(result.foods);
   });
 });

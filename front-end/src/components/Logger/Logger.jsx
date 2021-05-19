@@ -45,6 +45,14 @@ function Logger() {
   }, [today]);
 
   let newArr = [];
+
+  let todayGraph = {
+    carbohydrates: 0,
+    fats: 0,
+    proteins: 0,
+    Kcalories: 0
+  }
+
   if (week.length) {
     let acc = {
       date: week[0].date,
@@ -68,12 +76,8 @@ function Logger() {
         totalCal += cal;
       });
 
-      if (
-        new Date(acc.date).toLocaleDateString() !==
-        new Date(el.date).toLocaleDateString()
-      ) {
-        newArr.push(acc);
-
+      if (new Date(acc.date).toLocaleDateString() !== new Date(el.date).toLocaleDateString()) {
+        newArr.push(acc)
         acc = {
           date: el.date,
           carbohydrates: totalCarb,
@@ -88,33 +92,24 @@ function Logger() {
           fats: acc.fats + totalFat,
           proteins: acc.proteins + totalProt,
           Kcalories: acc.Kcalories + totalCal,
-        };
-        if (i === week.length - 1) {
-          newArr.push(acc);
         }
       }
-    });
+      if (i === week.length - 1) {
+        newArr.push(acc)
+      }
+    })
+    if (new Date(newArr[newArr.length - 1].date).toLocaleDateString() === new Date().toLocaleDateString()) {
+      todayGraph = newArr[newArr.length - 1]
+    }
   }
-  graphics_target = weekArr;
-
-  const myKcal = info.kcal;
-  const myProt = info.Proteins;
-  const myCarb = info.carbohydrates;
-  const myFat = info.fats;
-  graphics_need = {
-    targetKCal: myKcal,
-    targetProt: myProt,
-    targetCarb: myCarb,
-    targetFat: myFat,
-  };
-
+  
   graphics_target = newArr;
 
-  console.log(graphics_target);
 
-  result = [
+
+result = [
     {
-      ...graphics_target[graphics_target.length - 1],
+      ...todayGraph,
       ...graphics_need,
     },
   ];
@@ -123,48 +118,48 @@ function Logger() {
     <Grid container spacing={3}>
       <Grid item xs={6}>
         <LineChart
-          width={530}
-          height={250}
-          data={graphics_target}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray='' stroke='#999' />
-          <XAxis dataKey='day' stroke='red'>
-            <Label value='Week' position='insideBottom' />
-          </XAxis>
-          <YAxis stroke='red' />
-          <Tooltip />
-          <Legend
-            layout='horizontal'
-            align='right'
-            verticalAlign='bottom'
-            iconType='line'
-          />
-          <Line
-            type='monotone'
-            dataKey='Kcalories'
-            stroke='#ffd500'
-            strokeWidth={4}
-          />
-          <Line
-            type='monotone'
-            dataKey='fats'
-            stroke='#73ff00'
-            strokeWidth={2}
-          />
-          <Line
-            type='monotone'
-            dataKey='proteins'
-            stroke='#0004ff'
-            strokeWidth={2}
-          />
-          <Line
-            type='monotone'
-            dataKey='carbohydrates'
-            stroke='#00fbff'
-            strokeWidth={2}
-          />
-        </LineChart>
+            width={530}
+            height={250}
+            data={graphics_target}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="" stroke="#999" />
+            <XAxis dataKey="day" stroke="red">
+              <Label value="days" position="insideBottom" />
+            </XAxis>
+            <YAxis stroke="red" />
+            <Tooltip />
+            <Legend
+              layout="horizontal"
+              align="right"
+              verticalAlign="bottom"
+              iconType="line"
+            />
+            <Line
+              type="monotone"
+              dataKey="Kcalories"
+              stroke="#ffd500"
+              strokeWidth={4}
+            />
+            <Line
+              type="monotone"
+              dataKey="fats"
+              stroke="#73ff00"
+              strokeWidth={2}
+            />
+            <Line
+              type="monotone"
+              dataKey="proteins"
+              stroke="#0004ff"
+              strokeWidth={2}
+            />
+            <Line
+              type="monotone"
+              dataKey="carbohydrates"
+              stroke="#00fbff"
+              strokeWidth={2}
+            />
+          </LineChart>
       </Grid>
       <Grid item xs={6}>
         <BarChart
