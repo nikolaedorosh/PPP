@@ -1,17 +1,20 @@
 const initState = {
-  info: {
-    age: "",
-    gender: "",
-    weight: "",
-    height: "",
-    activity: "",
-    bmi: "",
-    targetWeight: null,
-    kcal: null,
-    Proteins: null,
-    carbohydrates: null,
-    fats: null,
-  },
+  info: localStorage.getItem("info")
+    ? JSON.parse(localStorage.getItem("info"))
+    : {
+        age: "",
+        gender: "",
+        weight: "",
+        height: "",
+        activity: "",
+        bmi: "",
+        targetWeight: null,
+        kcal: null,
+        Proteins: null,
+        carbohydrates: null,
+        fats: null,
+      },
+
   food: {
     options: [],
     meals: [],
