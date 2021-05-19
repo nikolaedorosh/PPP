@@ -23,3 +23,10 @@ export const saveState = (state) => {
     localStorage.setItem("auth", serializedState);
   } catch (err) {}
 };
+
+export const saveStateInfo = (state) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem("info", serializedState);
+  } catch (err) {}
+};
