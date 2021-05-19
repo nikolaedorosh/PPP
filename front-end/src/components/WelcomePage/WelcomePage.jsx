@@ -172,7 +172,7 @@ const WelcomePage = () => {
     <div>
       <h1>Some info about PPP</h1>
       {test ? (
-        <form onSubmit={submitHandler1}>
+        <form>
 
           <TextField
             label="Email"
@@ -206,14 +206,14 @@ const WelcomePage = () => {
           />
           <br />
 
-          <Button variant="contained" color="primary" 
+          <Button onClick={submitHandler1} variant="contained" color="primary" 
         endIcon={<Icon>send</Icon>}>
 
             Sign Up
           </Button>
         </form>
       ) : (
-        <form onSubmit={submitHandler2}>
+        <form >
           <div>
             <input
               placeholder='Type email here...'
@@ -232,7 +232,7 @@ const WelcomePage = () => {
           </div>
 
 
-          <Button variant="contained" color="primary" endIcon={<Icon>send</Icon>}>
+          <Button onClick ={submitHandler2} variant="contained" color="primary" endIcon={<Icon>send</Icon>}>
 
             Sign In
           </Button>

@@ -1,7 +1,7 @@
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import RandomBurger from "../RandomBurger/RandomBurger";
+// import RandomBurger from "../RandomBurger/RandomBurger";
 
 import {
   LineChart,
@@ -244,7 +244,7 @@ result = [
             <LabelList dataKey='targetFat' position='top' fill='#ffffff' />
           </Bar>
         </BarChart>
-        <RandomBurger />
+        {/* <RandomBurger /> */}
       </Grid>
     </Grid>
   );
