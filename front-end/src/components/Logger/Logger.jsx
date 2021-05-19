@@ -14,7 +14,7 @@ import {
   LabelList,
   Label,
 } from "recharts";
-import { getUsersThunk } from "../../redux/actionCreators/graphicsAC";
+import { getUserInfo, getUsersThunk } from "../../redux/actionCreators/graphicsAC";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
@@ -41,6 +41,10 @@ function Logger() {
   }));
 
   useEffect(() => {
+    dispatch(getUserInfo(id));
+  }, []);
+
+  useEffect(() => {
     dispatch(getUsersThunk(id));
   }, [today]);
 
@@ -51,6 +55,13 @@ function Logger() {
     fats: 0,
     proteins: 0,
     Kcalories: 0
+  }
+
+  graphics_need = {
+    targetKCal: info.kcal,
+    targetProt: info.Proteins,
+    targetCarb: info.carbohydrates,
+    targetFat: info.fats
   }
 
   if (week.length) {
@@ -102,10 +113,6 @@ function Logger() {
       todayGraph = newArr[newArr.length - 1]
     }
   }
-  
-  graphics_target = newArr;
-
-
 
 result = [
     {

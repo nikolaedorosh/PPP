@@ -27,10 +27,8 @@ function List() {
   const inputRef = useRef(null);
   const scannerPic = useSelector((state) => state.food.scannedImg);
   const id = useSelector((state) => state.auth.userId);
-  const meals = useSelector((state) => state.food.meals);
   const options = useSelector((state) => state.food.options);
   const week = useSelector((state) => state.week);
-  const email = useSelector((state) => state.auth.userEmail);
   const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
 
