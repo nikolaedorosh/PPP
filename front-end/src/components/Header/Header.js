@@ -16,7 +16,9 @@ import Box from "@material-ui/core/Box";
 import { Link } from "react-router-dom";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
+
 import styles from "./header.module.css";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -46,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="left" ref={ref} {...props} />;
+  return <Slide direction='left' ref={ref} {...props} />;
 });
 function Header({ darkTheme, setDarkTheme }) {
   const isSignedIn = useSelector((state) => state.auth.isSignedIn);
@@ -69,6 +71,7 @@ function Header({ darkTheme, setDarkTheme }) {
     setOpen(false);
   };
   return (
+
     <AppBar position="static" className={classes.colorPrimary}>
       <Toolbar variant="dense" className={classes.root}>
         <Typography variant="h6" color="inherit">
@@ -83,33 +86,34 @@ function Header({ darkTheme, setDarkTheme }) {
               className={styles.Logo}
             ></img>
           )}
+
         </Typography>
         <Box className={classes.linkStyle}>
-          <Link to="/welcomepage">HomePage</Link>
+          {userName ? "" : <Link to='/welcomepage'>HomePage</Link>}
           {userName ? (
             <>
               <Button>
-                <Link to="/logger">Logger</Link>
+                <Link to='/logger'>Logger</Link>
               </Button>
             </>
           ) : (
             <>
-              <Link to="/aboutus"> AboutUs</Link>
+              <Link to='/aboutus'> AboutUs</Link>
             </>
           )}
         </Box>
         <Box
           className={classes.changeTheme}
-          display="flex"
-          justifyContent="flex-end"
-          alignItems="center"
+          display='flex'
+          justifyContent='flex-end'
+          alignItems='center'
         >
           <FormGroup>
             <FormControlLabel
               control={
                 <Switch
                   onClick={() => setDarkTheme(!darkTheme)}
-                  aria-label="login switch"
+                  aria-label='login switch'
                 />
               }
             />
@@ -119,6 +123,7 @@ function Header({ darkTheme, setDarkTheme }) {
           ) : (
             <>
               <IconButton
+
                 edge="start"
                 className={classes.menuButton}
                 color="inherit"
@@ -131,6 +136,7 @@ function Header({ darkTheme, setDarkTheme }) {
                 className={classes.menuButton}
                 color="inherit"
                 aria-label="menu"
+
               >
                 <MenuIcon
                   onClick={openProfile}
@@ -144,6 +150,7 @@ function Header({ darkTheme, setDarkTheme }) {
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
+
                 className={classes.modal}
               >
                 <ProfileModal setOpen={setOpen} />

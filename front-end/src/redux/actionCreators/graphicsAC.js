@@ -5,7 +5,9 @@ const getUsersThunk = (id) => async (dispatch, getState) => {
   const resp = await fetch("http://localhost:3000/logger", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
+
     body: JSON.stringify({id: id}),
+
   });
   const res = await resp.json();
   dispatch(setWeek(res));
