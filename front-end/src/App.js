@@ -10,6 +10,7 @@ import EditProfile from "./pages/EditProfile/EditProfile";
 import Footer from "./components/Footer/Footer";
 import { useSelector } from "react-redux";
 
+
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
 

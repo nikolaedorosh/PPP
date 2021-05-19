@@ -9,11 +9,11 @@ router.post("/", async (req, res) => {
   return res.json(meals);
 });
 
-router.post("/info", async (req, res) => {
-  const {id} = req.body
-  const user = await userModel.findById(id);
-  return res.json(user);
-});
+// router.post("/info", async (req, res) => {
+//   const {id} = req.body
+//   const user = await userModel.findById(id);
+//   return res.json(user);
+// });
 
 router.post("/getInfo", async (req, res) => {
   const { text } = req.body;

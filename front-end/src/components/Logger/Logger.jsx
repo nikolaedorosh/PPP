@@ -1,4 +1,4 @@
-import { Spinner } from "reactstrap";
+
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,11 +13,26 @@ import {
   BarChart,
   LabelList,
   Label,
-} from "recharts";
-import { getUserInfo, getUsersThunk } from "../../redux/actionCreators/graphicsAC";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+} from 'recharts';
+import { getUsersThunk,getUserInfo } from '../../redux/actionCreators/graphicsAC';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import { Typography } from '@material-ui/core';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  greeds: {
+    marginTop: 40,
+  },
+  typolog:{
+    marginLeft: 220
+  },
+  typolog2:{
+    marginLeft: 390
+  }
+}));
 function Logger() {
   const week = useSelector((state) => state.week);
   const today = useSelector((state) => state.food.meals);
@@ -28,21 +43,12 @@ function Logger() {
   let graphics_target;
   let graphics_need;
   let result;
+  const classes = useStyles()
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: "center",
-      color: theme.palette.text.secondary,
-    },
-  }));
-
-  useEffect(() => {
-    dispatch(getUserInfo(id));
-  }, []);
+  // useEffect(() => {
+  //   console.log(id , '<-------id')
+  //   dispatch(getUserInfo(id));
+  // }, []);
 
   useEffect(() => {
     dispatch(getUsersThunk(id));
@@ -124,8 +130,9 @@ result = [
   ];
 
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={6}>
+    <Grid container spacing={3} className={classes.greeds} >
+      <Grid item xs={6} >
+        <Typography className={classes.typolog}>Вывод за неделю:</Typography>
         <LineChart
             width={530}
             height={250}
@@ -171,6 +178,7 @@ result = [
           </LineChart>
       </Grid>
       <Grid item xs={6}>
+      <Typography className={classes.typolog}>Вывод за day:</Typography>
         <BarChart
           width={730}
           height={250}
