@@ -23,7 +23,7 @@ const Recipe = ({ recipe }) => {
     const info = { fat, Kcal, proteins, carbs };
     const data = [name, num, info];
     console.log(data);
-    dispatch(getMeal({ data }, id));
+    // dispatch(getMeal({ data }, id));
   };
 
   return (
