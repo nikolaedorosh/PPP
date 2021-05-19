@@ -4,11 +4,12 @@ import { sendMeal } from '../../redux/actionCreators/mealAC';
 import { useDispatch } from 'react-redux';
 import Item from '../Item/Item';
 
-import { Box } from '@material-ui/core';
+import { Box, Icon } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
-
+import DeleteIcon from '@material-ui/icons/Delete';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles({
   root: {
@@ -58,25 +59,26 @@ function Meal({ date, items, id }) {
 
   return (
     <>
-        {/* <Button onClick={clickHandler}>
-          {items[0].name}...
-          {totalKcal}/{totalProteins}/{totalFats}/{totalCarbohydrates}
-          <Button onClick={() => deleteClickHandler(id)} color="danger">
+      <TableCell>{date}</TableCell>
+      <TableCell>
+        {' '}
+        <Button onClick={clickHandler}>{items[0].name}</Button>
+      </TableCell>
+      <TableCell>{totalProteins}</TableCell>
+      <TableCell>{totalFats}</TableCell>
+      <TableCell>{totalCarbohydrates}</TableCell>
+      <TableCell>{totalKcal}</TableCell>
+      <TableCell>
+        <Tooltip title="Delete" placement="bottom">
+          <Button
+            onClick={() => deleteClickHandler(id)}
+            endIcon={<Icon>deleteIcon</Icon>}
+          >
             Delete
           </Button>
-        </Button> */}
-          <TableCell>{date}</TableCell>
-          <TableCell> <Button onClick={clickHandler}>
-            {items[0].name}
-            </Button></TableCell>
-          <TableCell>{totalProteins}</TableCell>
-          <TableCell>{totalFats}</TableCell>
-          <TableCell>{totalCarbohydrates}</TableCell>
-          <TableCell>{totalKcal}</TableCell>
-          <TableCell> <Button onClick={() => deleteClickHandler(id)}>
-            Delete
-            </Button></TableCell>
-          <Box>
+        </Tooltip>
+      </TableCell>
+      <Box>
         <Modal toggle={clickHandler} isOpen={open}>
           <ModalHeader>{dateStr}</ModalHeader>
           <ModalBody>

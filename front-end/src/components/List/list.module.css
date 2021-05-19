@@ -1,0 +1,19 @@
+.glow {
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 70px;
+  /* margin: 10px 20px; */
+  border-radius: 10px;
+  box-shadow: 0 0 40px 40px #427276 inset, 0 0 0 0 #427276;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: white;
+  transition: .15s ease-in-out;
+  
+}
+.glow:hover {
+  background-color:"#D8E7E9" !important;
+  box-shadow: 0 0 10px 0 #59959B inset, 0 0 10px 4px #59959B;
+  color: #D8E7E9;
+}

@@ -22,13 +22,33 @@ import { getMeal } from '../../redux/actionCreators/mealAC';
 import { changeTextSaga } from '../../redux/saga';
 import * as TYPES from '../../redux/types/types';
 import Grid from '@material-ui/core/Grid';
-import { Box } from '@material-ui/core';
+import { Box , Paper } from '@material-ui/core';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
+import style from './list.module.css'
+const useStyles = makeStyles((theme) => ({
+  table:{
+    marginTop: "40px",
+    // width: '100%',
+    marginLeft : "200px",
+    marginRight: '200px'
+    // display:'flex',
+    // justifyContent: 'center'
+  },
+  paper:{
+    backgroundColor: '#D8E7E9'
+  },
+  button:{
+    marginTop: '30px',
+    width: '200px'
+  }
+}));
 
 function List() {
   const inputRef = useRef(null);
@@ -42,6 +62,9 @@ function List() {
   const [open, setOpen] = useState(false);
   const [scan, setScan] = useState(false);
   const [text, setText] = useState(false);
+
+
+  const classes = useStyles()
 
   function clickHandler() {
     setOpen((prev) => !prev);
@@ -117,9 +140,11 @@ function List() {
           alignItems="center"
           p={5}
         >
-          <Button color="danger" onClick={clickHandler}>
+          <Tooltip title="Add meal" placement="bottom">
+          <Button className={style.glow} onClick={clickHandler}>
             Eat
           </Button>
+          </Tooltip>
         </Grid>
 
 
@@ -205,7 +230,8 @@ function List() {
           </Form>
         </Modal>
       </Grid>
-      <Box>
+      <Box className={classes.table}>
+      <Paper elevation={5} variant="outlined" className={classes.paper}>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -230,6 +256,7 @@ function List() {
           <> </>
         )}
       </Table>
+      </Paper>
       </Box>
     </>
   );

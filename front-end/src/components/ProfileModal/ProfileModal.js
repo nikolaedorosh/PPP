@@ -23,7 +23,11 @@ const ProfileModal = ({ setOpen }) => {
   //use selectors
   const userName = useSelector((state) => state.auth.userName);
   const userEmail = useSelector((state) => state.auth.userEmail);
-  const userTarget = useSelector((state) => state.info.targetWeight);
+  const userTarget = useSelector((state) => state.info.targetWeight)
+  const userKcal = useSelector((state) => state.info.kcal);
+  const userProteins = useSelector((state) => state.info.Proteins)
+  const userCarbohydrates = useSelector((state) => state.info.carbohydrates)
+  const userFats = useSelector((state) => state.info.fats)
   console.log()
   const id = useSelector((state) => state.auth.userId);
   const userProfileImg = useSelector((state) => state.auth.userProfileImg);
@@ -110,19 +114,19 @@ const ProfileModal = ({ setOpen }) => {
         <Typography className={classes.classForText} variant='subtitle2'>{userTarget}</Typography>
         </Box>
         <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current kcal:
-        <Typography className={classes.classForText} variant='subtitle2'>Kcal</Typography>
+        <Typography className={classes.classForText} variant='subtitle2'>{userKcal}</Typography>
         </Box>
         <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current Prot:
-        <Typography className={classes.classForText} variant='subtitle2'>Prot</Typography>
+        <Typography className={classes.classForText} variant='subtitle2'>{userProteins}</Typography>
         </Box>
         
         <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current fats:
-        <Typography className={classes.classForText} variant='subtitle2'>Fats</Typography>
+        <Typography className={classes.classForText} variant='subtitle2'>{userFats}</Typography>
         </Box>
         
         
         <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current carboh :
-        <Typography className={classes.classForText} variant='subtitle2'>Carboh</Typography>
+        <Typography className={classes.classForText} variant='subtitle2'>{userCarbohydrates}</Typography>
         </Box>
         <Button onClick={goToEdit} variant="outlined">Change My Details</Button>
         <Button  onClick={onSignOutClick} variant="outlined">LogOut</Button>

@@ -1,7 +1,6 @@
-
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import RandomBurger from "../RandomBurger/RandomBurger";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import RandomBurger from '../RandomBurger/RandomBurger';
 
 import {
   LineChart,
@@ -16,23 +15,34 @@ import {
   LabelList,
   Label,
 } from 'recharts';
-import { getUsersThunk,getUserInfo } from '../../redux/actionCreators/graphicsAC';
+import {
+  getUsersThunk,
+  getUserInfo,
+} from '../../redux/actionCreators/graphicsAC';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { Typography } from '@material-ui/core';
+import { Typography, Paper, Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  greeds: {
+  boxes: {
     marginTop: 40,
   },
-  typolog:{
-    marginLeft: 220
+  typolog: {
+    marginLeft: 220,
   },
-  typolog2:{
-    marginLeft: 390
+  typolog2: {
+    marginLeft: 390,
+  },
+  // paper: {
+  //   backgroundColor: '#B6C6EB',
+  // },
+  styleForContainer:{
+    display: 'flex',
+    justifyContent:'center',
+    marginTop: 40
   }
 }));
 function Logger() {
@@ -45,12 +55,7 @@ function Logger() {
   let graphics_target;
   let graphics_need;
   let result;
-  const classes = useStyles()
-
-  // useEffect(() => {
-  //   console.log(id , '<-------id')
-  //   dispatch(getUserInfo(id));
-  // }, []);
+  const classes = useStyles();
 
   useEffect(() => {
     dispatch(getUsersThunk(id));
@@ -63,16 +68,15 @@ function Logger() {
     fats: 0,
     proteins: 0,
 
-    Kcalories: 0
-  }
+    Kcalories: 0,
+  };
 
   graphics_need = {
     targetKCal: info.kcal,
     targetProt: info.Proteins,
     targetCarb: info.carbohydrates,
-    targetFat: info.fats
-  }
-
+    targetFat: info.fats,
+  };
 
   if (week.length) {
     let acc = {
@@ -95,9 +99,11 @@ function Logger() {
         totalCal += cal;
       });
 
-
-      if (new Date(acc.date).toLocaleDateString() !== new Date(el.date).toLocaleDateString()) {
-        newArr.push(acc)
+      if (
+        new Date(acc.date).toLocaleDateString() !==
+        new Date(el.date).toLocaleDateString()
+      ) {
+        newArr.push(acc);
         acc = {
           date: el.date,
           carbohydrates: totalCarb,
@@ -112,21 +118,23 @@ function Logger() {
           fats: acc.fats + totalFat,
           proteins: acc.proteins + totalProt,
           Kcalories: acc.Kcalories + totalCal,
-
-        }
+        };
       }
       if (i === week.length - 1) {
-        newArr.push(acc)
+        newArr.push(acc);
       }
-    })
-    if (new Date(newArr[newArr.length - 1].date).toLocaleDateString() === new Date().toLocaleDateString()) {
-      todayGraph = newArr[newArr.length - 1]
+    });
+    if (
+      new Date(newArr[newArr.length - 1].date).toLocaleDateString() ===
+      new Date().toLocaleDateString()
+    ) {
+      todayGraph = newArr[newArr.length - 1];
     }
   }
 
-  graphics_target = newArr
+  graphics_target = newArr;
 
-result = [
+  result = [
     {
       ...todayGraph,
       ...graphics_need,
@@ -134,10 +142,14 @@ result = [
   ];
 
   return (
-    <Grid container spacing={3} className={classes.greeds} >
-      <Grid item xs={6} >
-        <Typography className={classes.typolog}>Вывод за неделю:</Typography>
-        <LineChart
+    // <Grid container spacing={3} className={classes.greeds} >
+    // <Grid item xs={6} className={classes.gridTest}>
+  //  <Paper elevation={3} variant="outlined" className={classes.paper}>
+    <Box className={classes.styleForContainer}>
+      <Box>
+        {/* <Paper elevation={3} variant="outlined" className={classes.paper}> */}
+          <Typography className={classes.typolog}>Вывод за неделю:</Typography>
+          <LineChart
             width={530}
             height={250}
             data={graphics_target}
@@ -147,106 +159,97 @@ result = [
             <XAxis dataKey="day" stroke="red">
               <Label value="days" position="insideBottom" />
             </XAxis>
-            <YAxis stroke="red" />
+            <YAxis />
             <Tooltip />
-            <Legend
-              layout="horizontal"
-              align="right"
-              verticalAlign="bottom"
-              iconType="line"
-            />
             <Line
               type="monotone"
               dataKey="Kcalories"
-              stroke="#ffd500"
+              stroke="#F17455"
               strokeWidth={4}
             />
             <Line
               type="monotone"
               dataKey="fats"
-              stroke="#73ff00"
+              stroke="#776E18"
               strokeWidth={2}
             />
             <Line
               type="monotone"
               dataKey="proteins"
-              stroke="#0004ff"
+              stroke="#A3526C"
               strokeWidth={2}
             />
             <Line
               type="monotone"
               dataKey="carbohydrates"
-              stroke="#00fbff"
+              stroke="#EEC458"
               strokeWidth={2}
             />
           </LineChart>
-      </Grid>
-      <Grid item xs={6}>
-      <Typography className={classes.typolog}>Вывод за day:</Typography>
+        {/* </Paper> */}
+      </Box>
+      <Box>
+        <Typography className={classes.typolog}>Вывод за day:</Typography>
         <BarChart
           width={730}
           height={250}
           data={result}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          barCategoryGap='10%'
-          barGap='10'
+          barCategoryGap="10%"
+          barGap="10"
         >
-          <XAxis dataKey='day'>
-            <Label value='Current day' position='insideBottom' />
+          <XAxis dataKey="day">
+            <Label value="Current day" position="insideBottom" />
           </XAxis>
           <YAxis />
           <Tooltip />
           <Legend
-            layout='vertical'
-            align='left'
-            verticalAlign='middle'
-            iconType='rect'
+            layout="vertical"
+            align="left"
+            verticalAlign="middle"
+            iconType="rect"
           />
-          <CartesianGrid stroke='#999' />
+          <CartesianGrid stroke="#999" />
 
-          <Bar dataKey='Kcalories' barSize={40} fill='#ffd500' />
+          <Bar dataKey="Kcalories" barSize={40} fill="#F17455" />
           <Bar
-            dataKey='targetKCal'
+            dataKey="targetKCal"
             barSize={40}
-            fill='#ffd500'
+            fill="#F4937B"
             isAnimationActive={false}
           >
-            <LabelList dataKey='targetKCal' position='top' fill='#ffffff' />
           </Bar>
 
-          <Bar dataKey='proteins' barSize={40} fill='#0004ff'></Bar>
+          <Bar dataKey="proteins" barSize={40} fill="#A3526C"></Bar>
           <Bar
-            dataKey='targetProt'
+            dataKey="targetProt"
             barSize={40}
-            fill='#0004ff'
+            fill="#B46A81"
             isAnimationActive={false}
           >
-            <LabelList dataKey='targetProt' position='top' fill='#ffffff' />
           </Bar>
 
-          <Bar dataKey='carbohydrates' barSize={40} fill='#00fbff' />
+          <Bar dataKey="carbohydrates" barSize={40} fill="#A77C11" />
           <Bar
-            dataKey='targetCarb'
+            dataKey="targetCarb"
             barSize={40}
-            fill='#00fbff'
+            fill="#DFA616"
             isAnimationActive={false}
           >
-            <LabelList dataKey='targetCarb' position='top' fill='#ffffff' />
           </Bar>
 
-          <Bar dataKey='fats' barSize={40} fill='#73ff00' />
+          <Bar dataKey="fats" barSize={40} fill="#776E18" />
           <Bar
-            dataKey='targetFat'
+            dataKey="targetFat"
             barSize={40}
-            fill='#73ff00'
+            fill="#988C1F"
             isAnimationActive={false}
           >
-            <LabelList dataKey='targetFat' position='top' fill='#ffffff' />
           </Bar>
         </BarChart>
-        <RandomBurger />
-      </Grid>
-    </Grid>
+        {/* <RandomBurger /> */}
+      </Box>
+    </Box>
   );
 }
 

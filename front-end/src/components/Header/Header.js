@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     color: "red",
   },
   colorPrimary: {
-    background: "#7196EB",
+    background: "#427276",
   },
   modal: {
     display: "flex",

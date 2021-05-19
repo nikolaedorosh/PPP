@@ -9,7 +9,7 @@ import WelcomePage from "./components/WelcomePage/WelcomePage";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import Footer from "./components/Footer/Footer";
 import { useSelector } from "react-redux";
-
+import {Paper,} from '@material-ui/core';
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
@@ -43,8 +43,10 @@ function App() {
               <EditProfile />
             </Route>
             <Route exact path="/logger">
+         
               <Logger />
               <List />
+              
             </Route>
             <Route>
               <PageNotFound />
