@@ -129,8 +129,8 @@ mainRouter.patch("/profileData/:id", async (req, res) => {
   const user = await userModel.findByIdAndUpdate(
     req.params.id,
     {
-      name: req.body.name,
-      email: req.body.email,
+      // name: req.body.name,
+      // email: req.body.email,
       info: {
         age: req.body.age,
         gender: req.body.gender,
