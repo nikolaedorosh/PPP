@@ -12,7 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box, Icon, Typography } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 const ProfileModal = ({ setOpen }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -38,7 +38,7 @@ const ProfileModal = ({ setOpen }) => {
   };
   const useStyles = makeStyles((theme) => ({
     container: {
-      position:"relative",
+      position: "relative",
       // padding: "0 105px",
       display: "flex",
       justifyContent: "center",
@@ -64,7 +64,7 @@ const ProfileModal = ({ setOpen }) => {
       position: "absolute",
       padding: "2px 8px",
       fontSize: "12px",
-      right: "2vw"
+      right: "2vw",
     },
   }));
   const classes = useStyles();
@@ -96,21 +96,21 @@ const ProfileModal = ({ setOpen }) => {
       {/* <DialogTitle>Profile</DialogTitle> */}
       <Box p={2} className={classes.container}>
         <Avatar
-          alt="Remy Sharp"
+          alt='Remy Sharp'
           src={"/img/" + userProfileImg}
           className={classes.avatar}
         />
         <input
-          accept="image/*"
+          accept='image/*'
           className={classes.input}
-          id="contained-button-file"
+          id='contained-button-file'
           multiple
-          type="file"
+          type='file'
         />
-        <label htmlFor="icon-button-file">
+        <label htmlFor='icon-button-file'>
           <IconButton
-            aria-label="upload picture"
-            component="span"
+            aria-label='upload picture'
+            component='span'
             onClick={picHandler}
           >
             <PhotoCamera />
@@ -118,103 +118,102 @@ const ProfileModal = ({ setOpen }) => {
         </label>
       </Box>
       <Box
-        component="span"
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
+        component='span'
+        display='flex'
+        flexDirection='row'
+        alignItems='center'
       >
         Name:
-        <Typography className={classes.classForText} variant="subtitle2">
+        <Typography className={classes.classForText} variant='subtitle2'>
           {userName}
         </Typography>
       </Box>
       <Box
-        component="span"
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
+        component='span'
+        display='flex'
+        flexDirection='row'
+        alignItems='center'
       >
         Email:
-        <Typography className={classes.classForText} variant="subtitle2">
+        <Typography className={classes.classForText} variant='subtitle2'>
           {userEmail}
         </Typography>
       </Box>
       <Box
-        component="span"
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
+        component='span'
+        display='flex'
+        flexDirection='row'
+        alignItems='center'
       >
         Weigth:
-        <Typography className={classes.classForText} variant="subtitle2">
-          {userTarget}
-        </Typography>
+        <Typography className={classes.classForText} variant='subtitle2'>
+          {userTarget} kg
+        </Typography>{" "}
       </Box>
+      <br />
+      <h5>Daily intake</h5>
       <Box
-        component="span"
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
+        component='span'
+        display='flex'
+        flexDirection='row'
+        alignItems='center'
       >
-        Current kcal:
-        <Typography className={classes.classForText} variant="subtitle2">
+        kCal:
+        <Typography className={classes.classForText} variant='subtitle2'>
           {userKcal}
         </Typography>
       </Box>
       <Box
-        component="span"
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
+        component='span'
+        display='flex'
+        flexDirection='row'
+        alignItems='center'
       >
-        Current Prot:
-        <Typography className={classes.classForText} variant="subtitle2">
-          {userProteins}
+        Proteins:
+        <Typography className={classes.classForText} variant='subtitle2'>
+          {userProteins} g
         </Typography>
       </Box>
 
       <Box
-        component="span"
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
+        component='span'
+        display='flex'
+        flexDirection='row'
+        alignItems='center'
       >
-        Current fats:
-        <Typography className={classes.classForText} variant="subtitle2">
-          {userFats}
+        Fats:
+        <Typography className={classes.classForText} variant='subtitle2'>
+          {userFats} g
         </Typography>
       </Box>
 
       <Box
-        component="span"
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
+        component='span'
+        display='flex'
+        flexDirection='row'
+        alignItems='center'
       >
-        Current carboh :
-        <Typography className={classes.classForText} variant="subtitle2">
-          {userCarbohydrates}
+        Carbs:
+        <Typography className={classes.classForText} variant='subtitle2'>
+          {userCarbohydrates} g
         </Typography>
       </Box>
       <Button
-        variant="contained"
+        variant='contained'
         endIcon={<Icon>editIcon</Icon>}
         onClick={goToEdit}
       >
         Change profile
       </Button>
       <hr></hr>
-      <Button
-        variant="contained"
-        onClick={onSignOutClick}
-      >
+      <Button variant='contained' onClick={onSignOutClick}>
         LogOut
       </Button>
 
       <input
-        type="file"
-        id="fileUploader"
-        hidden="hidden"
+        type='file'
+        id='fileUploader'
+        hidden='hidden'
         ref={inputRef}
         onChange={uploadOnChange}
       />

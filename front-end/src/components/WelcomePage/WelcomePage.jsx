@@ -5,12 +5,6 @@ import * as AuthorizationAction from "../../redux/reducers/MAIN"; // стало
 import Button from "@material-ui/core/Button";
 import { FormGroup, Icon, TextField } from "@material-ui/core";
 
-// const useStyles = makeStyles((theme) => ({
-//   button: {
-//     margin: theme.spacing(1),
-//   },
-// }));
-
 const WelcomePage = () => {
   // const classes = useStyles();
   const dispatch = useDispatch();
@@ -190,23 +184,23 @@ const WelcomePage = () => {
       {test ? (
         <FormGroup style={{ alignItems: "center" }}>
           <TextField
-            label="Email"
-            variant="outlined"
-            placeholder="Type email here..."
+            label='Email'
+            variant='outlined'
+            placeholder='Type email here...'
             onChange={inputMailHandler}
             value={inputMail}
-            type="email"
-            id="email"
-            name="email"
+            type='email'
+            id='email'
+            name='email'
             required
             style={{ width: "400px" }}
           />
           <br />
           <TextField
-            label="password"
-            type="password"
-            variant="outlined"
-            placeholder="Type password here..."
+            label='password'
+            type='password'
+            variant='outlined'
+            placeholder='Type password here...'
             onChange={inputPassHandler}
             value={inputPass}
             required
@@ -214,19 +208,19 @@ const WelcomePage = () => {
           />
           <br />
           <TextField
-            label="Name"
-            variant="outlined"
-            placeholder="Name and second name here..."
+            label='Name'
+            variant='outlined'
+            placeholder='Name and second name here...'
             onChange={inputNameHandler}
             value={inputName}
-            type="text"
+            type='text'
             required
             style={{ width: "400px" }}
           />
           <br />
           <Button
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
             endIcon={<Icon>send</Icon>}
             onClick={submitHandler1}
           >
@@ -234,8 +228,8 @@ const WelcomePage = () => {
           </Button>
           <br />
           <Button
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
             // className={classes.button}
             endIcon={<Icon>fingerprint</Icon>}
             onClick={onSignInClick}
@@ -243,7 +237,7 @@ const WelcomePage = () => {
             Sign In with Google
           </Button>
           Already have an account?{" "}
-          <Button variant="contained" color="primary" onClick={changeTest}>
+          <Button variant='contained' color='primary' onClick={changeTest}>
             Sign In
           </Button>
         </FormGroup>
@@ -251,20 +245,20 @@ const WelcomePage = () => {
         <>
           <FormGroup style={{ alignItems: "center" }}>
             <TextField
-              label="Email"
-              variant="outlined"
-              placeholder="Type email here..."
+              label='Email'
+              variant='outlined'
+              placeholder='Type email here...'
               onChange={inputMailHandler}
               value={inputMail}
-              type="mail"
+              type='mail'
               required
               style={{ width: "400px" }}
             />
             <TextField
-              label="Password"
-              type="password"
-              variant="outlined"
-              placeholder="Type password here..."
+              label='Password'
+              type='password'
+              variant='outlined'
+              placeholder='Type password here...'
               onChange={inputPassHandler}
               value={inputPass}
               required
@@ -272,8 +266,8 @@ const WelcomePage = () => {
             />
 
             <Button
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               endIcon={<Icon>send</Icon>}
               onClick={submitHandler2}
             >
@@ -282,15 +276,15 @@ const WelcomePage = () => {
           </FormGroup>
           <div style={{ alignItems: "center" }}>
             <Button
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               endIcon={<Icon>fingerprint</Icon>}
               onClick={onSignInClick}
             >
               Sign In with Google
             </Button>
             Already have an account?{" "}
-            <Button variant="contained" color="primary" onClick={changeTest}>
+            <Button variant='contained' color='primary' onClick={changeTest}>
               Sign In
             </Button>
           </div>
@@ -302,3 +296,98 @@ const WelcomePage = () => {
 };
 
 export default WelcomePage;
+
+// import React, { useState } from "react";
+// import {
+//   Carousel,
+//   CarouselItem,
+//   CarouselControl,
+//   CarouselIndicators,
+//   CarouselCaption,
+// } from "reactstrap";
+
+// const items = [
+//   {
+//     src: "https://www.pcrm.org/sites/default/files/2020-12/plant-based-protein.jpg",
+//     altText:
+//       "Plant-Based Protein Lowers Risk of Premature Death, Heart Disease, Dementia-Related Death",
+//     caption:
+//       "Plant-Based Protein Lowers Risk of Premature Death, Heart Disease, Dementia-Related Death",
+//   },
+//   {
+//     src: "https://www.pcrm.org/sites/default/files/2020-06/vegan-food.jpg",
+//     altText: "Vegetarian Diets Reduce Risk of Death from Heart Disease",
+//     caption: "Vegetarian Diets Reduce Risk of Death from Heart Disease",
+//   },
+//   {
+//     src: "https://www.pcrm.org/sites/default/files/soy-foods.jpg",
+//     altText: "New Research Disputes the Biggest Soy Myths",
+//     caption: "New Research Disputes the Biggest Soy Myths",
+//   },
+// ];
+
+// function PageNotFound() {
+//   const [activeIndex, setActiveIndex] = useState(0);
+//   const [animating, setAnimating] = useState(false);
+
+//   const next = () => {
+//     if (animating) return;
+//     const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+//     setActiveIndex(nextIndex);
+//   };
+
+//   const previous = () => {
+//     if (animating) return;
+//     const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+//     setActiveIndex(nextIndex);
+//   };
+
+//   const goToIndex = (newIndex) => {
+//     if (animating) return;
+//     setActiveIndex(newIndex);
+//   };
+
+//   const slides = items.map((item) => {
+//     return (
+//       <CarouselItem
+//         onExiting={() => setAnimating(true)}
+//         onExited={() => setAnimating(false)}
+//         key={item.src}
+//       >
+//         <img src={item.src} alt={item.altText} />
+//         <CarouselCaption
+//           // captionText={item.caption}
+//           captionHeader={item.caption}
+//         />
+//       </CarouselItem>
+//     );
+//   });
+
+//   return (
+//     <Carousel
+//       style={{ display: "flex", height: 300 }}
+//       activeIndex={activeIndex}
+//       next={next}
+//       previous={previous}
+//     >
+//       <CarouselIndicators
+//         items={items}
+//         activeIndex={activeIndex}
+//         onClickHandler={goToIndex}
+//       />
+//       {slides}
+//       <CarouselControl
+//         direction='prev'
+//         directionText='Previous'
+//         onClickHandler={previous}
+//       />
+//       <CarouselControl
+//         direction='next'
+//         directionText='Next'
+//         onClickHandler={next}
+//       />
+//     </Carousel>
+//   );
+// }
+
+// export default PageNotFound;

@@ -9,11 +9,22 @@ const Recipe = ({ recipe }) => {
   const { label, image, url, digest, calories } = recipe.recipe;
   const id = useSelector((state) => state.auth.userId);
 
-
-  console.log(recipe)
+  console.log(recipe);
 
   const addMeal = async () => {
-    const myMeal = [{name: label, num: 1, image: url, info: {prot: digest[1].total, cal: (calories/9), carb: digest[1].total, fat: digest[0].total}}]
+    const myMeal = [
+      {
+        name: label,
+        num: 1,
+        image: image,
+        info: {
+          prot: digest[1].total,
+          cal: calories / 9,
+          carb: digest[1].total,
+          fat: digest[0].total,
+        },
+      },
+    ];
     dispatch(getMeal(myMeal, id));
   };
 
