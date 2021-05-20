@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {  useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as AuthorizationAction from "../../redux/reducers/MAIN"; // стало
 import Button from "@material-ui/core/Button";
-import {
- 
-  FormGroup,
-  Icon,
-  TextField,
-} from "@material-ui/core";
+import { FormGroup, Icon, TextField } from "@material-ui/core";
 
 // const useStyles = makeStyles((theme) => ({
 //   button: {
@@ -84,16 +79,17 @@ const WelcomePage = () => {
 
   function validate(email) {
     const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-    if(reg.test(email) == false) {
-       alert('Введите корректный e-mail');
-       return false;
-    } return true;
- }
+    if (reg.test(email) == false) {
+      alert("Введите корректный e-mail");
+      return false;
+    }
+    return true;
+  }
 
   const submitHandler1 = (e) => {
     e.preventDefault();
     if (inputPass.trim() && inputMail.trim() && inputName.trim()) {
-      if(validate(inputMail.trim())) {
+      if (validate(inputMail.trim())) {
         addNewUser(inputMail.trim(), inputPass.trim(), inputName.trim());
       }
     } else window.alert("Fill in form fields and try again");
@@ -192,9 +188,7 @@ const WelcomePage = () => {
       <br></br>Зарегистрируйтесь, чтобы ознакомиться с интерфейсом приложения
       <hr></hr>
       {test ? (
-
         <FormGroup style={{ alignItems: "center" }}>
-
           <TextField
             label="Email"
             variant="outlined"
@@ -230,14 +224,12 @@ const WelcomePage = () => {
             style={{ width: "400px" }}
           />
           <br />
-
           <Button
             variant="contained"
             color="primary"
             endIcon={<Icon>send</Icon>}
             onClick={submitHandler1}
           >
-
             Sign Up
           </Button>
           <br />
@@ -256,14 +248,12 @@ const WelcomePage = () => {
           </Button>
         </FormGroup>
       ) : (
-
         <>
           <FormGroup style={{ alignItems: "center" }}>
             <TextField
               label="Email"
               variant="outlined"
               placeholder="Type email here..."
-
               onChange={inputMailHandler}
               value={inputMail}
               type="mail"
@@ -280,7 +270,6 @@ const WelcomePage = () => {
               required
               style={{ width: "400px" }}
             />
-
 
             <Button
               variant="contained"
