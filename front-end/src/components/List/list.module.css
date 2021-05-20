@@ -10,13 +10,19 @@
   letter-spacing: 2px;
   color: #e7f2f3;
   transition: .15s ease-in-out;
+  background-color:#427276 ;
 }
 .glow:hover {
-  box-shadow: 0 0 10px 0 #59959B inset, 0 0 10px 4px #59959B;
+  box-shadow: 0 0 10px 0 #59959B , 0 0 10px 4px #59959B;
 }
 .glow:hover {
   background-color: #B1CFD2;
   border-color: #427276;
   color: #427276;
+
+}
+.glow:focus{
+  background-color: #427276;
+
 
 }

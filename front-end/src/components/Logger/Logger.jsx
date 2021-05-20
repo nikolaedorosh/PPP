@@ -207,34 +207,34 @@ function Logger() {
         <Typography variant="body1">
           <Box
             className={classes.text}
-            style={{ color: '#F17455', opacity: 0.5 }}
+            style={{ color: '#F17455', opacity: 0.65 }}
           >
             ◆ Kcalories
           </Box>
           <Box className={classes.text} style={{ color: '#F17455' }}>
             ◆ Target Kcalories
-          </Box>
+          </Box><br></br>
           <Box
             className={classes.text}
-            style={{ color: '#A3526C', opacity: 0.5 }}
+            style={{ color: '#A3526C', opacity: 0.65 }}
           >
             ◆ Proteins
           </Box>
           <Box className={classes.text} style={{ color: '#A3526C' }}>
             ◆ Target Proteins
-          </Box>
+          </Box><br></br>
           <Box
             className={classes.text}
-            style={{ color: '#DFA616', opacity: 0.5 }}
+            style={{ color: '#DFA616', opacity: 0.65 }}
           >
             ◆ Carbs
           </Box>
           <Box className={classes.text} style={{ color: '#DFA616' }}>
             ◆ Target Carbs
-          </Box>
+          </Box><br></br>
           <Box
             className={classes.text}
-            style={{ color: '#776E18', opacity: 0.5 }}
+            style={{ color: '#776E18', opacity: 0.65 }}
           >
             ◆ Fats
           </Box>
@@ -263,7 +263,7 @@ function Logger() {
           <Tooltip />
           <CartesianGrid stroke="#999" />
 
-          <Bar dataKey="Kcalories" barSize={40} fill="#F17455" opacity="0.5" />
+          <Bar dataKey="Kcalories" barSize={40} fill="#F17455" opacity="0.65" />
           <Bar
             dataKey="targetKCal"
             barSize={40}
@@ -275,7 +275,7 @@ function Logger() {
             dataKey="proteins"
             barSize={40}
             fill="#A3526C"
-            opacity="0.5"
+            opacity="0.65"
           ></Bar>
           <Bar
             dataKey="targetProt"
@@ -288,7 +288,7 @@ function Logger() {
             dataKey="carbohydrates"
             barSize={40}
             fill="#DFA616"
-            opacity="0.5"
+            opacity="0.65"
           />
           <Bar
             dataKey="targetCarb"
@@ -297,7 +297,7 @@ function Logger() {
             isAnimationActive={false}
           ></Bar>
 
-          <Bar dataKey="fats" barSize={40} fill="#776E18" opacity="0.5" />
+          <Bar dataKey="fats" barSize={40} fill="#776E18" opacity="0.65" />
           <Bar
             dataKey="targetFat"
             barSize={40}

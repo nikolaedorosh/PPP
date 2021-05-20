@@ -94,7 +94,9 @@ function Header({ darkTheme, setDarkTheme }) {
 
         </Typography>
         <Box className={classes.linkStyle}>
-          {userName ? "" : <Link to='/welcomepage'>HomePage</Link>}
+          {userName ? "" : <Typography variant='h4'> 
+                HOME PAGE
+              </Typography>}
           {userName ? (
             <>
               <Typography className={classes.logger} variant='h4'> 
@@ -103,7 +105,6 @@ function Header({ darkTheme, setDarkTheme }) {
             </>
           ) : (
             <>
-              <Link to='/aboutus'> AboutUs</Link>
             </>
           )}
         </Box>

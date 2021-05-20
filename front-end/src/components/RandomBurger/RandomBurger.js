@@ -38,7 +38,7 @@ const RandomBurger = () => {
 
   return (
     <>
-      <h1>Find me some recipe ideas!</h1>
+      <h4 style={{color:"rgb(35 74 78)"}}>Find me some recipe ideas!</h4>
       <form onSubmit={onSubmit} className='search-form'>
         {alert !== "" && <Alert alert={alert} />}
         <input
