@@ -13,12 +13,6 @@ import {
 } from "@material-ui/core";
 import { deepPurple, green } from "@material-ui/core/colors";
 
-// const useStyles = makeStyles((theme) => ({
-//   button: {
-//     margin: theme.spacing(1),
-//   },
-// }));
-
 const WelcomePage = () => {
   // const classes = useStyles();
   const dispatch = useDispatch();
@@ -234,6 +228,7 @@ const WelcomePage = () => {
       <br></br>Зарегистрируйтесь, чтобы ознакомиться с интерфейсом приложения
       <hr></hr>
       {test ? (
+
         <>
           <FormGroup
             style={{
@@ -313,6 +308,7 @@ const WelcomePage = () => {
             </Button>
           </div>
         </>
+
       ) : (
         <>
           <FormGroup
@@ -327,30 +323,34 @@ const WelcomePage = () => {
             }}
           >
             <TextField
-              label="Email"
-              variant="outlined"
-              placeholder="Type email here..."
+              label='Email'
+              variant='outlined'
+              placeholder='Type email here...'
               onChange={inputMailHandler}
               value={inputMail}
+
               type="email"
               id="email"
               name="email"
+
               required
               style={{ width: "400px", padding: "15px 0 15px 0" }}
             />
             <TextField
+
               label="password"
               type="password"
               variant="outlined"
               placeholder="Type password here..."
+
               onChange={inputPassHandler}
               value={inputPass}
               required
               style={{ width: "400px", padding: "15px 0 15px 0" }}
             />
             <Button
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               endIcon={<Icon>send</Icon>}
               onClick={submitHandler2}
             >
@@ -368,14 +368,15 @@ const WelcomePage = () => {
               Sign Up
             </Button>
             <Button
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               endIcon={<Icon>fingerprint</Icon>}
               onClick={onSignInClick}
               style={{ margin: "25px" }}
             >
               Sign In with Google
             </Button>
+
           </div>
         </>
       )}
@@ -385,3 +386,98 @@ const WelcomePage = () => {
 };
 
 export default WelcomePage;
+
+// import React, { useState } from "react";
+// import {
+//   Carousel,
+//   CarouselItem,
+//   CarouselControl,
+//   CarouselIndicators,
+//   CarouselCaption,
+// } from "reactstrap";
+
+// const items = [
+//   {
+//     src: "https://www.pcrm.org/sites/default/files/2020-12/plant-based-protein.jpg",
+//     altText:
+//       "Plant-Based Protein Lowers Risk of Premature Death, Heart Disease, Dementia-Related Death",
+//     caption:
+//       "Plant-Based Protein Lowers Risk of Premature Death, Heart Disease, Dementia-Related Death",
+//   },
+//   {
+//     src: "https://www.pcrm.org/sites/default/files/2020-06/vegan-food.jpg",
+//     altText: "Vegetarian Diets Reduce Risk of Death from Heart Disease",
+//     caption: "Vegetarian Diets Reduce Risk of Death from Heart Disease",
+//   },
+//   {
+//     src: "https://www.pcrm.org/sites/default/files/soy-foods.jpg",
+//     altText: "New Research Disputes the Biggest Soy Myths",
+//     caption: "New Research Disputes the Biggest Soy Myths",
+//   },
+// ];
+
+// function PageNotFound() {
+//   const [activeIndex, setActiveIndex] = useState(0);
+//   const [animating, setAnimating] = useState(false);
+
+//   const next = () => {
+//     if (animating) return;
+//     const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+//     setActiveIndex(nextIndex);
+//   };
+
+//   const previous = () => {
+//     if (animating) return;
+//     const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+//     setActiveIndex(nextIndex);
+//   };
+
+//   const goToIndex = (newIndex) => {
+//     if (animating) return;
+//     setActiveIndex(newIndex);
+//   };
+
+//   const slides = items.map((item) => {
+//     return (
+//       <CarouselItem
+//         onExiting={() => setAnimating(true)}
+//         onExited={() => setAnimating(false)}
+//         key={item.src}
+//       >
+//         <img src={item.src} alt={item.altText} />
+//         <CarouselCaption
+//           // captionText={item.caption}
+//           captionHeader={item.caption}
+//         />
+//       </CarouselItem>
+//     );
+//   });
+
+//   return (
+//     <Carousel
+//       style={{ display: "flex", height: 300 }}
+//       activeIndex={activeIndex}
+//       next={next}
+//       previous={previous}
+//     >
+//       <CarouselIndicators
+//         items={items}
+//         activeIndex={activeIndex}
+//         onClickHandler={goToIndex}
+//       />
+//       {slides}
+//       <CarouselControl
+//         direction='prev'
+//         directionText='Previous'
+//         onClickHandler={previous}
+//       />
+//       <CarouselControl
+//         direction='next'
+//         directionText='Next'
+//         onClickHandler={next}
+//       />
+//     </Carousel>
+//   );
+// }
+
+// export default PageNotFound;

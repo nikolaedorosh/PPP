@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     
-    minHeight: '50vh',
+    minHeight: 'auto',
   },
   main: {
     marginTop: theme.spacing(8),
@@ -47,7 +47,6 @@ export default function Footer() {
       </Container>
       <footer className={classes.footer}>
         <Container maxWidth="sm">
-          {/* <Typography variant="body1">Name/Name/Name/Name</Typography> */}
           <Copyright />
         </Container>
       </footer>

@@ -43,7 +43,7 @@ body {
   padding: 0px;
   width: 100%;
   height: 100vh;
-  background-color: dimgray;
+  background-color: #bdcbec;
   overflow: hidden;
 }
 
@@ -54,7 +54,7 @@ a{
 }
 
 a:hover{
-  color: blue;
+  color: #BED7DA;
   font-size: 18px;
 }
 

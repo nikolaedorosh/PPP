@@ -18,6 +18,9 @@ const useStyles = makeStyles({
   media: {
     height: 140,
   },
+  textForTable:{
+    fontSize:17
+  }
 });
 
 function Meal({ date, items, id }) {
@@ -59,15 +62,17 @@ function Meal({ date, items, id }) {
 
   return (
     <>
-      <TableCell>{date}</TableCell>
+      <TableCell className={classes.textForTable}>{dateStr}</TableCell>
       <TableCell>
         {' '}
-        <Button onClick={clickHandler}>{items[0].name}</Button>
+        <Tooltip title={items[0].name} placement="bottom">
+        <Button onClick={clickHandler}>{items[0].name}...</Button>
+        </Tooltip>
       </TableCell>
-      <TableCell>{totalProteins}</TableCell>
-      <TableCell>{totalFats}</TableCell>
-      <TableCell>{totalCarbohydrates}</TableCell>
-      <TableCell>{totalKcal}</TableCell>
+      <TableCell className={classes.textForTable}>{totalProteins}</TableCell>
+      <TableCell className={classes.textForTable}>{totalFats}</TableCell>
+      <TableCell className={classes.textForTable}>{totalCarbohydrates}</TableCell>
+      <TableCell className={classes.textForTable}>{totalKcal}</TableCell>
       <TableCell>
         <Tooltip title="Delete" placement="bottom">
           <Button
