@@ -9,7 +9,8 @@ import WelcomePage from "./components/WelcomePage/WelcomePage";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import Footer from "./components/Footer/Footer";
 import { useSelector } from "react-redux";
-import {Paper,} from '@material-ui/core';
+import { Paper } from "@material-ui/core";
+import PrivateRouter from "./components/PrivateRouter/PrivateRouter";
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
@@ -39,15 +40,13 @@ function App() {
           <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
           <Switch>
             <Route exact path="/welcomepage" component={WelcomePage} />
-            <Route exact path="/edit">
+            <PrivateRouter exact path="/edit">
               <EditProfile />
-            </Route>
-            <Route exact path="/logger">
-         
+            </PrivateRouter>
+            <PrivateRouter exact path="/logger">
               <Logger />
               <List />
-              
-            </Route>
+            </PrivateRouter>
             <Route>
               <PageNotFound />
             </Route>
