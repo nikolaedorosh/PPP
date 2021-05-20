@@ -31,6 +31,7 @@ const ProfileModal = ({ setOpen }) => {
   const onSignOutClick = () => {
     dispatch(AuthorizationAction.signOut());
     setOpen((prev) => !prev);
+    localStorage.removeItem("info")
   };
   const goToEdit = () => {
     history.push("/edit");

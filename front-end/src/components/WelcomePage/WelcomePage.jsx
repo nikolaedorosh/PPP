@@ -3,11 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as AuthorizationAction from "../../redux/reducers/MAIN"; // стало
 import Button from "@material-ui/core/Button";
-import { FormGroup, Icon, TextField } from "@material-ui/core";
+import {
+  createMuiTheme,
+  FormGroup,
+  Icon,
+  TextField,
+  ThemeProvider,
+  withStyles,
+} from "@material-ui/core";
+import { deepPurple, green } from "@material-ui/core/colors";
 
 const WelcomePage = () => {
   // const classes = useStyles();
   const dispatch = useDispatch();
+  const fats = useSelector((state) => state.info.fats);
   const userName = useSelector((state) => state.auth.userName);
   const [inputPass, setInputPass] = useState("");
   const [inputMail, setInputMail] = useState("");
@@ -17,6 +26,9 @@ const WelcomePage = () => {
   const history = useHistory();
   const goToProf = () => {
     history.push("/edit");
+  };
+  const goToLogger = () => {
+    history.push("/logger");
   };
   useEffect(() => {
     const params = {
@@ -151,9 +163,9 @@ const WelcomePage = () => {
   };
 
   useEffect(() => {
-    if (userName) {
+    if (userName && fats) {
       goToProf();
-    }
+    } else if (userName && !fats) goToLogger();
   }, [userName]);
 
   const onAuthChange = () => {
@@ -172,9 +184,43 @@ const WelcomePage = () => {
   const changeTest = () => {
     setTest(!test);
   };
+  const theme = createMuiTheme({
+    palette: {
+      primary: green,
+    },
+  });
+
+  const CssTextField = withStyles({
+    root: {
+      "& label.Mui-focused": {
+        color: "green",
+      },
+      "& .MuiInput-underline:after": {
+        borderBottomColor: "green",
+      },
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "blue",
+        },
+        "&:hover fieldset": {
+          borderColor: "yellow",
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: "white",
+        },
+      },
+    },
+  })(TextField);
 
   return (
-    <div style={{ width: "1000px", margin: "15px 150px" }}>
+    <div
+      style={{
+        margin: "15px 150px",
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
       <h1>MARGO SKAZALA PPP</h1>
       <hr></hr>
       Наше приложение создано и разработано комадной экспертов из лаборатории
@@ -182,89 +228,126 @@ const WelcomePage = () => {
       <br></br>Зарегистрируйтесь, чтобы ознакомиться с интерфейсом приложения
       <hr></hr>
       {test ? (
-        <FormGroup style={{ alignItems: "center" }}>
-          <TextField
-            label='Email'
-            variant='outlined'
-            placeholder='Type email here...'
-            onChange={inputMailHandler}
-            value={inputMail}
-            type='email'
-            id='email'
-            name='email'
-            required
-            style={{ width: "400px" }}
-          />
-          <br />
-          <TextField
-            label='password'
-            type='password'
-            variant='outlined'
-            placeholder='Type password here...'
-            onChange={inputPassHandler}
-            value={inputPass}
-            required
-            style={{ width: "400px" }}
-          />
-          <br />
-          <TextField
-            label='Name'
-            variant='outlined'
-            placeholder='Name and second name here...'
-            onChange={inputNameHandler}
-            value={inputName}
-            type='text'
-            required
-            style={{ width: "400px" }}
-          />
-          <br />
-          <Button
-            variant='contained'
-            color='primary'
-            endIcon={<Icon>send</Icon>}
-            onClick={submitHandler1}
+
+        <>
+          <FormGroup
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "center",
+              // alignItems: "center",
+              background: "white",
+              width: "500px",
+              borderRadius: "5px",
+            }}
           >
-            Sign Up
-          </Button>
-          <br />
-          <Button
-            variant='contained'
-            color='primary'
-            // className={classes.button}
-            endIcon={<Icon>fingerprint</Icon>}
-            onClick={onSignInClick}
-          >
-            Sign In with Google
-          </Button>
-          Already have an account?{" "}
-          <Button variant='contained' color='primary' onClick={changeTest}>
-            Sign In
-          </Button>
-        </FormGroup>
+            {/* <CssTextField
+        label="Custom CSS"
+        variant="outlined"
+        id="custom-css-outlined-input"
+      /> */}
+            <TextField
+              label="Email"
+              variant="outlined"
+              placeholder="Type email here..."
+              onChange={inputMailHandler}
+              value={inputMail}
+              type="email"
+              id="email"
+              name="email"
+              required
+              style={{ width: "400px", padding: "15px 0 15px 0" }}
+            />
+            <TextField
+              label="password"
+              type="password"
+              variant="outlined"
+              placeholder="Type password here..."
+              onChange={inputPassHandler}
+              value={inputPass}
+              required
+              style={{ width: "400px", padding: "15px 0 15px 0" }}
+            />
+            <TextField
+              label="Name"
+              variant="outlined"
+              placeholder="Name and second name here..."
+              onChange={inputNameHandler}
+              value={inputName}
+              type="text"
+              required
+              style={{ width: "400px", padding: "15px 0 15px 0" }}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              endIcon={<Icon>send</Icon>}
+              onClick={submitHandler1}
+            >
+              Sign Up
+            </Button>
+          </FormGroup>
+          <div style={{ alignItems: "center", display: "flex" }}>
+            Already have an account?
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={changeTest}
+              style={{ margin: "10px" }}
+            >
+              Sign In
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              endIcon={<Icon>fingerprint</Icon>}
+              onClick={onSignInClick}
+              style={{ margin: "25px" }}
+            >
+              Sign In with Google
+            </Button>
+          </div>
+        </>
+
       ) : (
         <>
-          <FormGroup style={{ alignItems: "center" }}>
+          <FormGroup
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "center",
+              // alignItems: "center",
+              background: "white",
+              width: "500px",
+              borderRadius: "5px",
+            }}
+          >
             <TextField
               label='Email'
               variant='outlined'
               placeholder='Type email here...'
               onChange={inputMailHandler}
               value={inputMail}
-              type='mail'
+
+              type="email"
+              id="email"
+              name="email"
+
               required
-              style={{ width: "400px" }}
+              style={{ width: "400px", padding: "15px 0 15px 0" }}
             />
             <TextField
-              label='Password'
-              type='password'
-              variant='outlined'
-              placeholder='Type password here...'
+
+              label="password"
+              type="password"
+              variant="outlined"
+              placeholder="Type password here..."
+
               onChange={inputPassHandler}
               value={inputPass}
               required
-              style={{ width: "400px" }}
+              style={{ width: "400px", padding: "15px 0 15px 0" }}
             />
-
             <Button
               variant='contained'
               color='primary'
@@ -274,19 +357,26 @@ const WelcomePage = () => {
               Sign In
             </Button>
           </FormGroup>
-          <div style={{ alignItems: "center" }}>
+          <div style={{ alignItems: "center", display: "flex" }}>
+            Not registered yet?
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={changeTest}
+              style={{ margin: "10px" }}
+            >
+              Sign Up
+            </Button>
             <Button
               variant='contained'
               color='primary'
               endIcon={<Icon>fingerprint</Icon>}
               onClick={onSignInClick}
+              style={{ margin: "25px" }}
             >
               Sign In with Google
             </Button>
-            Already have an account?{" "}
-            <Button variant='contained' color='primary' onClick={changeTest}>
-              Sign In
-            </Button>
+
           </div>
         </>
       )}

@@ -67,6 +67,19 @@ const mainReducer = (state = [], action) => {
     case TYPES.SIGN_OUT:
       return {
         ...state,
+        info: {
+          age: "",
+          gender: "",
+          weight: "",
+          height: "",
+          activity: "",
+          bmi: "",
+          targetWeight: null,
+          kcal: null,
+          Proteins: null,
+          carbohydrates: null,
+          fats: null,
+        },
         auth: {
           ...state.auth,
           userName: null,
