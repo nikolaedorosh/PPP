@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import React from 'react';
 import Item from '../Item/Item';
 import Meal from '../Meal/Meal';
+import RandomBurger from '../RandomBurger/RandomBurger'
 import BounceLoader from 'react-spinners/BounceLoader';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
@@ -14,15 +15,14 @@ import {
   ModalFooter,
   Input,
   Form,
-  FormGroup,
-  Label,
+  FormGroup
 } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMeal } from '../../redux/actionCreators/mealAC';
 import { changeTextSaga } from '../../redux/saga';
 import * as TYPES from '../../redux/types/types';
 
-import { Box, Paper } from '@material-ui/core';
+import { Box, Paper, Typography } from '@material-ui/core';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -34,10 +34,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import style from './list.module.css';
 const useStyles = makeStyles((theme) => ({
   table: {
-    marginTop: '40px',
+    margin: '40px 40px',
     // width: '100%',
-    marginLeft: '200px',
-    marginRight: '200px',
+    // margin: '0, 200px',
+    // marginRight: '200px',
     // display:'flex',
     // justifyContent: 'center'
   },
@@ -48,10 +48,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '30px',
     width: '200px',
   },
-  button2:{
-   display:'flex',
-   justifyContent:'center',
-   paddingRight:36
+  button2: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingRight: 36,
+    padding: '40px 0px 0px 0',
+  },
+  textForTable:{
+    fontSize:18
   }
 }));
 
@@ -130,8 +134,12 @@ function List() {
     <>
       <Box className={classes.button2}>
         <Tooltip title="Add meal" placement="bottom">
-          <Button className={style.glow} onClick={clickHandler}>
-            Eat
+          <Button
+            className={style.glow}
+           
+            onClick={clickHandler}
+          >
+            <Typography variant='button' style={{ fontWeight: 'bold' }}>Create meal</Typography>
           </Button>
         </Tooltip>
       </Box>
@@ -139,9 +147,9 @@ function List() {
       <Modal toggle={clickHandler} isOpen={open}>
         <Form inline>
           <ModalHeader>
-            meal
+        
             <div>
-              <Button onClick={tabClickHandler} type="button">
+              <Button  onClick={tabClickHandler} type="button">
                 {scan ? 'Type' : 'Scan'}
               </Button>
             </div>
@@ -160,11 +168,11 @@ function List() {
             />
             {!scan ? (
               <>
-                <p>meals</p>
-                <FormGroup>
+                <h4 style={{color:"rgb(35 74 78)" , padding: "6px 0px 10px 3px"}}>Search food:</h4>
+                <FormGroup  style={{paddingBottom:'12px'}}>
                   <Input
                     onChange={changeText}
-                    placeholder="search food example: 1 apple 100 grams of buckwheat"
+                    placeholder="2 apples, 100 grams of rice, two cups of milk"
                     value={text ? text : ''}
                   ></Input>
                 </FormGroup>
@@ -185,7 +193,7 @@ function List() {
               </>
             ) : (
               <>
-                {/* <RandomBurger/> */}
+                <RandomBurger/>
                 {/* <h2>Scan your item!</h2>
 
                   <div>
@@ -194,7 +202,7 @@ function List() {
                       width="200"
                       alt="scan-pic"
                     />
-                  </div>
+                  </div> */}
 
                   <input
                     type="file"
@@ -203,18 +211,17 @@ function List() {
                     ref={inputRef}
                     onChange={uploadOnChange}
                   />
-                  <IconButton onClick={picHandler} className="button">
+                  {/* <IconButton onClick={picHandler} className="button">
                     <EditIcon />
                   </IconButton> */}
               </>
             )}
           </ModalBody>
           <ModalFooter>
-            Kcals/proteins/fats/carbs
-            <Button type="button" onClick={createMeal}>
+            <Button type="button" onClick={createMeal} style={{ backgroundColor:'#427276'}}>
               Add Meal
             </Button>{' '}
-            <Button type="button" onClick={clickHandler} color="danger">
+            <Button type="button" onClick={clickHandler} style={{backgroundColor:'rgb(218 92 61)'}}>
               Cancel
             </Button>
           </ModalFooter>
@@ -225,12 +232,12 @@ function List() {
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Date:</TableCell>
-                <TableCell>Name:</TableCell>
-                <TableCell>Proteins:</TableCell>
-                <TableCell>Fats:</TableCell>
-                <TableCell>Carbohydrates:</TableCell>
-                <TableCell>Kcal:</TableCell>
+                <TableCell className={classes.textForTable}>Date:</TableCell>
+                <TableCell className={classes.textForTable}>Name:</TableCell>
+                <TableCell className={classes.textForTable}>Proteins:</TableCell>
+                <TableCell className={classes.textForTable}>Fats:</TableCell>
+                <TableCell className={classes.textForTable}>Carbohydrates:</TableCell>
+                <TableCell className={classes.textForTable}>Kcal:</TableCell>
                 <TableCell align="right"></TableCell>
               </TableRow>
             </TableHead>

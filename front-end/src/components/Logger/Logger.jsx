@@ -32,10 +32,17 @@ const useStyles = makeStyles((theme) => ({
   },
   typolog: {
     marginLeft: 78,
+    color: '#34575B',
+    marginBottom:15
   },
   typolog2: {
     marginLeft: 76,
+    color: '#34575B',
+    marginBottom:15,
   },
+  // typolog p: {
+  //   fontWeight: 'bold'
+  // },
   styleForContainer: {
     display: 'flex',
     justifyContent: 'center',
@@ -46,11 +53,15 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 10,
   },
   legend: {
-    paddingTop: 52,
+    paddingTop: 83,
   },
   text: {
     fontSize: 15,
+    fontWeight:'bold'
   },
+  forBoxes:{
+    margin: '0 , 20'
+  }
 }));
 function Logger() {
   const week = useSelector((state) => state.week);
@@ -150,9 +161,9 @@ function Logger() {
 
   return (
     <Box className={classes.styleForContainer}>
-      <Box className={classes.forBox1}>
+      <Box className={classes.forBox1} >
         <Box className={classes.typolog}>
-          <Typography >Data:</Typography>
+          <Typography variant='h4' >Data:</Typography>
         </Box>
         <LineChart
           width={550}
@@ -161,7 +172,7 @@ function Logger() {
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="" stroke="#999" />
-          <XAxis dataKey="day" stroke="red">
+          <XAxis dataKey="day">
             <Label position="insideBottom" />
           </XAxis>
           <YAxis />
@@ -196,34 +207,34 @@ function Logger() {
         <Typography variant="body1">
           <Box
             className={classes.text}
-            style={{ color: '#F17455', opacity: 0.5 }}
+            style={{ color: '#F17455', opacity: 0.65 }}
           >
             ◆ Kcalories
           </Box>
           <Box className={classes.text} style={{ color: '#F17455' }}>
             ◆ Target Kcalories
-          </Box>
+          </Box><br></br>
           <Box
             className={classes.text}
-            style={{ color: '#A3526C', opacity: 0.5 }}
+            style={{ color: '#A3526C', opacity: 0.65 }}
           >
             ◆ Proteins
           </Box>
           <Box className={classes.text} style={{ color: '#A3526C' }}>
             ◆ Target Proteins
-          </Box>
+          </Box><br></br>
           <Box
             className={classes.text}
-            style={{ color: '#DFA616', opacity: 0.5 }}
+            style={{ color: '#DFA616', opacity: 0.65 }}
           >
             ◆ Carbs
           </Box>
           <Box className={classes.text} style={{ color: '#DFA616' }}>
             ◆ Target Carbs
-          </Box>
+          </Box><br></br>
           <Box
             className={classes.text}
-            style={{ color: '#776E18', opacity: 0.5 }}
+            style={{ color: '#776E18', opacity: 0.65 }}
           >
             ◆ Fats
           </Box>
@@ -234,7 +245,7 @@ function Logger() {
       </Box>
       <Box>
         <Box className={classes.typolog2}>
-          <Typography >Today:</Typography>
+          <Typography variant='h4'>Today:</Typography>
         </Box>
 
         <BarChart
@@ -252,7 +263,7 @@ function Logger() {
           <Tooltip />
           <CartesianGrid stroke="#999" />
 
-          <Bar dataKey="Kcalories" barSize={40} fill="#F17455" opacity="0.5" />
+          <Bar dataKey="Kcalories" barSize={40} fill="#F17455" opacity="0.65" />
           <Bar
             dataKey="targetKCal"
             barSize={40}
@@ -264,7 +275,7 @@ function Logger() {
             dataKey="proteins"
             barSize={40}
             fill="#A3526C"
-            opacity="0.5"
+            opacity="0.65"
           ></Bar>
           <Bar
             dataKey="targetProt"
@@ -277,7 +288,7 @@ function Logger() {
             dataKey="carbohydrates"
             barSize={40}
             fill="#DFA616"
-            opacity="0.5"
+            opacity="0.65"
           />
           <Bar
             dataKey="targetCarb"
@@ -286,7 +297,7 @@ function Logger() {
             isAnimationActive={false}
           ></Bar>
 
-          <Bar dataKey="fats" barSize={40} fill="#776E18" opacity="0.5" />
+          <Bar dataKey="fats" barSize={40} fill="#776E18" opacity="0.65" />
           <Bar
             dataKey="targetFat"
             barSize={40}
