@@ -3,32 +3,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import EditIcon from "@material-ui/icons/Edit";
 import { newPicChange } from "../../redux/actionCreators/graphicsAC";
-import * as AuthorizationAction from '../../redux/reducers/MAIN';
-
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
-import { Box, Typography } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
-
-
-
-const ProfileModal = ({ setOpen }) => {  
+import * as AuthorizationAction from "../../redux/reducers/MAIN";
+import React from "react";
+import Button from "@material-ui/core/Button";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Avatar from "@material-ui/core/Avatar";
+import { makeStyles } from "@material-ui/core/styles";
+import { Box, Icon, Typography } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+const ProfileModal = ({ setOpen }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  //use selectors
   const userName = useSelector((state) => state.auth.userName);
   const userEmail = useSelector((state) => state.auth.userEmail);
-  const userTarget = useSelector((state) => state.info.targetWeight)
+  const userTarget = useSelector((state) => state.info.targetWeight);
   const userKcal = useSelector((state) => state.info.kcal);
-  const userProteins = useSelector((state) => state.info.Proteins)
-  const userCarbohydrates = useSelector((state) => state.info.carbohydrates)
-  const userFats = useSelector((state) => state.info.fats)
-  console.log()
+  const userProteins = useSelector((state) => state.info.Proteins);
+  const userCarbohydrates = useSelector((state) => state.info.carbohydrates);
+  const userFats = useSelector((state) => state.info.fats);
+  console.log();
   const id = useSelector((state) => state.auth.userId);
   const userProfileImg = useSelector((state) => state.auth.userProfileImg);
   const inputRef = useRef(null);
@@ -37,32 +33,41 @@ const ProfileModal = ({ setOpen }) => {
     setOpen((prev) => !prev);
   };
   const goToEdit = () => {
-    history.push('/edit');
+    history.push("/edit");
     setOpen((prev) => !prev);
   };
   const useStyles = makeStyles((theme) => ({
-    container:{
-      display: 'flex',
-      justifyContent: 'center'
+    container: {
+      position:"relative",
+      // padding: "0 105px",
+      display: "flex",
+      justifyContent: "center",
     },
-    avatar:{
+    box: {
+      padding: "20px",
+      margin: "0, 20px",
+      background: "#427276",
+      color: "white",
+    },
+    avatar: {
       width: "150px",
-      height: "150px"
+      height: "150px",
     },
-    classForText:{
+    classForText: {
       marginLeft: "12px",
-      padding: "8px"
+      padding: "8px",
     },
     input: {
-      display: 'none',
+      display: "none",
     },
-    button:{
-      padding: '2px 8px',
-      fontSize:  '12px'
-    }
+    button: {
+      position: "absolute",
+      padding: "2px 8px",
+      fontSize: "12px",
+      right: "2vw"
+    },
   }));
   const classes = useStyles();
-
 
   //upload pic
   const uploadOnChange = async (e) => {
@@ -86,66 +91,137 @@ const ProfileModal = ({ setOpen }) => {
 
   const newImg = (param) => `/img/${param}`;
   return (
-    
-    <>
-        <DialogTitle>Profile</DialogTitle>
-        <Box p={2} className={classes.container} >
-        <Avatar alt="Remy Sharp" src={"/img/" + userProfileImg} className={classes.avatar} />
+    <Box className={classes.box}>
+      <h4>Profile</h4>
+      {/* <DialogTitle>Profile</DialogTitle> */}
+      <Box p={2} className={classes.container}>
+        <Avatar
+          alt="Remy Sharp"
+          src={"/img/" + userProfileImg}
+          className={classes.avatar}
+        />
         <input
-        accept="image/*"
-        className={classes.input}
-        id="contained-button-file"
-        multiple
-        type="file"
-      />
+          accept="image/*"
+          className={classes.input}
+          id="contained-button-file"
+          multiple
+          type="file"
+        />
         <label htmlFor="icon-button-file">
-          <IconButton color="primary" aria-label="upload picture" component="span" onClick={picHandler}>
-           <PhotoCamera />
-         </IconButton>
-         </label>
-        </Box>
-        <Box p={1} component="span"display="flex" flexDirection="row" alignItems="center">Name:
-        <Typography className={classes.classForText} variant='subtitle2'>{userName}</Typography>
-        </Box>
-        <Box p={1} component="span" display="flex" flexDirection="row" alignItems="center">Email:
-        <Typography className={classes.classForText} variant='subtitle2'>{userEmail}</Typography>
-        </Box>
-        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Weigth:
-        <Typography className={classes.classForText} variant='subtitle2'>{userTarget}</Typography>
-        </Box>
-        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current kcal:
-        <Typography className={classes.classForText} variant='subtitle2'>{userKcal}</Typography>
-        </Box>
-        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current Prot:
-        <Typography className={classes.classForText} variant='subtitle2'>{userProteins}</Typography>
-        </Box>
-        
-        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current fats:
-        <Typography className={classes.classForText} variant='subtitle2'>{userFats}</Typography>
-        </Box>
-        
-        
-        <Box  p={1} component="span" display="flex" flexDirection="row" alignItems="center">Current carboh :
-        <Typography className={classes.classForText} variant='subtitle2'>{userCarbohydrates}</Typography>
-        </Box>
-        <Button onClick={goToEdit} variant="outlined">Change My Details</Button>
-        <Button  onClick={onSignOutClick} variant="outlined">LogOut</Button>
+          <IconButton
+            aria-label="upload picture"
+            component="span"
+            onClick={picHandler}
+          >
+            <PhotoCamera />
+          </IconButton>
+        </label>
+      </Box>
+      <Box
+        component="span"
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+      >
+        Name:
+        <Typography className={classes.classForText} variant="subtitle2">
+          {userName}
+        </Typography>
+      </Box>
+      <Box
+        component="span"
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+      >
+        Email:
+        <Typography className={classes.classForText} variant="subtitle2">
+          {userEmail}
+        </Typography>
+      </Box>
+      <Box
+        component="span"
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+      >
+        Weigth:
+        <Typography className={classes.classForText} variant="subtitle2">
+          {userTarget}
+        </Typography>
+      </Box>
+      <Box
+        component="span"
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+      >
+        Current kcal:
+        <Typography className={classes.classForText} variant="subtitle2">
+          {userKcal}
+        </Typography>
+      </Box>
+      <Box
+        component="span"
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+      >
+        Current Prot:
+        <Typography className={classes.classForText} variant="subtitle2">
+          {userProteins}
+        </Typography>
+      </Box>
 
-     
+      <Box
+        component="span"
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+      >
+        Current fats:
+        <Typography className={classes.classForText} variant="subtitle2">
+          {userFats}
+        </Typography>
+      </Box>
+
+      <Box
+        component="span"
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+      >
+        Current carboh :
+        <Typography className={classes.classForText} variant="subtitle2">
+          {userCarbohydrates}
+        </Typography>
+      </Box>
+      <Button
+        variant="contained"
+        endIcon={<Icon>editIcon</Icon>}
+        onClick={goToEdit}
+      >
+        Change profile
+      </Button>
+      <hr></hr>
+      <Button
+        variant="contained"
+        onClick={onSignOutClick}
+      >
+        LogOut
+      </Button>
 
       <input
-        type='file'
-        id='fileUploader'
-        hidden='hidden'
+        type="file"
+        id="fileUploader"
+        hidden="hidden"
         ref={inputRef}
         onChange={uploadOnChange}
       />
       {/* <IconButton onClick={picHandler} className='button'>
         <EditIcon />
       </IconButton> */}
-
-      
-    </>
+    </Box>
   );
 };
 
