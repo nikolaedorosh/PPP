@@ -14,8 +14,7 @@ import {
   ModalFooter,
   Input,
   Form,
-  FormGroup,
-  Label,
+  FormGroup
 } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMeal } from '../../redux/actionCreators/mealAC';
