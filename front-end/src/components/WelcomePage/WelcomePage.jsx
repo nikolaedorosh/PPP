@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import {  useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as AuthorizationAction from "../../redux/reducers/MAIN"; // стало
 import Button from "@material-ui/core/Button";
 import {
-  Dialog,
-  DialogTitle,
+ 
   FormGroup,
   Icon,
-  makeStyles,
   TextField,
 } from "@material-ui/core";
 
@@ -84,10 +82,20 @@ const WelcomePage = () => {
       });
   };
 
+  function validate(email) {
+    const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    if(reg.test(email) == false) {
+       alert('Введите корректный e-mail');
+       return false;
+    } return true;
+ }
+
   const submitHandler1 = (e) => {
     e.preventDefault();
     if (inputPass.trim() && inputMail.trim() && inputName.trim()) {
-      addNewUser(inputMail.trim(), inputPass.trim(), inputName.trim());
+      if(validate(inputMail.trim())) {
+        addNewUser(inputMail.trim(), inputPass.trim(), inputName.trim());
+      }
     } else window.alert("Fill in form fields and try again");
   };
 
@@ -193,13 +201,15 @@ const WelcomePage = () => {
             placeholder="Type email here..."
             onChange={inputMailHandler}
             value={inputMail}
-            type="mail"
+            type="email"
+            id="email"
+            name="email"
             required
             style={{ width: "400px" }}
           />
           <br />
           <TextField
-            label="Password"
+            label="password"
             type="password"
             variant="outlined"
             placeholder="Type password here..."
