@@ -47,7 +47,6 @@ export default function Footer() {
       </Container>
       <footer className={classes.footer}>
         <Container maxWidth="sm">
-          {/* <Typography variant="body1">Name/Name/Name/Name</Typography> */}
           <Copyright />
         </Container>
       </footer>

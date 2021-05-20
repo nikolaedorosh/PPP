@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
-    color: "red",
   },
   colorPrimary: {
     background: "#427276",
@@ -98,9 +97,9 @@ function Header({ darkTheme, setDarkTheme }) {
           {userName ? "" : <Link to='/welcomepage'>HomePage</Link>}
           {userName ? (
             <>
-              <Button className={classes.logger}>
-                <Link to='/logger'>Logger</Link>
-              </Button>
+              <Typography className={classes.logger} variant='h4'> 
+                LOGGER
+              </Typography>
             </>
           ) : (
             <>

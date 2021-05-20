@@ -22,7 +22,7 @@ import { getMeal } from '../../redux/actionCreators/mealAC';
 import { changeTextSaga } from '../../redux/saga';
 import * as TYPES from '../../redux/types/types';
 
-import { Box, Paper } from '@material-ui/core';
+import { Box, Paper, Typography } from '@material-ui/core';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -34,10 +34,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import style from './list.module.css';
 const useStyles = makeStyles((theme) => ({
   table: {
-    marginTop: '40px',
+    margin: '40px 40px',
     // width: '100%',
-    marginLeft: '200px',
-    marginRight: '200px',
+    // margin: '0, 200px',
+    // marginRight: '200px',
     // display:'flex',
     // justifyContent: 'center'
   },
@@ -48,11 +48,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '30px',
     width: '200px',
   },
-  button2:{
-   display:'flex',
-   justifyContent:'center',
-   paddingRight:36
-  }
+  button2: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingRight: 36,
+    padding: '40px 0px 0px 0',
+  },
 }));
 
 function List() {
@@ -130,8 +131,12 @@ function List() {
     <>
       <Box className={classes.button2}>
         <Tooltip title="Add meal" placement="bottom">
-          <Button className={style.glow} onClick={clickHandler}>
-            Eat
+          <Button
+            className={style.glow}
+           
+            onClick={clickHandler}
+          >
+            <Typography variant='button' style={{ fontWeight: 'bold' }}>Create meal</Typography>
           </Button>
         </Tooltip>
       </Box>

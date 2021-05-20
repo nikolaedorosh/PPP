@@ -32,10 +32,17 @@ const useStyles = makeStyles((theme) => ({
   },
   typolog: {
     marginLeft: 78,
+    color: '#34575B',
+    marginBottom:15
   },
   typolog2: {
     marginLeft: 76,
+    color: '#34575B',
+    marginBottom:15,
   },
+  // typolog p: {
+  //   fontWeight: 'bold'
+  // },
   styleForContainer: {
     display: 'flex',
     justifyContent: 'center',
@@ -46,11 +53,15 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 10,
   },
   legend: {
-    paddingTop: 52,
+    paddingTop: 83,
   },
   text: {
     fontSize: 15,
+    fontWeight:'bold'
   },
+  forBoxes:{
+    margin: '0 , 20'
+  }
 }));
 function Logger() {
   const week = useSelector((state) => state.week);
@@ -150,9 +161,9 @@ function Logger() {
 
   return (
     <Box className={classes.styleForContainer}>
-      <Box className={classes.forBox1}>
+      <Box className={classes.forBox1} >
         <Box className={classes.typolog}>
-          <Typography >Data:</Typography>
+          <Typography variant='h4' >Data:</Typography>
         </Box>
         <LineChart
           width={550}
@@ -161,7 +172,7 @@ function Logger() {
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="" stroke="#999" />
-          <XAxis dataKey="day" stroke="red">
+          <XAxis dataKey="day">
             <Label position="insideBottom" />
           </XAxis>
           <YAxis />
@@ -234,7 +245,7 @@ function Logger() {
       </Box>
       <Box>
         <Box className={classes.typolog2}>
-          <Typography >Today:</Typography>
+          <Typography variant='h4'>Today:</Typography>
         </Box>
 
         <BarChart
