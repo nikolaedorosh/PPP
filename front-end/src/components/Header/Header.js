@@ -100,7 +100,7 @@ function Header({ darkTheme, setDarkTheme }) {
           {userName ? (
             <>
               <Typography className={classes.logger} variant='h4'> 
-                LOGGER
+                <Link to='/logger'>LOGGER</Link>
               </Typography>
             </>
           ) : (

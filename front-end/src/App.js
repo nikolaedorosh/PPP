@@ -44,7 +44,7 @@ function App() {
               <EditProfile />
             </PrivateRouter>
             <PrivateRouter exact path="/logger">
-              <Logger />
+              <Logger darkTheme={darkTheme}/>
               <List />
             </PrivateRouter>
             <Route>
