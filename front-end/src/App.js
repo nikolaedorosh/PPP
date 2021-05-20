@@ -47,9 +47,6 @@ function App() {
               <Logger darkTheme={darkTheme}/>
               <List />
             </PrivateRouter>
-            <Route>
-              <PageNotFound />
-            </Route>
           </Switch>
           <Footer></Footer>
         </div>

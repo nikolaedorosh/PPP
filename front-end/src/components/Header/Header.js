@@ -82,21 +82,23 @@ function Header({ darkTheme, setDarkTheme }) {
         <Typography variant="h6" color="inherit">
           {darkTheme ? (
             <img
-              src="https://image000.flaticon.com/png/512/1147/1147883.png"
+              src="blackLogo.png"
               className={styles.Logo}
             ></img>
           ) : (
             <img
-              src="https://image000.flaticon.com/png/512/1147/1147934.png"
+              src="coloredLogo.png"
               className={styles.Logo}
             ></img>
           )}
 
         </Typography>
         <Box className={classes.linkStyle}>
+
           {userName ? "" : <Typography variant='h4'> 
                 HOME PAGE
               </Typography>}
+
           {userName ? (
             <>
               <Typography className={classes.logger} variant='h4'> 
@@ -105,6 +107,7 @@ function Header({ darkTheme, setDarkTheme }) {
             </>
           ) : (
             <>
+
             </>
           )}
         </Box>

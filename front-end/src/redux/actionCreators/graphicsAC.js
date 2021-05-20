@@ -46,8 +46,6 @@ export const personalInfoHandler =
     id,
     bmi,
     targetWeight,
-    email,
-    name,
   }) =>
   async (dispatch, getState) => {
     const Proteins = targetWeight * 4 * 1.5;
@@ -56,8 +54,6 @@ export const personalInfoHandler =
     const kcal = Proteins + carbohydrates + fats;
 
     const data = {
-      name,
-      email,
       age,
       id,
       gender,

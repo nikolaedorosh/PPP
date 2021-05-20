@@ -1,7 +1,21 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import { personalInfoHandler } from '../../redux/actionCreators/graphicsAC';
+
+import {
+  Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Icon,
+  InputLabel,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+  TextField,
+} from "@material-ui/core";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { personalInfoHandler } from "../../redux/actionCreators/graphicsAC";
 
 const EditProfile = () => {
   const history = useHistory();
@@ -50,24 +64,52 @@ const EditProfile = () => {
 
   // on change input
   const changeInputHandler = async (e) => {
-    const input = e.target.value;
-    switch (e.target.className.split(' ')[0]) {
-      case 'gender':
+
+    let input = e.target.value;
+    // console.log(input);
+    // console.log(e.target);
+    switch (e.target.className) {
+      case "PrivateSwitchBase-input-15":
+
         setGender(input);
+        console.log(e.target);
         break;
-      case 'age':
+
+      case "form-select":
+        if (input !== "Choose your activity") {
+          setActivity(input);
+          console.log(input);
+        }
+        break;
+
+      default:
+        break;
+    }
+    switch (e.target.id) {
+      case "gender":
+        setGender(input);
+        console.log(e.target);
+        break;
+      case "age":
+
         setAge(input);
+        console.log(e.target);
+
         break;
       case 'weight':
         setWeight(input);
+
         break;
       case 'height':
         setHeight(input);
+        console.log(height);
         break;
       case 'activity':
         setActivity(input);
         break;
-      case 'targetWeight':
+
+      case "weightTarget":
+
         setTargetWeight(input);
         break;
       default:
@@ -128,67 +170,90 @@ const EditProfile = () => {
       <span>Please insert all your details here!</span>
       <br />
       <br />
-      <form onSubmit={setInputDetailsHandler}>
-        <select value={gender} className="gender" onChange={changeInputHandler}>
-          <option selected>Open this select menu</option>
-          <option value="man">Man</option>
-          <option value="woman">Woman</option>
-        </select>
-        <input
-          onChange={changeInputHandler}
-          required="No Input Inserted!"
-          className="age"
-          type="number"
-          min="0"
-          value={age}
-          max="130"
-          placeholder="age"
-        ></input>
-        <input
-          required="No Input Inserted!"
-          onChange={changeInputHandler}
-          className="weight"
-          type="number"
-          min="0"
-          max="400"
-          value={weight}
-          placeholder="weight"
-        ></input>
-        <input
-          required="No Input Inserted!"
-          onChange={changeInputHandler}
-          className="height"
-          type="number"
-          max="300"
-          value={height}
-          placeholder="height"
-        ></input>
-        <select
-          value={activity}
-          className="activity"
-          onChange={changeInputHandler}
-        >
-          <option value="sedentary">Sedentary: little to no oxercise</option>
-          <option value="light">Light: 1-3 times/week</option>
-          <option value="moderate">Moderate: 4-5 times/week</option>
-          <option value="extraActive">
-            Extra Active: very intense exercise daily
-          </option>
-        </select>
-        <input
-          required="No Input Inserted!"
-          value={targetWeight}
-          onChange={changeInputHandler}
-          className="targetWeight"
-          placeholder="weight target"
-          min="0"
-          max="150"
-        ></input>
-        <button>Add</button>{' '}
-        <button type="button" onClick={clickHandler} color="danger">
-          Cancel
-        </button>
-      </form>
+
+      <FormLabel component="legend">Gender</FormLabel>
+      <RadioGroup
+        aria-label="gender"
+        id="gender"
+        name="gender1"
+        onChange={changeInputHandler}
+        className="gender"
+      >
+        <FormControlLabel value="woman" control={<Radio />} label="woman" />
+        <FormControlLabel value="man" control={<Radio />} label="man" />
+      </RadioGroup>
+      <TextField
+        id="age"
+        label="Age"
+        type="number"
+        className="age"
+        datatype="age"
+        onChange={changeInputHandler}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <TextField
+        id="weight"
+        label="Weight"
+        datatype="weight"
+        type="number"
+        className="weight"
+        onChange={changeInputHandler}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <TextField
+        id="height"
+        label="Height"
+        datatype={"height"}
+        type="number"
+        className="height"
+        onChange={changeInputHandler}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <TextField
+        id="weightTarget"
+        label="Weight target"
+        type="number"
+        datatype={"weightTarget"}
+        className="weightTarget"
+        onChange={changeInputHandler}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <select
+        className="form-select"
+        onChange={changeInputHandler}
+        aria-label="Default select example"
+      >
+        <option selected>Choose your activity</option>
+        <option className="form-select" value="sedentary">
+          Sedentary: little to no oxercise
+        </option>
+        <option value="light">Light: 1-3 times/week</option>
+        <option value="moderate">Moderate: 4-5 times/week</option>
+        <option value="extraActive">
+          Extra Active: very intense exercise daily
+        </option>
+      </select>
+      <Button
+        variant="contained"
+        color="primary"
+        endIcon={<Icon>add_circle</Icon>}
+        style={{ margin: "25px" }}
+        onClick={setInputDetailsHandler}
+      >
+        Add
+      </Button>
+      <Button variant="contained" color="primary" style={{ margin: "25px" }}>
+        Cancel
+      </Button>
+
     </>
   );
 };
