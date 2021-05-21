@@ -96,13 +96,13 @@ function Header({ darkTheme, setDarkTheme }) {
         <Box className={classes.linkStyle}>
 
           {userName ? "" : <Typography variant='h4'> 
-                HOME PAGE
+                {/* ППП */}
               </Typography>}
 
           {userName ? (
             <>
               <Typography className={classes.logger} variant='h4'> 
-                LOGGER
+                <Link to='/logger'>LOGGER</Link>
               </Typography>
             </>
           ) : (

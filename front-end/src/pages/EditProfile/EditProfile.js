@@ -161,12 +161,7 @@ const EditProfile = () => {
 
   return (
     <>
-      {/* <Form>
-      <FormGroup>
-        <Label for="exampleEmail">Email</Label>
-        <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
-      </FormGroup>
-      </Form> */}
+
       <h2> {userName},</h2>
       <span>Please insert all your details here!</span>
       <br />

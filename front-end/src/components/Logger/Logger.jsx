@@ -64,8 +64,9 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 , 20'
   }
 }));
-function Logger() {
-  
+
+function Logger({darkTheme}) {
+
   const week = useSelector((state) => state.week);
   const today = useSelector((state) => state.food.meals);
   const info = useSelector((state) => state.info);
@@ -157,6 +158,16 @@ function Logger() {
         newArr.push(acc);
       }
     });
+    
+    newArr = newArr.map(el => {
+      return {
+        ...el,
+        carbohydrates: el.carbohydrates.toFixed(2),
+        fats: el.fats.toFixed(2),
+        proteins: el.proteins.toFixed(2),
+        Kcalories: el.Kcalories.toFixed(2),
+      }
+    });
     if (
       new Date(newArr[newArr.length - 1].date).toLocaleDateString() ===
       new Date().toLocaleDateString()
@@ -165,7 +176,8 @@ function Logger() {
     }
   }
 
-  graphics_target = newArr;
+
+  graphics_target = newArr
 
   result = [
     {
@@ -178,7 +190,7 @@ function Logger() {
     <Box className={classes.styleForContainer}>
       <Box className={classes.forBox1} >
         <Box className={classes.typolog}>
-          <Typography variant='h4' >Data:</Typography>
+          <Typography  style={{color: !darkTheme? "#34575B": "rgb(154 152 152)"}} variant='h4' >Data:</Typography>
         </Box>
         <LineChart
           width={550}
@@ -260,7 +272,7 @@ function Logger() {
       </Box>
       <Box>
         <Box className={classes.typolog2}>
-          <Typography variant='h4'>Today:</Typography>
+          <Typography variant='h4' style={{color: !darkTheme? "#34575B": "rgb(154 152 152)"}}>Today:</Typography>
         </Box>
 
         <BarChart

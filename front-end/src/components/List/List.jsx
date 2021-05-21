@@ -42,7 +42,9 @@ const useStyles = makeStyles((theme) => ({
     // justifyContent: 'center'
   },
   paper: {
-    backgroundColor: "#D8E7E9",
+    backgroundColor: '#f3f3f3',
+    padding: '18px 0px',
+    opacity: '0.7'
   },
   button: {
     marginTop: "30px",
@@ -153,14 +155,14 @@ function List() {
           </ModalHeader>
           <ModalBody>
             <BounceLoader
-              color='blue'
+              color="#A3526C"
               size={150}
               loading={loading}
               css={{
-                zIndex: "100",
-                position: "absolute",
-                margin: "35%",
-                marginTop: "20%",
+                zIndex: '100',
+                position: 'absolute',
+                margin: '30%',
+                marginTop: '45%',
               }}
             />
             {!scan ? (
@@ -212,18 +214,12 @@ function List() {
             )}
           </ModalBody>
           <ModalFooter>
-            <Button
-              type='button'
-              onClick={createMeal}
-              style={{ backgroundColor: "#427276" }}
-            >
+            {scan? "" :
+            <Button type="button" onClick={createMeal} style={{ backgroundColor:'#427276'}}>
               Add Meal
-            </Button>{" "}
-            <Button
-              type='button'
-              onClick={clickHandler}
-              style={{ backgroundColor: "rgb(218 92 61)" }}
-            >
+            </Button>
+            }{' '}
+            <Button type="button" onClick={clickHandler} style={{backgroundColor:'rgb(218 92 61)'}}>
               Cancel
             </Button>
           </ModalFooter>

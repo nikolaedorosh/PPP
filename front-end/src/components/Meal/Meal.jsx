@@ -65,7 +65,7 @@ function Meal({ date, items, id }) {
       <TableCell className={classes.textForTable}>{dateStr}</TableCell>
       <TableCell>
         {' '}
-        <Tooltip title={items[0].name} placement="bottom">
+        <Tooltip title={items.map(el => el.name).join(', ')} placement="bottom">
         <Button onClick={clickHandler}>{items[0].name}...</Button>
         </Tooltip>
       </TableCell>

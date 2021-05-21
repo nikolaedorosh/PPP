@@ -11,6 +11,7 @@ import Footer from "./components/Footer/Footer";
 import { useSelector } from "react-redux";
 import { Paper } from "@material-ui/core";
 import PrivateRouter from "./components/PrivateRouter/PrivateRouter";
+import Carusel from "./components/Carusel/Carusel";
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
@@ -44,9 +45,11 @@ function App() {
               <EditProfile />
             </PrivateRouter>
             <PrivateRouter exact path="/logger">
-              <Logger />
+              <Logger darkTheme={darkTheme}/>
               <List />
             </PrivateRouter>
+            <Route component={PageNotFound}>
+            </Route>
           </Switch>
           <Footer></Footer>
         </div>
