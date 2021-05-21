@@ -6,6 +6,15 @@ const multer = require("multer");
 const mongoose = require("mongoose");
 const uploadMulter = require("../controller/multer");
 
+mainRouter.get("/getTargetData/:id", async (req, res) => {
+  console.log(req.params.id);
+  const currUser = await userModel.findById(req.params.id);
+  console.log(currUser);
+  if (currUser) {
+    return res.json(currUser);
+  }
+});
+
 //upload pic
 mainRouter.post(
   "/picUpload/:id",
