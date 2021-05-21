@@ -38,21 +38,6 @@ const EditProfile = () => {
     history.push("/logger");
   };
 
-  //get first data from db
-  useEffect(async () => {
-    const response = await fetch(`http://localhost:3000/getTargetData/${id}`);
-    const data = await response.json();
-    console.log(data);
-    if (stateTargetWeight) {
-      setAge((prev) => data.info.age);
-      setGender((prev) => data.info.gender);
-      setWeight((prev) => data.info.weight);
-      setHeight((prev) => data.info.height);
-      setActivity((prev) => data.info.activity);
-      setTargetWeight((prev) => data.info.targetWeight);
-    }
-  }, []);
-
   // use selectors
   const userName = useSelector((state) => state.auth.userName);
   const id = useSelector((state) => state.auth.userId);
@@ -64,13 +49,13 @@ const EditProfile = () => {
   const stateActivity = useSelector((state) => state.info.activity);
 
   //use States
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [weight, setWeight] = useState("");
-  const [height, setHeight] = useState("");
-  const [activity, setActivity] = useState("");
+  const [age, setAge] = useState(stateAge);
+  const [gender, setGender] = useState(stateGender);
+  const [weight, setWeight] = useState(stateWeight);
+  const [height, setHeight] = useState(stateHeight);
+  const [activity, setActivity] = useState(stateActivity);
   const [bmi, setBmi] = useState("");
-  const [targetWeight, setTargetWeight] = useState("");
+  const [targetWeight, setTargetWeight] = useState(stateTargetWeight);
 
   const clickHandler = () => {
     history.push("/logger");
@@ -187,24 +172,24 @@ const EditProfile = () => {
       <br />
       <br />
 
-      <FormLabel component='legend'>Gender</FormLabel>
+      <FormLabel component="legend">Gender</FormLabel>
       <RadioGroup
-        aria-label='gender'
-        id='gender'
-        name='gender1'
+        aria-label="gender"
+        id="gender"
+        name="gender1"
         onChange={changeInputHandler}
-        className='gender'
+        className="gender"
       >
-        <FormControlLabel value='woman' control={<Radio />} label='woman' />
-        <FormControlLabel value='man' control={<Radio />} label='man' />
+        <FormControlLabel value="woman" control={<Radio />} label="woman" />
+        <FormControlLabel value="man" control={<Radio />} label="man" />
       </RadioGroup>
       <TextField
         value={age}
-        id='age'
-        label='Age'
-        type='number'
-        className='age'
-        datatype='age'
+        id="age"
+        label="Age"
+        type="number"
+        className="age"
+        datatype="age"
         onChange={changeInputHandler}
         InputLabelProps={{
           shrink: true,
@@ -212,11 +197,11 @@ const EditProfile = () => {
       />
       <TextField
         value={weight}
-        id='weight'
-        label='Weight'
-        datatype='weight'
-        type='number'
-        className='weight'
+        id="weight"
+        label="Weight"
+        datatype="weight"
+        type="number"
+        className="weight"
         onChange={changeInputHandler}
         InputLabelProps={{
           shrink: true,
@@ -224,11 +209,11 @@ const EditProfile = () => {
       />
       <TextField
         value={height}
-        id='height'
-        label='Height'
+        id="height"
+        label="Height"
         datatype={"height"}
-        type='number'
-        className='height'
+        type="number"
+        className="height"
         onChange={changeInputHandler}
         InputLabelProps={{
           shrink: true,
@@ -236,11 +221,11 @@ const EditProfile = () => {
       />
       <TextField
         value={targetWeight}
-        id='weightTarget'
-        label='Weight target'
-        type='number'
+        id="weightTarget"
+        label="Weight target"
+        type="number"
         datatype={"weightTarget"}
-        className='weightTarget'
+        className="weightTarget"
         onChange={changeInputHandler}
         InputLabelProps={{
           shrink: true,
@@ -248,30 +233,30 @@ const EditProfile = () => {
       />
       <select
         value={activity}
-        className='form-select'
+        className="form-select"
         onChange={changeInputHandler}
-        aria-label='Default select example'
+        aria-label="Default select example"
       >
         <option selected>Choose your activity</option>
-        <option className='form-select' value='sedentary'>
+        <option className="form-select" value="sedentary">
           Sedentary: little to no oxercise
         </option>
-        <option value='light'>Light: 1-3 times/week</option>
-        <option value='moderate'>Moderate: 4-5 times/week</option>
-        <option value='extraActive'>
+        <option value="light">Light: 1-3 times/week</option>
+        <option value="moderate">Moderate: 4-5 times/week</option>
+        <option value="extraActive">
           Extra Active: very intense exercise daily
         </option>
       </select>
       <Button
-        variant='contained'
-        color='primary'
+        variant="contained"
+        color="primary"
         endIcon={<Icon>add_circle</Icon>}
         style={{ margin: "25px" }}
         onClick={setInputDetailsHandler}
       >
         Add
       </Button>
-      <Button variant='contained' color='primary' style={{ margin: "25px" }}>
+      <Button variant="contained" color="primary" style={{ margin: "25px" }}>
         Cancel
       </Button>
     </>
