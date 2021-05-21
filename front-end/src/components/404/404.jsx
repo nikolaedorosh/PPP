@@ -15,6 +15,7 @@ const PageNotFound = () => {
         <br />
         <h3>Page Not Found</h3>
 
+
         <h3>This page isn't part of ours!</h3>
         <br />
 
@@ -24,6 +25,7 @@ const PageNotFound = () => {
 
         <img src="https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif" />
       </Box>
+
 
       <Box>
       </Box>

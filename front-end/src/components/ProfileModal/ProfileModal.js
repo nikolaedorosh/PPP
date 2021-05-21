@@ -24,7 +24,6 @@ const ProfileModal = ({ setOpen }) => {
   const userProteins = useSelector((state) => state.info.Proteins);
   const userCarbohydrates = useSelector((state) => state.info.carbohydrates);
   const userFats = useSelector((state) => state.info.fats);
-  console.log();
   const id = useSelector((state) => state.auth.userId);
   const userProfileImg = useSelector((state) => state.auth.userProfileImg);
   const inputRef = useRef(null);
