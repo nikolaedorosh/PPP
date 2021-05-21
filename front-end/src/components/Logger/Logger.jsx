@@ -86,9 +86,14 @@ function Logger({darkTheme}) {
   
   useEffect( () => {
     async function tmp() {
-      const response = await fetch(`http://localhost:3000/getTargetData/${id}`);
+      const response = await fetch(`http://localhost:3000/logger/info`, {
+        method:'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: id }),
+      });
       const data = await response.json();
-      dispatch({type: TYPES.USER_DATA_CHANGE, payload: {dbData: data.info}}) 
+      console.log('>>>>>>>>', data)
+      dispatch({type: TYPES.USER_DATA_CHANGE, payload: {dbData: data}}) 
     }
     tmp();
   }, []);

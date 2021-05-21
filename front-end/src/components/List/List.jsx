@@ -149,7 +149,7 @@ function List() {
           <ModalHeader>
             <div>
               <Button onClick={tabClickHandler} type='button'>
-                {scan ? "Search Recipe" : "Search Meal"}
+                {!scan ? "Search Recipe" : "Search Meal"}
               </Button>
             </div>
           </ModalHeader>
@@ -220,7 +220,7 @@ function List() {
             </Button>
             }{' '}
             <Button type="button" onClick={clickHandler} style={{backgroundColor:'rgb(218 92 61)'}}>
-              Cancel
+              {!scan? "Cancel" : "Exit"}
             </Button>
           </ModalFooter>
         </Form>
