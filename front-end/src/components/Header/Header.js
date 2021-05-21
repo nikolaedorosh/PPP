@@ -96,7 +96,7 @@ function Header({ darkTheme, setDarkTheme }) {
         <Box className={classes.linkStyle}>
 
           {userName ? "" : <Typography variant='h4'> 
-                HOME PAGE
+                {/* ППП */}
               </Typography>}
 
           {userName ? (
