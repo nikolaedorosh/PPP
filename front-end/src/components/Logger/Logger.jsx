@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import * as TYPES from '../../redux/types/types'
 // import RandomBurger from '../RandomBurger/RandomBurger';
 
 import {
@@ -64,9 +65,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 function Logger() {
+  
   const week = useSelector((state) => state.week);
   const today = useSelector((state) => state.food.meals);
   const info = useSelector((state) => state.info);
+  // const info = useSelector((state) => state.info);
   const id = useSelector((state) => state.auth.userId);
 
   const dispatch = useDispatch();
@@ -77,8 +80,20 @@ function Logger() {
 
   useEffect(() => {
     dispatch(getUsersThunk(id));
+    
   }, [today]);
-
+  
+  useEffect( () => {
+    async function tmp() {
+      const response = await fetch(`http://localhost:3000/getTargetData/${id}`);
+      const data = await response.json();
+      dispatch({type: TYPES.USER_DATA_CHANGE, payload: {dbData: data.info}}) 
+    }
+    tmp();
+  }, []);
+    
+  
+  console.log(info, "YAINFO");
   let newArr = [];
 
   let todayGraph = {

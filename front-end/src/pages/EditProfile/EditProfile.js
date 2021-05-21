@@ -1,4 +1,3 @@
-
 import {
   Button,
   FormControl,
@@ -12,7 +11,7 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { personalInfoHandler } from "../../redux/actionCreators/graphicsAC";
@@ -36,7 +35,7 @@ const EditProfile = () => {
         targetWeight,
       })
     );
-    history.push('/logger');
+    history.push("/logger");
   };
 
   // use selectors
@@ -55,22 +54,20 @@ const EditProfile = () => {
   const [weight, setWeight] = useState(stateWeight);
   const [height, setHeight] = useState(stateHeight);
   const [activity, setActivity] = useState(stateActivity);
-  const [bmi, setBmi] = useState('');
+  const [bmi, setBmi] = useState("");
   const [targetWeight, setTargetWeight] = useState(stateTargetWeight);
 
   const clickHandler = () => {
-    history.push('/logger');
+    history.push("/logger");
   };
 
   // on change input
   const changeInputHandler = async (e) => {
-
     let input = e.target.value;
     // console.log(input);
     // console.log(e.target);
     switch (e.target.className) {
       case "PrivateSwitchBase-input-15":
-
         setGender(input);
         console.log(e.target);
         break;
@@ -91,25 +88,23 @@ const EditProfile = () => {
         console.log(e.target);
         break;
       case "age":
-
         setAge(input);
         console.log(e.target);
 
         break;
-      case 'weight':
+      case "weight":
         setWeight(input);
 
         break;
-      case 'height':
+      case "height":
         setHeight(input);
         console.log(height);
         break;
-      case 'activity':
+      case "activity":
         setActivity(input);
         break;
 
       case "weightTarget":
-
         setTargetWeight(input);
         break;
       default:
@@ -119,16 +114,16 @@ const EditProfile = () => {
     await setBmi((prev) => {
       let activeBmi;
       switch (activity) {
-        case 'sedentary':
+        case "sedentary":
           activeBmi = 1.01;
           break;
-        case 'light':
+        case "light":
           activeBmi = 1.007;
           break;
-        case 'moderate':
+        case "moderate":
           activeBmi = 1.004;
           break;
-        case 'extraActive':
+        case "extraActive":
           activeBmi = 1.001;
           break;
         default:
@@ -147,10 +142,10 @@ const EditProfile = () => {
 
       let genderBmi;
       switch (gender) {
-        case 'man':
+        case "man":
           genderBmi = 0.99;
           break;
-        case 'woman':
+        case "woman":
           genderBmi = 1.01;
           break;
         default:
@@ -166,7 +161,7 @@ const EditProfile = () => {
 
   return (
     <>
-     {/* <Form>
+      {/* <Form>
       <FormGroup>
         <Label for="exampleEmail">Email</Label>
         <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
@@ -189,6 +184,7 @@ const EditProfile = () => {
         <FormControlLabel value="man" control={<Radio />} label="man" />
       </RadioGroup>
       <TextField
+        value={age}
         id="age"
         label="Age"
         type="number"
@@ -200,6 +196,7 @@ const EditProfile = () => {
         }}
       />
       <TextField
+        value={weight}
         id="weight"
         label="Weight"
         datatype="weight"
@@ -211,6 +208,7 @@ const EditProfile = () => {
         }}
       />
       <TextField
+        value={height}
         id="height"
         label="Height"
         datatype={"height"}
@@ -222,6 +220,7 @@ const EditProfile = () => {
         }}
       />
       <TextField
+        value={targetWeight}
         id="weightTarget"
         label="Weight target"
         type="number"
@@ -233,6 +232,7 @@ const EditProfile = () => {
         }}
       />
       <select
+        value={activity}
         className="form-select"
         onChange={changeInputHandler}
         aria-label="Default select example"
@@ -259,10 +259,8 @@ const EditProfile = () => {
       <Button variant="contained" color="primary" style={{ margin: "25px" }}>
         Cancel
       </Button>
-
     </>
   );
 };
 
 export default EditProfile;
-

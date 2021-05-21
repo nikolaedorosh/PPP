@@ -9,20 +9,6 @@ const PageNotFound = () => {
 
       <h3>This page isn't part of ours!</h3>
 
-
-  const slides = items.map((item) => {
-    return (
-      <CarouselItem
-        onExiting={() => setAnimating(true)}
-        onExited={() => setAnimating(false)}
-        key={item.src}
-      >
-        <img src={item.src} style={{width: "100px"}} alt={item.altText} />
-        <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
-      </CarouselItem>
-    );
-  });
-
       <Link to='/logger'>
         <button>Go Back to Main</button>
       </Link>
