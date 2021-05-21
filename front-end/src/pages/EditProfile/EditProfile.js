@@ -43,23 +43,25 @@ const EditProfile = () => {
     const response = await fetch(`http://localhost:3000/getTargetData/${id}`);
     const data = await response.json();
     console.log(data);
-    setAge((prev) => data.info.age);
-    setGender((prev) => data.info.gender);
-    setWeight((prev) => data.info.weight);
-    setHeight((prev) => data.info.height);
-    setActivity((prev) => data.info.activity);
-    setTargetWeight((prev) => data.info.targetWeight);
+    if (stateTargetWeight) {
+      setAge((prev) => data.info.age);
+      setGender((prev) => data.info.gender);
+      setWeight((prev) => data.info.weight);
+      setHeight((prev) => data.info.height);
+      setActivity((prev) => data.info.activity);
+      setTargetWeight((prev) => data.info.targetWeight);
+    }
   }, []);
 
   // use selectors
   const userName = useSelector((state) => state.auth.userName);
   const id = useSelector((state) => state.auth.userId);
-  // const stateAge = useSelector((state) => state.info.age);
-  // const stateWeight = useSelector((state) => state.info.weight);
-  // const stateHeight = useSelector((state) => state.info.height);
-  // const stateTargetWeight = useSelector((state) => state.info.targetWeight);
-  // const stateGender = useSelector((state) => state.info.gender);
-  // const stateActivity = useSelector((state) => state.info.activity);
+  const stateAge = useSelector((state) => state.info.age);
+  const stateWeight = useSelector((state) => state.info.weight);
+  const stateHeight = useSelector((state) => state.info.height);
+  const stateTargetWeight = useSelector((state) => state.info.targetWeight);
+  const stateGender = useSelector((state) => state.info.gender);
+  const stateActivity = useSelector((state) => state.info.activity);
 
   //use States
   const [age, setAge] = useState("");
@@ -197,6 +199,7 @@ const EditProfile = () => {
         <FormControlLabel value='man' control={<Radio />} label='man' />
       </RadioGroup>
       <TextField
+        value={age}
         id='age'
         label='Age'
         type='number'
@@ -208,6 +211,7 @@ const EditProfile = () => {
         }}
       />
       <TextField
+        value={weight}
         id='weight'
         label='Weight'
         datatype='weight'
@@ -219,6 +223,7 @@ const EditProfile = () => {
         }}
       />
       <TextField
+        value={height}
         id='height'
         label='Height'
         datatype={"height"}
@@ -230,6 +235,7 @@ const EditProfile = () => {
         }}
       />
       <TextField
+        value={targetWeight}
         id='weightTarget'
         label='Weight target'
         type='number'
@@ -241,6 +247,7 @@ const EditProfile = () => {
         }}
       />
       <select
+        value={activity}
         className='form-select'
         onChange={changeInputHandler}
         aria-label='Default select example'
