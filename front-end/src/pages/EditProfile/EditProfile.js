@@ -1,18 +1,4 @@
-
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Icon,
-  InputLabel,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  Select,
-  TextField,
-} from "@material-ui/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { personalInfoHandler } from "../../redux/actionCreators/graphicsAC";
@@ -36,30 +22,43 @@ const EditProfile = () => {
         targetWeight,
       })
     );
-    history.push('/logger');
+    history.push("/logger");
   };
+
+  //get first data from db
+  useEffect(async () => {
+    const response = await fetch(`http://localhost:3000/getTargetData/${id}`);
+    const data = await response.json();
+    console.log(data);
+    setAge((prev) => data.info.age);
+    setGender((prev) => data.info.gender);
+    setWeight((prev) => data.info.weight);
+    setHeight((prev) => data.info.height);
+    setActivity((prev) => data.info.activity);
+    setTargetWeight((prev) => data.info.targetWeight);
+  }, []);
 
   // use selectors
   const userName = useSelector((state) => state.auth.userName);
   const id = useSelector((state) => state.auth.userId);
-  const stateAge = useSelector((state) => state.info.age);
-  const stateWeight = useSelector((state) => state.info.weight);
-  const stateHeight = useSelector((state) => state.info.height);
-  const stateTargetWeight = useSelector((state) => state.info.targetWeight);
-  const stateGender = useSelector((state) => state.info.gender);
-  const stateActivity = useSelector((state) => state.info.activity);
+  // const stateAge = useSelector((state) => state.info.age);
+  // const stateWeight = useSelector((state) => state.info.weight);
+  // const stateHeight = useSelector((state) => state.info.height);
+  // const stateTargetWeight = useSelector((state) => state.info.targetWeight);
+  // const stateGender = useSelector((state) => state.info.gender);
+  // const stateActivity = useSelector((state) => state.info.activity);
 
   //use States
-  const [age, setAge] = useState(stateAge);
-  const [gender, setGender] = useState(stateGender);
-  const [weight, setWeight] = useState(stateWeight);
-  const [height, setHeight] = useState(stateHeight);
-  const [activity, setActivity] = useState(stateActivity);
-  const [bmi, setBmi] = useState('');
-  const [targetWeight, setTargetWeight] = useState(stateTargetWeight);
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+  const [activity, setActivity] = useState("");
+  const [bmi, setBmi] = useState("");
+  const [targetWeight, setTargetWeight] = useState("");
 
   const clickHandler = () => {
-    history.push('/logger');
+    history.push("/logger");
   };
 
   // on change input
@@ -71,6 +70,9 @@ const EditProfile = () => {
     switch (e.target.className) {
       case "PrivateSwitchBase-input-15":
 
+    const input = e.target.value;
+    switch (e.target.className.split(" ")[0]) {
+      case "gender":
         setGender(input);
         console.log(e.target);
         break;
@@ -81,35 +83,23 @@ const EditProfile = () => {
           console.log(input);
         }
         break;
-
-      default:
-        break;
-    }
-    switch (e.target.id) {
-      case "gender":
-        setGender(input);
-        console.log(e.target);
-        break;
       case "age":
-
         setAge(input);
         console.log(e.target);
 
         break;
-      case 'weight':
+      case "weight":
         setWeight(input);
 
         break;
-      case 'height':
+      case "height":
         setHeight(input);
         console.log(height);
         break;
-      case 'activity':
+      case "activity":
         setActivity(input);
         break;
-
-      case "weightTarget":
-
+      case "targetWeight":
         setTargetWeight(input);
         break;
       default:
@@ -119,16 +109,16 @@ const EditProfile = () => {
     await setBmi((prev) => {
       let activeBmi;
       switch (activity) {
-        case 'sedentary':
+        case "sedentary":
           activeBmi = 1.01;
           break;
-        case 'light':
+        case "light":
           activeBmi = 1.007;
           break;
-        case 'moderate':
+        case "moderate":
           activeBmi = 1.004;
           break;
-        case 'extraActive':
+        case "extraActive":
           activeBmi = 1.001;
           break;
         default:
@@ -147,10 +137,10 @@ const EditProfile = () => {
 
       let genderBmi;
       switch (gender) {
-        case 'man':
+        case "man":
           genderBmi = 0.99;
           break;
-        case 'woman':
+        case "woman":
           genderBmi = 1.01;
           break;
         default:
@@ -166,7 +156,7 @@ const EditProfile = () => {
 
   return (
     <>
-     {/* <Form>
+      {/* <Form>
       <FormGroup>
         <Label for="exampleEmail">Email</Label>
         <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
