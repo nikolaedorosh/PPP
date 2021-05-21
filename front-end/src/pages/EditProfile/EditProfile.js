@@ -1,3 +1,16 @@
+import {
+  Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Icon,
+  InputLabel,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -63,16 +76,11 @@ const EditProfile = () => {
 
   // on change input
   const changeInputHandler = async (e) => {
-
     let input = e.target.value;
     // console.log(input);
     // console.log(e.target);
     switch (e.target.className) {
       case "PrivateSwitchBase-input-15":
-
-    const input = e.target.value;
-    switch (e.target.className.split(" ")[0]) {
-      case "gender":
         setGender(input);
         console.log(e.target);
         break;
@@ -82,6 +90,15 @@ const EditProfile = () => {
           setActivity(input);
           console.log(input);
         }
+        break;
+
+      default:
+        break;
+    }
+    switch (e.target.id) {
+      case "gender":
+        setGender(input);
+        console.log(e.target);
         break;
       case "age":
         setAge(input);
@@ -99,7 +116,8 @@ const EditProfile = () => {
       case "activity":
         setActivity(input);
         break;
-      case "targetWeight":
+
+      case "weightTarget":
         setTargetWeight(input);
         break;
       default:
@@ -167,92 +185,90 @@ const EditProfile = () => {
       <br />
       <br />
 
-      <FormLabel component="legend">Gender</FormLabel>
+      <FormLabel component='legend'>Gender</FormLabel>
       <RadioGroup
-        aria-label="gender"
-        id="gender"
-        name="gender1"
+        aria-label='gender'
+        id='gender'
+        name='gender1'
         onChange={changeInputHandler}
-        className="gender"
+        className='gender'
       >
-        <FormControlLabel value="woman" control={<Radio />} label="woman" />
-        <FormControlLabel value="man" control={<Radio />} label="man" />
+        <FormControlLabel value='woman' control={<Radio />} label='woman' />
+        <FormControlLabel value='man' control={<Radio />} label='man' />
       </RadioGroup>
       <TextField
-        id="age"
-        label="Age"
-        type="number"
-        className="age"
-        datatype="age"
+        id='age'
+        label='Age'
+        type='number'
+        className='age'
+        datatype='age'
         onChange={changeInputHandler}
         InputLabelProps={{
           shrink: true,
         }}
       />
       <TextField
-        id="weight"
-        label="Weight"
-        datatype="weight"
-        type="number"
-        className="weight"
+        id='weight'
+        label='Weight'
+        datatype='weight'
+        type='number'
+        className='weight'
         onChange={changeInputHandler}
         InputLabelProps={{
           shrink: true,
         }}
       />
       <TextField
-        id="height"
-        label="Height"
+        id='height'
+        label='Height'
         datatype={"height"}
-        type="number"
-        className="height"
+        type='number'
+        className='height'
         onChange={changeInputHandler}
         InputLabelProps={{
           shrink: true,
         }}
       />
       <TextField
-        id="weightTarget"
-        label="Weight target"
-        type="number"
+        id='weightTarget'
+        label='Weight target'
+        type='number'
         datatype={"weightTarget"}
-        className="weightTarget"
+        className='weightTarget'
         onChange={changeInputHandler}
         InputLabelProps={{
           shrink: true,
         }}
       />
       <select
-        className="form-select"
+        className='form-select'
         onChange={changeInputHandler}
-        aria-label="Default select example"
+        aria-label='Default select example'
       >
         <option selected>Choose your activity</option>
-        <option className="form-select" value="sedentary">
+        <option className='form-select' value='sedentary'>
           Sedentary: little to no oxercise
         </option>
-        <option value="light">Light: 1-3 times/week</option>
-        <option value="moderate">Moderate: 4-5 times/week</option>
-        <option value="extraActive">
+        <option value='light'>Light: 1-3 times/week</option>
+        <option value='moderate'>Moderate: 4-5 times/week</option>
+        <option value='extraActive'>
           Extra Active: very intense exercise daily
         </option>
       </select>
       <Button
-        variant="contained"
-        color="primary"
+        variant='contained'
+        color='primary'
         endIcon={<Icon>add_circle</Icon>}
         style={{ margin: "25px" }}
         onClick={setInputDetailsHandler}
       >
         Add
       </Button>
-      <Button variant="contained" color="primary" style={{ margin: "25px" }}>
+      <Button variant='contained' color='primary' style={{ margin: "25px" }}>
         Cancel
       </Button>
-
     </>
   );
 };
 
 export default EditProfile;
-

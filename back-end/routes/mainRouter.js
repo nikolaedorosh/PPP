@@ -6,6 +6,15 @@ const multer = require("multer");
 const mongoose = require("mongoose");
 const uploadMulter = require("../controller/multer");
 
+mainRouter.get("/getTargetData/:id", async (req, res) => {
+  console.log(req.params.id);
+  const currUser = await userModel.findById(req.params.id);
+  console.log(currUser);
+  if (currUser) {
+    return res.json(currUser);
+  }
+});
+
 //upload pic
 mainRouter.post(
   "/picUpload/:id",
@@ -129,8 +138,8 @@ mainRouter.patch("/profileData/:id", async (req, res) => {
   const user = await userModel.findByIdAndUpdate(
     req.params.id,
     {
-      name: req.body.name,
-      email: req.body.email,
+      // name: req.body.name,
+      // email: req.body.email,
       info: {
         age: req.body.age,
         gender: req.body.gender,
