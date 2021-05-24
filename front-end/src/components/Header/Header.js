@@ -62,7 +62,7 @@ function Header({ darkTheme, setDarkTheme }) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
-  const goToWelcomePage = () => history.push("/welcomepage");
+  const goToWelcomePage = () => history.push("/");
   useEffect(() => {
     if (!isSignedIn) {
       goToWelcomePage();

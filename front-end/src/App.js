@@ -40,7 +40,7 @@ function App() {
         <div className={darkTheme ? styles.dark : styles.light}>
           <Header darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
           <Switch>
-            <Route exact path="/welcomepage" component={WelcomePage} />
+            <Route exact path="/" component={WelcomePage} />
             <PrivateRouter exact path="/edit">
               <EditProfile />
             </PrivateRouter>
