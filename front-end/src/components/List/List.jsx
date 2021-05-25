@@ -4,8 +4,6 @@ import Item from "../Item/Item";
 import Meal from "../Meal/Meal";
 import RandomBurger from "../RandomBurger/RandomBurger";
 import BounceLoader from "react-spinners/BounceLoader";
-import IconButton from "@material-ui/core/IconButton";
-import EditIcon from "@material-ui/icons/Edit";
 import { scanPicChange } from "../../redux/actionCreators/graphicsAC";
 import {
   Button,
@@ -63,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
 
 function List() {
   const inputRef = useRef(null);
-  const scannerPic = useSelector((state) => state.food.scannedImg);
   const id = useSelector((state) => state.auth.userId);
   const options = useSelector((state) => state.food.options);
   const week = useSelector((state) => state.week);
@@ -88,7 +85,7 @@ function List() {
   function tabClickHandler() {
     setScan((prev) => !prev);
   }
-
+  
   useEffect(() => {
     if (text) {
       dispatch(changeTextSaga(text));

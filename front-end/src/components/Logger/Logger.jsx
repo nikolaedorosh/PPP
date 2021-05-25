@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as TYPES from '../../redux/types/types'
 // import RandomBurger from '../RandomBurger/RandomBurger';
@@ -9,20 +9,16 @@ import {
   Tooltip,
   CartesianGrid,
   Line,
-  Legend,
   YAxis,
   Bar,
   BarChart,
-  LabelList,
   Label,
 } from 'recharts';
 import {
   getUsersThunk,
-  getUserInfo,
 } from '../../redux/actionCreators/graphicsAC';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import { Typography, Paper, Box } from '@material-ui/core';
+import { Typography, Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {

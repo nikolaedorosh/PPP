@@ -1,18 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import EditIcon from "@material-ui/icons/Edit";
 import { newPicChange } from "../../redux/actionCreators/graphicsAC";
 import * as AuthorizationAction from "../../redux/reducers/MAIN";
 import React from "react";
 import Button from "@material-ui/core/Button";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Icon, Typography } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 const ProfileModal = ({ setOpen }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -88,8 +85,6 @@ const ProfileModal = ({ setOpen }) => {
   const picHandler = () => {
     inputRef.current.click();
   };
-
-  const newImg = (param) => `/img/${param}`;
   return (
     <Box className={classes.box}>
       <h4>Profile</h4>

@@ -1,4 +1,3 @@
-import { colors } from '@material-ui/core';
 import { CardImg } from 'reactstrap';
 
 function Item({ image, Kcals, proteins, fats, carbs }) {

@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
-import { Box, CardMedia } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
 
 function Copyright() {
@@ -13,19 +13,19 @@ function Copyright() {
       {'Taking care of your health '}
       <Box>
       <Link color="inherit" href="https://github.com/nikolaedorosh/PPP" >
-      <img style={{width:30 , height:30}} src='github_PNG40.png'></img>
+      <img style={{width:30 , height:30}} src='github_PNG40.png' alt='git'></img>
       </Link>{' '}
       <Link color="inherit" href="https://github.com/SBernaldo" >
-      <img style={{width:30 , height: "auto"}} src='spain.jpg'></img>
+      <img style={{width:30 , height: "auto"}} src='spain.jpg' alt='spain'></img>
       </Link>{' '}
        <Link color="inherit" href="https://github.com/qxift" >
-      <img style={{width:30 , height: "auto"}} src='usa.jpg'></img>
+      <img style={{width:30 , height: "auto"}} src='usa.jpg' alt='usa'></img>
       </Link>{' '}
       <Link color="inherit" href="https://github.com/nikolaedorosh" >
-      <img style={{width:30 , height: "auto"}} src='moldova.png'></img>
+      <img style={{width:30 , height: "auto"}} src='moldova.png' alt='moldova'></img>
       </Link>{' '}
       <Link color="inherit" href="https://github.com/belovinho" >
-      <img style={{width:30 , height: "auto"}} src='rus.jpg'></img>
+      <img style={{width:30 , height: "auto"}} src='rus.jpg' alt='rus'></img>
       </Link>{' '}
       </Box>
 

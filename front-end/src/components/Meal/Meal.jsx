@@ -8,7 +8,6 @@ import { Box, Icon } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles({

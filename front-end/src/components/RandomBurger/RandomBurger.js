@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Recipe from './Recipe';
-import Alert from './Alert';
 import Axios from 'axios';
-import { Button, Container, Form, Label } from 'reactstrap';
-import { FormGroup, Input } from '@material-ui/core';
+import { Button, Container, Form } from 'reactstrap';
+import {  Input } from '@material-ui/core';
 
 const RandomBurger = () => {
   const [query, setQuery] = useState('');

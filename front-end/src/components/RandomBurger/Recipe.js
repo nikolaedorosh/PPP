@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CardImg, Button } from 'reactstrap';
 import { getMeal } from '../../redux/actionCreators/mealAC';
@@ -6,7 +6,6 @@ import RecipeDetails from './RecipeDetails';
 
 const Recipe = ({ recipe }) => {
   const dispatch = useDispatch();
-  const [show, setShow] = useState(false);
   const { label, image, url, digest, calories } = recipe.recipe;
   const id = useSelector((state) => state.auth.userId);
 
@@ -30,16 +29,6 @@ const Recipe = ({ recipe }) => {
   };
 
   return (
-    // <div className='recipe'>
-    //   <h2>{label}</h2>
-    //   <img src={image} alt={label} />
-    // <a href={url} target='_blank' rel='noopener noreferrer'>
-    //   URL
-    //   </a>
-    //   <button onClick={() => setShow(!show)}>Ingredients</button>
-    //   <button onClick={addMeal}>Add Meal</button>
-    //   {show && <RecipeDetails ingredients={digest} calories={calories} />}
-    // </div>
 
     <div className="recipe" style={{ paddingTop: '27px', display: 'flex' }}>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -57,13 +46,6 @@ const Recipe = ({ recipe }) => {
     </div>
   );
 };
-// /* <span
-//   style={{
-//     fontWeight: 'bold',
-//     fontSize: 14,
-//     paddingLeft: '12px',
-//     color: 'rgb(35 74 78)',
-//   }}
-// ></span> */
+
 
 export default Recipe;

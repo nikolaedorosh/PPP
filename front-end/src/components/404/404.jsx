@@ -23,7 +23,7 @@ const PageNotFound = () => {
           <Button className={styles.glow}>Go Back to Main</Button>
         </Link>
 
-        <img src="https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif" />
+        <img src="https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif" alt='gif' />
       </Box>
 
 

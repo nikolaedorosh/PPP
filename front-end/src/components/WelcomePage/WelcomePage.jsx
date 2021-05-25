@@ -5,14 +5,10 @@ import * as AuthorizationAction from '../../redux/reducers/MAIN'; // стало
 import Button from '@material-ui/core/Button';
 import {
   Container,
-  createMuiTheme,
   FormGroup,
   Icon,
   TextField,
-  ThemeProvider,
-  withStyles,
 } from '@material-ui/core';
-import { deepPurple, green } from '@material-ui/core/colors';
 import Carusel from '../Carusel/Carusel';
 
 const WelcomePage = () => {
@@ -87,7 +83,7 @@ const WelcomePage = () => {
 
   function validate(email) {
     const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-    if (reg.test(email) == false) {
+    if (reg.test(email) === false) {
       alert('Введите корректный e-mail');
       return false;
     }
@@ -186,33 +182,7 @@ const WelcomePage = () => {
   const changeTest = () => {
     setTest(!test);
   };
-  const theme = createMuiTheme({
-    palette: {
-      primary: green,
-    },
-  });
 
-  const CssTextField = withStyles({
-    root: {
-      '& label.Mui-focused': {
-        color: 'green',
-      },
-      '& .MuiInput-underline:after': {
-        borderBottomColor: 'green',
-      },
-      '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-          borderColor: 'blue',
-        },
-        '&:hover fieldset': {
-          borderColor: 'yellow',
-        },
-        '&.Mui-focused fieldset': {
-          borderColor: 'white',
-        },
-      },
-    },
-  })(TextField);
 
   return (
     <div
@@ -357,7 +327,7 @@ const WelcomePage = () => {
                     variant="contained"
                     color="primary"
                     endIcon={<Icon>send</Icon>}
-                    onClick={submitHandler1}
+                    onClick={submitHandler2}
                   >
                     Sign In
                   </Button>

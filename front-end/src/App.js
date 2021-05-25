@@ -9,9 +9,7 @@ import WelcomePage from "./components/WelcomePage/WelcomePage";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import Footer from "./components/Footer/Footer";
 import { useSelector } from "react-redux";
-import { Paper } from "@material-ui/core";
 import PrivateRouter from "./components/PrivateRouter/PrivateRouter";
-import Carusel from "./components/Carusel/Carusel";
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);

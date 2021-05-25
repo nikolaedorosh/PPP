@@ -1,17 +1,15 @@
 import {
   Button,
-  FormControl,
+  
   FormControlLabel,
   FormLabel,
   Icon,
-  InputLabel,
-  MenuItem,
   Radio,
   RadioGroup,
-  Select,
+
   TextField,
 } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { personalInfoHandler } from "../../redux/actionCreators/graphicsAC";
@@ -57,9 +55,7 @@ const EditProfile = () => {
   const [bmi, setBmi] = useState("");
   const [targetWeight, setTargetWeight] = useState(stateTargetWeight);
 
-  const clickHandler = () => {
-    history.push("/logger");
-  };
+
 
   // on change input
   const changeInputHandler = async (e) => {
