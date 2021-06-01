@@ -1,15 +1,10 @@
 import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
-import { Box } from '@material-ui/core';
-
+import { Box,Container,Typography,CssBaseline,Link } from '@material-ui/core';
+import useStyles from './useStyles'
 
 function Copyright() {
   return (
-    <Typography style={{padding:"0 193px"}}variant="body2" color="textSecondary">
+    <Typography style={{display:"flex" , flexDirection:'column' , alignItems:'center'}}variant="body2" color="textSecondary" component={'div'} >
       {'Taking care of your health '}
       <Box>
       <Link color="inherit" href="https://github.com/nikolaedorosh/PPP" >
@@ -33,26 +28,7 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    
-    minHeight: 'auto',
-  },
-  main: {
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(2),
-  },
-  footer: {
-    padding: theme.spacing(3, 2),
-    marginTop: 'auto',
-    borderRadius: "10px",
-    opacity: 0.6,
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
-  },
-}));
+
 
 export default function Footer() {
   const classes = useStyles();
@@ -60,12 +36,12 @@ export default function Footer() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Container component="main" className={classes.main} maxWidth="sm">
-      </Container>
+      <Box  className={classes.main} maxWidth="sm">
+      </Box>
       <footer className={classes.footer}>
-        <Container maxWidth="sm">
+        <Box maxWidth="sm">
           <Copyright />
-        </Container>
+        </Box>
       </footer>
     </div>
   );

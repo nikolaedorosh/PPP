@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import * as TYPES from '../../redux/types/types'
-// import RandomBurger from '../RandomBurger/RandomBurger';
+import * as TYPES from '../../redux/types/types';
+import useStyles from './useStyles';
 
 import {
   LineChart,
@@ -13,89 +13,42 @@ import {
   Bar,
   BarChart,
   Label,
+
 } from 'recharts';
-import {
-  getUsersThunk,
-} from '../../redux/actionCreators/graphicsAC';
-import { makeStyles } from '@material-ui/core/styles';
+import { getUsersThunk } from '../../redux/actionCreators/graphicsAC';
 import { Typography, Box } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  boxes: {
-    marginTop: 40,
-  },
-  typolog: {
-    marginLeft: 78,
-    color: '#34575B',
-    marginBottom:15
-  },
-  typolog2: {
-    marginLeft: 76,
-    color: '#34575B',
-    marginBottom:15,
-  },
-  // typolog p: {
-  //   fontWeight: 'bold'
-  // },
-  styleForContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    marginTop: 40,
-    marginLeft: -40,
-  },
-  forBox1: {
-    marginRight: 10,
-  },
-  legend: {
-    paddingTop: 83,
-  },
-  text: {
-    fontSize: 15,
-    fontWeight:'bold'
-  },
-  forBoxes:{
-    margin: '0 , 20'
-  }
-}));
-
-function Logger({darkTheme}) {
-
+function Logger({ darkTheme }) {
   const week = useSelector((state) => state.week);
   const today = useSelector((state) => state.food.meals);
   const info = useSelector((state) => state.info);
-  // const info = useSelector((state) => state.info);
   const id = useSelector((state) => state.auth.userId);
 
   const dispatch = useDispatch();
   let graphics_target;
   let graphics_need;
   let result;
+  
   const classes = useStyles();
 
   useEffect(() => {
     dispatch(getUsersThunk(id));
-    
   }, [today]);
-  
-  useEffect( () => {
+
+  useEffect(() => {
     async function tmp() {
       const response = await fetch(`http://localhost:3000/logger/info`, {
-        method:'POST',
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: id }),
       });
       const data = await response.json();
-      console.log('>>>>>>>>', data)
-      dispatch({type: TYPES.USER_DATA_CHANGE, payload: {dbData: data}}) 
+      dispatch({ type: TYPES.USER_DATA_CHANGE, payload: { dbData: data } });
     }
     tmp();
   }, []);
-    
-  
-  console.log(info, "YAINFO");
+
+  console.log(info, 'YAINFO');
   let newArr = [];
 
   let todayGraph = {
@@ -159,15 +112,15 @@ function Logger({darkTheme}) {
         newArr.push(acc);
       }
     });
-    
-    newArr = newArr.map(el => {
+
+    newArr = newArr.map((el) => {
       return {
         ...el,
         carbohydrates: el.carbohydrates.toFixed(2),
         fats: el.fats.toFixed(2),
         proteins: el.proteins.toFixed(2),
         Kcalories: el.Kcalories.toFixed(2),
-      }
+      };
     });
     if (
       new Date(newArr[newArr.length - 1].date).toLocaleDateString() ===
@@ -177,8 +130,7 @@ function Logger({darkTheme}) {
     }
   }
 
-
-  graphics_target = newArr
+  graphics_target = newArr;
 
   result = [
     {
@@ -189,50 +141,57 @@ function Logger({darkTheme}) {
 
   return (
     <Box className={classes.styleForContainer}>
-      <Box className={classes.forBox1} >
+      <Box className={classes.forBox1}>
         <Box className={classes.typolog}>
-          <Typography  style={{color: !darkTheme? "#34575B": "rgb(154 152 152)"}} variant='h4' >Data:</Typography>
+          <Typography
+            style={{ color: !darkTheme ? '#34575B' : 'rgb(154 152 152)' }}
+            variant="h4"
+          >
+            Data:
+          </Typography>
         </Box>
-        <LineChart
-          width={550}
-          height={350}
-          data={graphics_target}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="" stroke="#999" />
-          <XAxis dataKey="day">
-            <Label position="insideBottom" />
-          </XAxis>
-          <YAxis />
-          <Tooltip />
-          <Line
-            type="monotone"
-            dataKey="Kcalories"
-            stroke="#F17455"
-            strokeWidth={4}
-          />
-          <Line
-            type="monotone"
-            dataKey="fats"
-            stroke="#776E18"
-            strokeWidth={2}
-          />
-          <Line
-            type="monotone"
-            dataKey="proteins"
-            stroke="#A3526C"
-            strokeWidth={2}
-          />
-          <Line
-            type="monotone"
-            dataKey="carbohydrates"
-            stroke="#EEC458"
-            strokeWidth={2}
-          />
-        </LineChart>
+        
+          <LineChart
+            width={550}
+            height={350}
+            data={graphics_target}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" stroke="#999" />
+            <XAxis dataKey="day">
+              <Label position="insideBottom" />
+            </XAxis>
+            <YAxis />
+            <Tooltip />
+            <Line
+              type="monotone"
+              dataKey="Kcalories"
+              stroke="#F17455"
+              strokeWidth={4}
+            />
+            <Line
+              type="monotone"
+              dataKey="fats"
+              stroke="#776E18"
+              strokeWidth={2}
+            />
+            <Line
+              type="monotone"
+              dataKey="proteins"
+              stroke="#A3526C"
+              strokeWidth={2}
+            />
+            <Line
+              type="monotone"
+              dataKey="carbohydrates"
+              stroke="#EEC458"
+              strokeWidth={2}
+            />
+          </LineChart>
+       
       </Box>
       <Box className={classes.legend}>
-        <Typography variant="body1">
+        <Typography variant="body1" component={'div'}>
           <Box
             className={classes.text}
             style={{ color: '#F17455', opacity: 0.65 }}
@@ -241,7 +200,8 @@ function Logger({darkTheme}) {
           </Box>
           <Box className={classes.text} style={{ color: '#F17455' }}>
             ◆ Target Kcalories
-          </Box><br></br>
+          </Box>
+          <br></br>
           <Box
             className={classes.text}
             style={{ color: '#A3526C', opacity: 0.65 }}
@@ -250,7 +210,8 @@ function Logger({darkTheme}) {
           </Box>
           <Box className={classes.text} style={{ color: '#A3526C' }}>
             ◆ Target Proteins
-          </Box><br></br>
+          </Box>
+          <br></br>
           <Box
             className={classes.text}
             style={{ color: '#DFA616', opacity: 0.65 }}
@@ -259,7 +220,8 @@ function Logger({darkTheme}) {
           </Box>
           <Box className={classes.text} style={{ color: '#DFA616' }}>
             ◆ Target Carbs
-          </Box><br></br>
+          </Box>
+          <br></br>
           <Box
             className={classes.text}
             style={{ color: '#776E18', opacity: 0.65 }}
@@ -267,13 +229,18 @@ function Logger({darkTheme}) {
             ◆ Fats
           </Box>
           <Box className={classes.text} style={{ color: '#776E18' }}>
-            ◆Target Fats
+            ◆ Target Fats
           </Box>
         </Typography>
       </Box>
       <Box>
         <Box className={classes.typolog2}>
-          <Typography variant='h4' style={{color: !darkTheme? "#34575B": "rgb(154 152 152)"}}>Today:</Typography>
+          <Typography
+            variant="h4"
+            style={{ color: !darkTheme ? '#34575B' : 'rgb(154 152 152)' }}
+          >
+            Today:
+          </Typography>
         </Box>
 
         <BarChart

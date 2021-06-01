@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
-import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import { sendMeal } from '../../redux/actionCreators/mealAC';
 import { useDispatch } from 'react-redux';
 import Item from '../Item/Item';
 
-import { Box, Icon } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import TableCell from '@material-ui/core/TableCell';
-import Tooltip from '@material-ui/core/Tooltip';
+import {
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Icon,
+  Button,
+  TableCell,
+  Tooltip,
+} from '@material-ui/core';
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
-  textForTable:{
-    fontSize:17
-  }
-});
+import useStyles from './useStyles';
 
 function Meal({ date, items, id }) {
   const dispatch = useDispatch();
@@ -63,14 +58,18 @@ function Meal({ date, items, id }) {
     <>
       <TableCell className={classes.textForTable}>{dateStr}</TableCell>
       <TableCell>
-        {' '}
-        <Tooltip title={items.map(el => el.name).join(', ')} placement="bottom">
-        <Button onClick={clickHandler}>{items[0].name}...</Button>
+        <Tooltip
+          title={items.map((el) => el.name).join(', ')}
+          placement="bottom"
+        >
+          <Button onClick={clickHandler}>{items[0].name}...</Button>
         </Tooltip>
       </TableCell>
       <TableCell className={classes.textForTable}>{totalProteins}</TableCell>
       <TableCell className={classes.textForTable}>{totalFats}</TableCell>
-      <TableCell className={classes.textForTable}>{totalCarbohydrates}</TableCell>
+      <TableCell className={classes.textForTable}>
+        {totalCarbohydrates}
+      </TableCell>
       <TableCell className={classes.textForTable}>{totalKcal}</TableCell>
       <TableCell>
         <Tooltip title="Delete" placement="bottom">
@@ -83,11 +82,12 @@ function Meal({ date, items, id }) {
         </Tooltip>
       </TableCell>
       <Box>
-        <Modal toggle={clickHandler} isOpen={open}>
-          <ModalHeader>{dateStr}</ModalHeader>
-          <ModalBody>
+        <Dialog toggle={clickHandler} open={open}>
+          <DialogTitle>{dateStr}</DialogTitle>
+          <DialogContent>
             {items.map((el) => (
               <Item
+                key={Math.random()}
                 image={el.image}
                 Kcals={el.info.cal}
                 proteins={el.info.prot}
@@ -95,11 +95,11 @@ function Meal({ date, items, id }) {
                 carbs={el.info.carb}
               />
             ))}
-            <ModalFooter>
+            <DialogActions>
               <Button onClick={clickHandler}>Cancel</Button>
-            </ModalFooter>
-          </ModalBody>
-        </Modal>
+            </DialogActions>
+          </DialogContent>
+        </Dialog>
       </Box>
     </>
   );

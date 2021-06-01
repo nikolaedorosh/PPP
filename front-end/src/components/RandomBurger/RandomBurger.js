@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Recipe from './Recipe';
 import Axios from 'axios';
 import { Button, Container, Form } from 'reactstrap';
-import {  Input } from '@material-ui/core';
+import { Input } from '@material-ui/core';
 
 const RandomBurger = () => {
   const [query, setQuery] = useState('');
@@ -39,9 +39,9 @@ const RandomBurger = () => {
 
   return (
     <>
+    <hr></hr>
       <Form onSubmit={onSubmit}  >
-        <div style={{display: "flex"}}>
-          {/* {alert !== '' && <Alert alert={alert} />} */}
+        <div style={{display: "flex" , justifyContent:'center'}}>
           <Input
             type="text"
             name="query"
@@ -52,6 +52,7 @@ const RandomBurger = () => {
           />
           <Button style={{ backgroundColor:'#427276'}}>Search</Button>
         </div>
+          <hr></hr>
       </Form>
       <Container>
         <div className="recipes">

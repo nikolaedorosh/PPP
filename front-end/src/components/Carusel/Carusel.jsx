@@ -59,10 +59,10 @@ function Carusel() {
 
       >
         <img style={{ width: "100%" }} src={item.src} alt={item.altText} />
-        <CarouselCaption
+        {/* <CarouselCaption
           // captionText={item.caption}
           captionHeader={item.caption}
-        />
+        /> */}
       </CarouselItem>
     );
   });

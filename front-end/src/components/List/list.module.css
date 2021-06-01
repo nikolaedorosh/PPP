@@ -19,10 +19,11 @@
   background-color: #B1CFD2;
   border-color: #427276;
   color: #427276;
+  
 
 }
 .glow:focus{
   background-color: #427276;
-
+  color: #e7f2f3;
 
 }

@@ -223,12 +223,12 @@ const EditProfile = () => {
         }}
       />
       <select
-        value={activity}
+        defaultValue={activity}
         className="form-select"
         onChange={changeInputHandler}
-        aria-label="Default select example"
+        // defaultValue={"Default select example"}
       >
-        <option selected>Choose your activity</option>
+        <option value="Default select example" disabled>Choose your activity</option>
         <option className="form-select" value="sedentary">
           Sedentary: little to no oxercise
         </option>

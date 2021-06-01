@@ -6,7 +6,7 @@ import * as AuthorizationAction from "../../redux/reducers/MAIN";
 import React from "react";
 import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
-import { makeStyles } from "@material-ui/core/styles";
+import useStyles from './useStyles'
 import { Box, Icon, Typography } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
@@ -33,37 +33,7 @@ const ProfileModal = ({ setOpen }) => {
     history.push("/edit");
     setOpen((prev) => !prev);
   };
-  const useStyles = makeStyles((theme) => ({
-    container: {
-      position: "relative",
-      // padding: "0 105px",
-      display: "flex",
-      justifyContent: "center",
-    },
-    box: {
-      padding: "20px",
-      margin: "0, 20px",
-      background: "#427276",
-      color: "white",
-    },
-    avatar: {
-      width: "150px",
-      height: "150px",
-    },
-    classForText: {
-      marginLeft: "12px",
-      padding: "8px",
-    },
-    input: {
-      display: "none",
-    },
-    button: {
-      position: "absolute",
-      padding: "2px 8px",
-      fontSize: "12px",
-      right: "2vw",
-    },
-  }));
+  
   const classes = useStyles();
 
   //upload pic
